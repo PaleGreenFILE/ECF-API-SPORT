@@ -9,6 +9,7 @@ router.post("/signin", signin);
 //REGISTER
 router.post("/signup", signup);
 
+// INIT SERVER
 router.get("/", (req, res) => {
   res.send(
     "Success to connect to the server, your application will be automatically running!"
