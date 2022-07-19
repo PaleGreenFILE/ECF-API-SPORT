@@ -9,4 +9,10 @@ router.post("/signin", signin);
 //REGISTER
 router.post("/signup", signup);
 
+router.get("/", (req, res) => {
+  res.send(
+    "Success to connect to the server, your application will be automatically running!"
+  );
+});
+
 export default router;

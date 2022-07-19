@@ -5,7 +5,6 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-
 const app = express();
 dotenv.config();
 
@@ -25,6 +24,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 // Server API Routes
+app.use("/", authRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 
@@ -40,6 +40,6 @@ app.use((err, req, res, next) => {
 
 //Server Connect
 const port = process.env.PORT || 8800;
-app.listen(port, () => {
+app.listen(port, (res) => {
   console.log("Server Connected!");
 });
