@@ -21,12 +21,12 @@ router.put("/uphash/:id", verifyToken, updateHashSync);
 router.post("/signup", signup);
 
 //get all members information
-router.get("/allusers", verifyToken, getUsers);
+router.get("/allusers", getUsers);
 
 //get  members information byId
 router.get("/usersbyid/:id", verifyToken, getUsersbyId);
 
 //delete partner information
-router.delete("/:id", verifyToken, deleteUser);
+router.delete("/delete/:id", deleteUser);
 
 export default router;

@@ -14,12 +14,18 @@ export const signup = async (req, res, next) => {
     full_desc,
     logo_url,
     url_web,
+    password,
   } = req.body;
+  if (password.length < 6)
+    return res.status(400).json({
+      success: false,
+      message: "Password must be 6 characters or more",
+    });
   try {
     //crypt password for security before insert into database
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
-    await db.query(
+    const user = await db.query(
       "INSERT INTO api_clients ( client_name, technical_contact, commercial_contact, active, password, short_desc, full_desc, logo_url, url_web) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)",
       [
         client_name,
@@ -33,7 +39,7 @@ export const signup = async (req, res, next) => {
         url_web,
       ]
     );
-    res.status(200).send("Compte créer avec succés!");
+    res.status(200).json("Compte créer avec succés!");
   } catch (err) {
     //next(err);
     next(createError(400, "Compte déja existant!"));
@@ -45,7 +51,7 @@ export const signin = async (req, res, next) => {
   const { technical_contact, commercial_contact } = req.body;
   try {
     const user = await db.query(
-      "SELECT * FROM api_clients WHERE technical_contact = $1 or commercial_contact = $2",
+      "SELECT * FROM api_clients WHERE technical_contact = $1 OR commercial_contact = $2",
       [technical_contact, commercial_contact]
     );
     if (!user.rows.length) return next(createError(404, "Email non inscrit"));
@@ -57,14 +63,28 @@ export const signin = async (req, res, next) => {
     );
     if (!isCorrect) return next(createError(400, "Mot de passe invalide!"));
 
-    // JSONWEBTOKEN
-    const token = jwt.sign({ id: user.user_id }, process.env.JWT);
-    const { password, ...others } = user.rows;
+    // JSONWEBTOKEN with ExpiresIn = 1 hour
+    const token = jwt.sign({ id: user.client_id }, process.env.JWT, {
+      expiresIn: "1h",
+    });
+    const { password, ...others } = user.rows[0];
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("access_token", token, {
+        maxAge: 1000 * 60 * 60,
+        sameSite: "none",
+        httpOnly: true,
+        secure: true,
+      })
       .status(200)
       .json(others);
   } catch (err) {
     next(err);
   }
+};
+
+export const logout = async (req, res, next) => {
+  res
+    .clearCookie("access_token")
+    .status(200)
+    .json("Vous avez bien été déconnecté");
 };

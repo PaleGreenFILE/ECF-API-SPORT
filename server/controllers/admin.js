@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 //Update email
 export const update = async (req, res, next) => {
   const client_id = req.params.id;
-  const { technical_contact, commercial_contact } = {...req.body};
+  const { technical_contact, commercial_contact } = { ...req.body };
   try {
     //request update database
     await db.query(
@@ -46,14 +46,10 @@ export const updateHashSync = async (req, res, next) => {
 
 //Delete users in database
 export const deleteUser = async (req, res, next) => {
-  const client_id = req.params.id;
+  const client_id = req.params.id;    
   try {
-    await db.query("DELETE FROM api_clients WHERE client_id = $1", [client_id]);
-    //Verify delete
-    await db.query("SELECT * FROM api_clients WHERE client_id = $1", [
-      client_id,
-    ]);
-    res.status(200).json("Utilisateur supprimer");
+    await db.query("DELETE FROM api_clients WHERE client_id = ?", [client_id]);
+    res.status(200).send("Ce compte a bien étè supprimer");
   } catch (err) {
     next(err);
   }
@@ -69,12 +65,14 @@ export const getUsers = async (req, res, next) => {
   }
 };
 
-
 //Get users byID in database
 export const getUsersbyId = async (req, res, next) => {
   const client_id = req.params.id;
   try {
-    const user = await db.query("SELECT * FROM api_clients WHERE client_id = $1", [client_id]);
+    const user = await db.query(
+      "SELECT * FROM api_clients WHERE client_id = $1",
+      [client_id]
+    );
     res.status(200).json(user.rows);
   } catch (err) {
     next(err);

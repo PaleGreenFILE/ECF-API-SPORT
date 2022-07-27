@@ -10,10 +10,10 @@ dotenv.config();
 
 const options = {
   origin: [
-    "http://localhost:3000",
-    "http://localhost:8880",
     "https://ecf-2022.web.app",
     "https://ecf-2022.herokuapp.com",
+    "http://localhost:3000",
+    "http://localhost:8880",
   ],
   credentials: true,
   optionSuccessStatus: 200,
@@ -21,7 +21,7 @@ const options = {
 //Init express , api/routes , cookie-parser
 app.use(cors(options));
 app.use(cookieParser());
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 // Server API Routes
 app.use("/", authRoutes);
