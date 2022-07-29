@@ -46,9 +46,9 @@ export const updateHashSync = async (req, res, next) => {
 
 //Delete users in database
 export const deleteUser = async (req, res, next) => {
-  const client_id = req.params.id;    
+  const client_id = req.params.id;
   try {
-    await db.query("DELETE FROM api_clients WHERE client_id = ?", [client_id]);
+    await db.query("DELETE FROM api_clients WHERE client_id = $1", [client_id]);
     res.status(200).send("Ce compte a bien étè supprimer");
   } catch (err) {
     next(err);
@@ -74,6 +74,31 @@ export const getUsersbyId = async (req, res, next) => {
       [client_id]
     );
     res.status(200).json(user.rows);
+  } catch (err) {
+    next(err);
+  }
+};
+// Disable user  only
+export const disable = async (req, res, next) => {
+  const client_id = req.params.id;
+  try {
+    await db.query("UPDATE api_clients SET active = 'desactiver' WHERE client_id = $1", [
+      client_id,
+    ]);
+    res.status(200).send("Ce compte a bien étè désactivé");
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Active user  only
+export const active = async (req, res, next) => {
+  const client_id = req.params.id;
+  try {
+    await db.query("UPDATE api_clients SET active = 'activer' WHERE client_id = $1", [
+      client_id,
+    ]);
+    res.status(200).send("Ce compte a bien étè activer");
   } catch (err) {
     next(err);
   }

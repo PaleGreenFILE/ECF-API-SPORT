@@ -10,7 +10,7 @@ import {
 import { BsCalendar2Check } from "react-icons/bs";
 import { onLogout } from "./../../api/auth";
 
-const SideBar = () => {
+const SideBar = ({ user }) => {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
@@ -45,9 +45,9 @@ const SideBar = () => {
     }
   };
   return (
-    <div className="md:flex h-full hidden">
+    <div className="md:flex  hidden">
       <div
-        className={`bg-blue-side h-screen p-5 pt-7 
+        className={`bg-blue-side  p-5 pt-7 
        ${open ? "w-56" : "w-20"} relative duration-500`}
       >
         <BsArrowLeftShort

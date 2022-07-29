@@ -1,7 +1,9 @@
 import express from "express";
-import { signin, signup, logout } from "../controllers/auth.js";
+import { signin, signup, logout, firstConnexion } from "../controllers/auth.js";
 
 const router = express.Router();
+// First connexion by id
+router.put("/firstconnexion/:id", firstConnexion);
 
 //SIGN IN
 router.post("/signin", signin);

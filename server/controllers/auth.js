@@ -45,6 +45,7 @@ export const signup = async (req, res, next) => {
     next(createError(400, "Compte déja existant!"));
   }
 };
+
 //Login admin partner or  structur
 export const signin = async (req, res, next) => {
   // Verify that the email is already exist in the database BDD
@@ -82,9 +83,14 @@ export const signin = async (req, res, next) => {
   }
 };
 
+//Logout admin partner or  structur
 export const logout = async (req, res, next) => {
   res
     .clearCookie("access_token")
     .status(200)
     .json("Vous avez bien été déconnecté");
+};
+
+// First connexion  partner or  structured
+export const firstConnexion = async (req, res, next) => {
 };

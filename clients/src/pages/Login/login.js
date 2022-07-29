@@ -18,7 +18,7 @@ const Login = () => {
         commercial_contact: commercial_contact,
         password: password,
       });
-      if (res.data.role_as === "admin" && res.data.active === "active") {
+      if (res.data.role_as === "admin" && res.data.active === "activer") {
         console.log("Vous êtes un ADMIN");
         navigate("/admin/dashboard");
         setError(false);
@@ -36,7 +36,7 @@ const Login = () => {
         console.log("Vous êtes une structure");
         navigate("/structure/dashboard");
         setError(false);
-      } else if (res.data.active === "inactif") {
+      } else if (res.data.active === "desactiver") {
         setError(
           "Votre compte n'est pas activé, merci de contacter un Administrateur !"
         );

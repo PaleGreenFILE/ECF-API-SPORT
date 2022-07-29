@@ -2,6 +2,7 @@ import { useRef } from "react";
 
 const Delete = ({ deleteModal, confirmDelete }) => {
   const cancelButtonRef = useRef(null);
+
   return (
     <div>
       <div

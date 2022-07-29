@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { getAllUsers } from "../../api/auth";
+import { getAllUsers, deleteUser } from "../../api/auth";
 import AddUser from "../Modals/ModalAddUser/AddUser";
 import Update from "../Modals/Update";
 import Desactiver from "./../Modals/Desactiver";
 import ViewUser from "./../Modals/ViewUser";
 import { useNavigate } from "react-router-dom";
 import Delete from "./../Modals/Delete";
-import axios from "axios";
 
 const TableList = () => {
   const [modal, setModal] = useState(false);
@@ -19,36 +18,49 @@ const TableList = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSucces] = useState(false);
-
+  const [id, setId] = useState([]);
+  const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
-  const deleteUser = (id) => {
-    alert(id);
+  const confirmDeleteUser = (id) => {
+    deleteUser(id).then((res) => {
+      if (res.status === 200) {
+        setLoading(true);
+        setSucces(`Utilisateur supprimé avec succès`);
+        console.log(`Utilisateur supprimé avec succès`);
+        setModal(false);
+        setTimeout(() => {
+          setSucces(false);
+          getUsers();
+        }, 1000);
+      } else if (res.status === 404) {
+        setError("Erreur lors de la suppression de l'utilisateur");
+        console.log("Erreur lors de la suppression de l'utilisateur");
+        setTimeout(() => {
+          setError("");
+        }, 1000);
+      }
+    });
+  };
+
+  const getUsers = async () => {
+    setLoading(true);
     try {
-      //const res = axios.delete(`http://localhost:8800/api/admin/delete/${id}`);
-      //setLoading(false);
-      //console.log(res.data);
-      // setSucces("Utilisateur supprimé avec succès");
-      //setTimeout(() => {
-      //setSucces(false);
-      //}, 3000);
+      const res = await getAllUsers();
+      setData(res.data);
+      setLoading(false);
     } catch (err) {
-      setError(err.message);
+      setError(
+        "Votre session à expirer , Vous allez être rediriger sur la page de connexion !"
+      );
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     }
   };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      setLoading(true);
-      try {
-        const res = await getAllUsers();
-        setData(res.data);
-        setLoading(false);
-      } catch (err) {
-        setError("Votre session à expirer , Merci de vous reconnecter !");
-      }
-    };
-    fetchUsers();
+    getUsers();
   }, []);
 
   return (
@@ -105,31 +117,38 @@ const TableList = () => {
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
+              {loading && (
+                <div className="text-center ">En cours de Chargement...</div>
+              )}
               <table className="min-w-full">
                 <thead className="border-b">
                   <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left ">Client Id</th>
-                    <th className="py-3 px-6 text-left ">Logo</th>
-                    <th className="py-3 px-6 text-left ">Nom du Club</th>
+                    <th scope="col" className="py-3 px-6 text-left ">
+                      Client Id
+                    </th>
+                    <th scope="col" className="py-3 px-6 text-left ">
+                      Logo
+                    </th>
+                    <th scope="col" className="py-3 px-6 text-left ">
+                      Nom
+                    </th>
 
-                    <th className="py-3 px-6 text-left">Email du Club</th>
+                    <th className="py-3 px-6 text-left">Email</th>
                     <th scope="col" className="py-3 px-6 text-center ">
                       Status
                     </th>
                     <th scope="col" className="py-3 px-6 text-center">
                       Role
                     </th>
-                    <th scope="col" className="py-3 px-6 ">
-                      Ajouter le{" "}
+                    <th scope="col" className="py-3 px-6 text-center">
+                      Ajouter le
                     </th>
                     <th scope="col" className="py-3 px-6 text-center">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                {loading && (
-                  <div className="text-center ">En cours de Chargement...</div>
-                )}
+
                 <tbody className="text-gray-600 text-sm font-light">
                   {data.map((item, i) => (
                     <tr
@@ -153,7 +172,7 @@ const TableList = () => {
                       <td className="py-3 px-6 text-left">
                         <div className="flex items-center ">
                           <span className="font-semibold ">
-                            {item.technical_contact}
+                            {item.client_name}
                           </span>
                         </div>
                       </td>
@@ -168,7 +187,7 @@ const TableList = () => {
                       <td className="py-3 px-6 text-center">
                         <span
                           className={`${
-                            item.active == "active"
+                            item.active === "active"
                               ? "bg-green-500"
                               : item.active === "inactif"
                               ? "bg-rose-500"
@@ -266,8 +285,14 @@ const TableList = () => {
                               disableModal={() => setDisableModal(false)}
                             />
                           )}
-                          <button onClick={() => setModal(true)}                              key={item.client_id}
->
+
+                          <button
+                            onClick={() => (
+                              setId(item.client_id),
+                              setModal(true),
+                              setUser(item.client_name)
+                            )}
+                          >
                             <div className="w-6 mr-3 transform text-red-500 hover:scale-110 cursor-pointer">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -285,9 +310,9 @@ const TableList = () => {
                             </div>
                           </button>
                           {modal && (
-                            <Delete 
+                            <Delete
                               deleteModal={() => setModal(false)}
-                              confirmDelete={() => deleteUser(item.data.client_id)}
+                              confirmDelete={() => confirmDeleteUser(id, user)}
                             />
                           )}
                         </div>
@@ -298,7 +323,7 @@ const TableList = () => {
               </table>
               <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                 <span className="text-xs xs:text-sm text-gray-900">
-                  Showing 1 to 4 of 50 Entries
+                  Résultats de 1 à 4 sur 50 Entrées
                 </span>
                 <div className="inline-flex mt-2 xs:mt-0">
                   <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
