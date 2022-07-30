@@ -38,7 +38,10 @@ export const viewUser = async (id) => {
 
 // Disable users request by id
 export const disableUser = async (id) => {
-  return await axios.put(process.env.REACT_APP_DISABLE_USER + id);
+  return await axios.put(
+    process.env.REACT_APP_DISABLE_USER + id ||
+      "http://localhost:8800/api/admin/disable/" + id
+  );
 };
 
 // Enable users request by id

@@ -40,6 +40,6 @@ app.use((err, req, res, next) => {
 
 //Server Connect
 const port = process.env.PORT || 8800;
-app.listen(port, (res) => {
+app.listen(port, () => {
   console.log("Server Connected!");
 });

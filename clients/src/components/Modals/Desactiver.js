@@ -1,5 +1,5 @@
 import { useRef } from "react";
-const Desactiver = ({ disableModal }) => {
+const Desactiver = ({ disableModal, userDisable, userActivate }) => {
   const cancelButtonRef = useRef(null);
 
   return (
@@ -43,15 +43,23 @@ const Desactiver = ({ disableModal }) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                   strokeLinecap="round"
-                   strokeLinejoin="round"
-                   strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
               <span className="text-lg font-semibold">Désactiver</span>
               <h3 className="mb-5 text-lg font-normal text-gray-400 ">
-                Êtes-vous sûr de vouloir désactiver ce compte ? Il ne sera pas Supprimer.
+                Êtes-vous sûr de vouloir désactiver ce compte ? Il ne sera pas
+                Supprimer.
+                <br />
+                <p className="text-lg font-semibold text-red-500">Ou</p>
+                <span className="text-lg font-semibold text-gray-600">
+                  Activer le compte
+                </span>
+                <br />
+                Vous pourrez aussi ré-activer le compte
               </h3>{" "}
               <button
                 data-modal-toggle="popup-modal"
@@ -63,11 +71,20 @@ const Desactiver = ({ disableModal }) => {
                 Annuler
               </button>
               <button
+                onClick={() => userDisable()}
                 data-modal-toggle="popup-modal"
                 type="button"
-                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center ml-10"
+                className={` text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center ml-10`}
               >
                 Désactiver
+              </button>
+              <button
+                onClick={() => userActivate()}
+                data-modal-toggle="popup-modal"
+                type="button"
+                className={` text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mt-5 sm:ml-10`}
+              >
+                Activer
               </button>
             </div>
           </div>

@@ -55,10 +55,24 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
-//Get all users in database
+//Get Partner  in database
 export const getUsers = async (req, res, next) => {
   try {
-    const user = await db.query("SELECT * FROM api_clients");
+    const user = await db.query(
+      "SELECT * FROM api_clients WHERE role_as = 'partenaire'"
+    );
+    res.status(200).json(user.rows);
+  } catch (err) {
+    next(err);
+  }
+};
+
+//Get Structure  in database
+export const getStructure = async (req, res, next) => {
+  try {
+    const user = await db.query(
+      "SELECT * FROM api_clients WHERE role_as = 'structure'"
+    );
     res.status(200).json(user.rows);
   } catch (err) {
     next(err);
@@ -82,9 +96,10 @@ export const getUsersbyId = async (req, res, next) => {
 export const disable = async (req, res, next) => {
   const client_id = req.params.id;
   try {
-    await db.query("UPDATE api_clients SET active = 'desactiver' WHERE client_id = $1", [
-      client_id,
-    ]);
+    await db.query(
+      "UPDATE api_clients SET active = 'desactiver' WHERE client_id = $1",
+      [client_id]
+    );
     res.status(200).send("Ce compte a bien étè désactivé");
   } catch (err) {
     next(err);
@@ -95,9 +110,10 @@ export const disable = async (req, res, next) => {
 export const active = async (req, res, next) => {
   const client_id = req.params.id;
   try {
-    await db.query("UPDATE api_clients SET active = 'activer' WHERE client_id = $1", [
-      client_id,
-    ]);
+    await db.query(
+      "UPDATE api_clients SET active = 'activer' WHERE client_id = $1",
+      [client_id]
+    );
     res.status(200).send("Ce compte a bien étè activer");
   } catch (err) {
     next(err);

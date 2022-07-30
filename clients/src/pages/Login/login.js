@@ -23,20 +23,24 @@ const Login = () => {
         navigate("/admin/dashboard");
         setError(false);
       } else if (
-        res.data.role_as === "partner" &&
-        res.data.active === "active"
+        res.data.role_as === "partenaire" &&
+        res.data.active === "activer"
       ) {
         console.log("Vous êtes un PARTENAIRE");
         navigate("/partenaire/dashboard");
         setError(false);
       } else if (
         res.data.role_as === "structure" &&
-        res.data.active === "active"
+        res.data.active === "activer"
       ) {
         console.log("Vous êtes une structure");
         navigate("/structure/dashboard");
         setError(false);
-      } else if (res.data.active === "desactiver") {
+      } else if (
+        (res.data.active === "desactiver" && res.data.role_as === "admin",
+        "partenaire",
+        "structure")
+      ) {
         setError(
           "Votre compte n'est pas activé, merci de contacter un Administrateur !"
         );

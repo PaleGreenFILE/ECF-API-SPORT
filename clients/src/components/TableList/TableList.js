@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { getAllUsers, deleteUser } from "../../api/auth";
+import {
+  getAllUsers,
+  deleteUser,
+  disableUser,
+  enableUser,
+} from "../../api/auth";
 import AddUser from "../Modals/ModalAddUser/AddUser";
 import Update from "../Modals/Update";
 import Desactiver from "./../Modals/Desactiver";
@@ -19,7 +24,6 @@ const TableList = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSucces] = useState(false);
   const [id, setId] = useState([]);
-  const [user, setUser] = useState([]);
   const navigate = useNavigate();
 
   const confirmDeleteUser = (id) => {
@@ -43,6 +47,47 @@ const TableList = () => {
     });
   };
 
+  const userDisable = (id) => {
+    disableUser(id).then((res) => {
+      if (res.status === 200) {
+        setLoading(true);
+        setSucces("Partenaire Désactiver!");
+        console.log("Partenaire désactiver");
+        setDisableModal(false);
+        setTimeout(() => {
+          setSucces(false);
+          getUsers();
+        }, 1000);
+      } else if (res.status === 404) {
+        setError("La désactivation du Partenaire à eu une erreur !");
+        console.log("Partenaire non désactiver");
+        setTimeout(() => {
+          setError("");
+        }, 1000);
+      }
+    });
+  };
+
+  const userEnable = (id) => {
+    enableUser(id).then((res) => {
+      if (res.status === 200) {
+        setLoading(true);
+        setSucces("Partenaire Activer!");
+        console.log("Partenaire Activer");
+        setDisableModal(false);
+        setTimeout(() => {
+          setSucces(false);
+          getUsers();
+        }, 1000);
+      } else if (res.status === 404) {
+        setError("Erreur dans la ré-activation du Partenaire !");
+        console.log("Partenaire non activer");
+        setTimeout(() => {
+          setError("");
+        }, 1000);
+      }
+    });
+  };
   const getUsers = async () => {
     setLoading(true);
     try {
@@ -187,13 +232,9 @@ const TableList = () => {
                       <td className="py-3 px-6 text-center">
                         <span
                           className={`${
-                            item.active === "active"
+                            item.active === "activer"
                               ? "bg-green-500"
-                              : item.active === "inactif"
-                              ? "bg-rose-500"
-                              : item.active === "desactiver"
-                              ? "bg-gray-500"
-                              : "bg-gray-500"
+                              : "bg-rose-500"
                           } text-white font-semibold py-1 px-3 rounded-full text-xs`}
                         >
                           {item.active}
@@ -273,7 +314,11 @@ const TableList = () => {
                           )}
 
                           <div className="w-5 mr-3 transform  hover:scale-110 cursor-pointer">
-                            <button onClick={() => setDisableModal(true)}>
+                            <button
+                              onClick={() => (
+                                setId(item.client_id), setDisableModal(true)
+                              )}
+                            >
                               <img
                                 src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-Alert-interface-those-icons-lineal-those-icons.png"
                                 alt=""
@@ -283,14 +328,14 @@ const TableList = () => {
                           {disable && (
                             <Desactiver
                               disableModal={() => setDisableModal(false)}
+                              userDisable={() => userDisable(id)}
+                              userActivate={() => userEnable(id)}
                             />
                           )}
 
                           <button
                             onClick={() => (
-                              setId(item.client_id),
-                              setModal(true),
-                              setUser(item.client_name)
+                              setId(item.client_id), setModal(true)
                             )}
                           >
                             <div className="w-6 mr-3 transform text-red-500 hover:scale-110 cursor-pointer">
@@ -312,7 +357,7 @@ const TableList = () => {
                           {modal && (
                             <Delete
                               deleteModal={() => setModal(false)}
-                              confirmDelete={() => confirmDeleteUser(id, user)}
+                              confirmDelete={() => confirmDeleteUser(id)}
                             />
                           )}
                         </div>
