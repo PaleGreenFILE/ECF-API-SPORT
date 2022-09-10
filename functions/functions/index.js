@@ -52,4 +52,3 @@ app.listen(port, () => {
 });
 
 export const NodeJsServerEcf = functions.https.onRequest(app)
-    console.log("Server Connected!");
