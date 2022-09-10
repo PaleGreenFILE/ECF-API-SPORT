@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { onLogin } from "../../api/auth.js";
+import { onLoginAdmin, onLoginPartners, onLoginStructures } from "../../api/auth.js";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [technical_contact, setTechnical_contact] = useState("");
-  const [commercial_contact, setCommercial_contact] = useState("");
+  const [partner_contact, setPartner_contact] = useState("");
+  const [structure_contact, setStructure_contact] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
@@ -12,43 +13,68 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await onLogin({
-        technical_contact: technical_contact,
-        commercial_contact: commercial_contact,
-        password: password,
-      });
-      if (res.data.role_as === "admin" && res.data.active === "activer") {
-        console.log("Vous êtes un ADMIN");
-        navigate("/admin/dashboard");
-        setError(false);
-      } else if (
-        res.data.role_as === "partenaire" &&
-        res.data.active === "activer"
-      ) {
-        console.log("Vous êtes un PARTENAIRE");
-        navigate("/partenaire/dashboard");
-        setError(false);
-      } else if (
-        res.data.role_as === "structure" &&
-        res.data.active === "activer"
-      ) {
-        console.log("Vous êtes une structure");
-        navigate("/structure/dashboard");
-        setError(false);
-      } else if (
-        (res.data.active === "desactiver" && res.data.role_as === "admin",
-        "partenaire",
-        "structure")
-      ) {
-        setError(
-          "Votre compte n'est pas activé, merci de contacter un Administrateur !"
-        );
-      }
-    } catch (err) {
-      setError(err.response.data.message);
+    const res = await onLoginAdmin({
+      technical_contact: technical_contact,
+      password: password,
+    })
+    if (res.data.role_as === "admin" && res.data.active === "activer") {
+      console.log("Vous êtes un ADMIN");
+      navigate("/admin/dashboard");
+      setError(false);
     }
-  };
+    else if (
+      (res.data.active === "desactiver" && res.data.role_as === "admin")
+    ) {
+      setError(
+        "Votre compte n'est pas activé, merci de contacter un Administrateur !"
+      );
+    }
+  }
+
+  const onSubmit2 = async (e) => {
+    e.preventDefault();
+    const res = await onLoginPartners({
+      partner_contact: partner_contact,
+      password: password,
+    })
+    if (
+      res.data.role_as === "partenaire" &&
+      res.data.active === "activer"
+    ) {
+      console.log("Vous êtes un partenaire");
+      navigate("/partenaire/dashboard");
+      setError(false);
+    } else if (
+      (res.data.active === "desactiver" && res.data.role_as === "partenaire")
+    ) {
+      setError(
+        "Votre compte n'est pas activé, merci de contacter un Administrateur !"
+      );
+    }
+  }
+
+  const onSubmit3 = async (e) => {
+    e.preventDefault();
+    const res = await onLoginStructures({
+      structure_contact: structure_contact,
+      password: password,
+    })
+    if (
+      res.data.structure_role === "structure" &&
+      res.data.structure_active === "activer"
+    ) {
+      console.log("Vous êtes une structure");
+      navigate("/structure/dashboard");
+      setError(false);
+    } else if (
+      (res.data.structure_role === "structure" && res.data.structure_active === "desactiver")
+    ) {
+      setError(
+        "Votre compte n'est pas activé, merci de contacter un Administrateur !"
+      );
+    }
+  }
+
 
   return (
     <div className="w-full h-screen font-sans bg-cover bg-landscape bg-[url('https://bit.ly/3AKoO89')]">
@@ -57,7 +83,7 @@ const Login = () => {
           <img src="https://bit.ly/3AHZ3Fy" alt="sport" />
           <div className="leading-loose">
             <form
-              onSubmit={onSubmit}
+              onSubmit={(e) => onSubmit(e) | onSubmit2(e) | onSubmit3(e)}
               className="max-w-sm p-10 mb-32 m-auto bg-white bg-opacity-70 rounded shadow-xl"
             >
               <p className="mb-8 text-3xl font-semibold text-center text-black">
@@ -69,7 +95,8 @@ const Login = () => {
                   <input
                     onChange={(e) =>
                       setTechnical_contact(e.target.value) |
-                      setCommercial_contact(e.target.value)
+                      setPartner_contact(e.target.value) |
+                      setStructure_contact(e.target.value)
                     }
                     type="email"
                     name="technical_contact"

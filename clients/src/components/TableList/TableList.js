@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   getAllUsers,
-  deleteUser,
-  disableUser,
-  enableUser,
+  deleteAdmin,
+  deletePartners,
+  deleteStructures,
+  disableUserAdmin,
+  enableAdmin,
 } from "../../api/auth";
 import AddUser from "../Modals/ModalAddUser/AddUser";
 import Update from "../Modals/Update";
@@ -11,8 +13,10 @@ import Desactiver from "./../Modals/Desactiver";
 import ViewUser from "./../Modals/ViewUser";
 import { useNavigate } from "react-router-dom";
 import Delete from "./../Modals/Delete";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
-const TableList = () => {
+const TableList = (props) => {
   const [modal, setModal] = useState(false);
   const [disable, setDisableModal] = useState(false);
   const [update, setUpdateModal] = useState(false);
@@ -24,10 +28,51 @@ const TableList = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSucces] = useState(false);
   const [id, setId] = useState([]);
+
   const navigate = useNavigate();
 
   const confirmDeleteUser = (id) => {
-    deleteUser(id).then((res) => {
+    deleteAdmin(id).then((res) => {
+      if (res.status === 200) {
+        setLoading(true);
+        setSucces(`Utilisateur supprimé avec succès`);
+        console.log(`Utilisateur supprimé avec succès`);
+        setModal(false);
+        setTimeout(() => {
+          setSucces(false);
+          getUsers();
+        }, 1000);
+      } else if (res.status === 404) {
+        setError("Erreur lors de la suppression de l'utilisateur");
+        console.log("Erreur lors de la suppression de l'utilisateur");
+        setTimeout(() => {
+          setError("");
+        }, 1000);
+      }
+    });
+  };
+  const confirmDeletePartners = (id) => {
+    deletePartners(id).then((res) => {
+      if (res.status === 200) {
+        setLoading(true);
+        setSucces(`Utilisateur supprimé avec succès`);
+        console.log(`Utilisateur supprimé avec succès`);
+        setModal(false);
+        setTimeout(() => {
+          setSucces(false);
+          getUsers();
+        }, 1000);
+      } else if (res.status === 404) {
+        setError("Erreur lors de la suppression de l'utilisateur");
+        console.log("Erreur lors de la suppression de l'utilisateur");
+        setTimeout(() => {
+          setError("");
+        }, 1000);
+      }
+    });
+  }; 
+  const confirmDeleteStructures = (id) => {
+    deleteStructures(id).then((res) => {
       if (res.status === 200) {
         setLoading(true);
         setSucces(`Utilisateur supprimé avec succès`);
@@ -48,7 +93,8 @@ const TableList = () => {
   };
 
   const userDisable = (id) => {
-    disableUser(id).then((res) => {
+    alert(id);
+    disableUserAdmin(id).then((res) => {
       if (res.status === 200) {
         setLoading(true);
         setSucces("Partenaire Désactiver!");
@@ -69,7 +115,8 @@ const TableList = () => {
   };
 
   const userEnable = (id) => {
-    enableUser(id).then((res) => {
+    alert(id);
+    enableAdmin(id).then((res) => {
       if (res.status === 200) {
         setLoading(true);
         setSucces("Partenaire Activer!");
@@ -109,7 +156,7 @@ const TableList = () => {
   }, []);
 
   return (
-    <div className="bg-white p-8 rounded-md  w-full mt-16">
+    <div className="bg-white p-8 rounded-md  w-full mt-12">
       <div className=" flex items-center justify-between pb-6">
         <div>
           <h2 className="hidden md:flex text-gray-600 font-semibold">
@@ -165,103 +212,97 @@ const TableList = () => {
               {loading && (
                 <div className="text-center ">En cours de Chargement...</div>
               )}
-              <table className="min-w-full">
-                <thead className="border-b">
-                  <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th scope="col" className="py-3 px-6 text-left ">
-                      Client Id
-                    </th>
-                    <th scope="col" className="py-3 px-6 text-left ">
-                      Logo
-                    </th>
-                    <th scope="col" className="py-3 px-6 text-left ">
-                      Nom
-                    </th>
+              <Table className="min-w-full">
+                <Thead className="border-b">
+                  <Tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <Th className="py-3 px-6 text-left">Client Id</Th>
+                    <Th className="py-3 px-6 text-left">Logo</Th>
+                    <Th className="py-3 px-24 md:px-6 text-left ">Nom</Th>
 
-                    <th className="py-3 px-6 text-left">Email</th>
-                    <th scope="col" className="py-3 px-6 text-center ">
-                      Status
-                    </th>
-                    <th scope="col" className="py-3 px-6 text-center">
-                      Role
-                    </th>
-                    <th scope="col" className="py-3 px-6 text-center">
-                      Ajouter le
-                    </th>
-                    <th scope="col" className="py-3 px-6 text-center">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
+                    <Th className=" py-3 px-6 text-left">Email</Th>
+                    <Th className="py-3 px-6 text-center ">Status</Th>
+                    <Th className="py-3 px-6 text-center">Role</Th>
+                    <Th className="py-3 px-6 text-center">Ajouter le</Th>
+                    <Th className="py-3 px-6 text-center">Actions</Th>
+                  </Tr>
+                </Thead>
 
-                <tbody className="text-gray-600 text-sm font-light">
+                <Tbody className="text-gray-600 text-sm font-light">
                   {data.map((item, i) => (
-                    <tr
+                    <Tr
                       key={i}
                       className="border-b border-gray-200 hover:bg-gray-100"
                     >
-                      <td className="py-3 px-6 text-left">
+                      <Td className="py-3 px-6 text-left">
                         <div className="flex items-center">
                           <span className="font-semibold">
-                            {item.client_id}
+                            {item.client_id || item.structure_id}
                           </span>
                         </div>
-                      </td>
-                      <td className="py-3 px-6 text-left">
-                        <div className="flex items-center w-12 h-12">
-                          <span className="font-semibold">
-                            <img src={item.logo_url} alt="" />
-                          </span>
-                        </div>
-                      </td>
-                      <td className="py-3 px-6 text-left">
-                        <div className="flex items-center ">
+                      </Td>
+                      <Td className="py-3 px-6 text-left">
+                        <div className="items-center w-16 h-16">
                           <span className="font-semibold ">
-                            {item.client_name}
+                            <img
+                              src={item.logo_url || item.structure_logo_url}
+                              alt=""
+                              className="rounded"
+                            />
                           </span>
                         </div>
-                      </td>
-                      <td className="py-3 px-6 text-left">
+                      </Td>
+                      <Td className="py-3 px-6 text-left">
+                        <div className="flex items-center ">
+                          <span className="font-semibold text-[10px] sm:text-sm ">
+                            {item.partner_name || item.structure_name}
+                          </span>
+                        </div>
+                      </Td>
+                      <Td className="py-3 px-6 text-left">
                         <div className="flex items-center">
-                          <span className="font-semibold">
-                            {item.technical_contact}
+                          <span className="font-semibold text-[8px] sm:text-sm">
+                            {item.partner_contact || item.structure_contact}
                           </span>
                         </div>
-                      </td>
+                      </Td>
 
-                      <td className="py-3 px-6 text-center">
+                      <Td className="py-3 px-6 text-center">
                         <span
-                          className={`${
-                            item.active === "activer"
+                          className={`${item.active === "activer"
                               ? "bg-green-500"
                               : "bg-rose-500"
-                          } text-white font-semibold py-1 px-3 rounded-full text-xs`}
+                                ? item.structure_active === "activer"
+                                  ? "bg-green-500"
+                                  : "bg-rose-500"
+                                : "bg-gray-500"
+                            } text-white font-semibold py-1 px-3 rounded-full text-xs`}
                         >
-                          {item.active}
+                          {item.active || item.structure_active}
                         </span>
-                      </td>
+                      </Td>
 
-                      <td className="py-3 px-6 text-center">
+                      <Td className="py-3 px-6 text-center">
                         <span
-                          className={`${
-                            item.role_as === "admin"
-                              ? "bg-red-600"
-                              : item.role_as === "structure"
-                              ? "bg-yellow-400"
-                              : "bg-purple-500"
-                          }  text-white font-semibold py-1 px-3 rounded-full text-xs`}
+                          className={`${item.role_as === "partenaire"
+                              ? "bg-purple-500"
+                              : item.structure_role === "structure"
+                                ? "bg-yellow-400"
+                                : "bg-gray-500"
+                            }  text-white font-semibold py-1 px-3 rounded-full text-xs`}
                         >
-                          {item.role_as}
+                          {item.role_as || item.structure_role}
                         </span>
-                      </td>
+                      </Td>
 
-                      <td className="py-3 px-6 text-center">
-                        <div className="flex items-center font-semibold justify-center">
-                          <span>{item.created_at}</span>
+                      <Td className="py-3 px-6 text-center">
+                        <div className="flex items-center font-semibold justify-center text-[10px] sm:text-sm">
+                          <span>
+                            {item.created_at || item.structure_created_at}
+                          </span>
                         </div>
-                      </td>
+                      </Td>
 
-                      <td className="py-3 px-6 text-center">
+                      <Td className="py-3 px-6 text-center">
                         <div className="flex item-center justify-center">
                           <button onClick={() => setViewModal(true)}>
                             <div className="w-6 mr-3 transform text-green-500 hover:scale-110 cursor-pointer">
@@ -313,10 +354,12 @@ const TableList = () => {
                             <Update updateModal={() => setUpdateModal(false)} />
                           )}
 
-                          <div className="w-5 mr-3 transform  hover:scale-110 cursor-pointer">
+                          <div className="w-10 mr-3 transform hover:scale-110 cursor-pointer">
                             <button
+                              className="w-6"
                               onClick={() => (
-                                setId(item.client_id), setDisableModal(true)
+                                setId(item.structure_id || item.client_id),
+                                setDisableModal(true)
                               )}
                             >
                               <img
@@ -333,11 +376,7 @@ const TableList = () => {
                             />
                           )}
 
-                          <button
-                            onClick={() => (
-                              setId(item.client_id), setModal(true)
-                            )}
-                          >
+                          <button onClick={() => setModal(true)}>
                             <div className="w-6 mr-3 transform text-red-500 hover:scale-110 cursor-pointer">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -357,15 +396,15 @@ const TableList = () => {
                           {modal && (
                             <Delete
                               deleteModal={() => setModal(false)}
-                              confirmDelete={() => confirmDeleteUser(id)}
+                              confirmDelete={() => confirmDeleteUser(id) && confirmDeletePartners(id) && confirmDeleteStructures(id)}
                             />
                           )}
                         </div>
-                      </td>
-                    </tr>
+                      </Td>
+                    </Tr>
                   ))}
-                </tbody>
-              </table>
+                </Tbody>
+              </Table>
               <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                 <span className="text-xs xs:text-sm text-gray-900">
                   Résultats de 1 à 4 sur 50 Entrées

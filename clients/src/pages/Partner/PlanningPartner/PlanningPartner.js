@@ -5,7 +5,7 @@ const PlanningPartner = () => {
     <div className="flex">
       <SideBarPartner />
       <div className="p-7">
-        <div>Ajouter AddClubPartner</div>
+        <div>PlanningPartner</div>
       </div>
     </div>
   );

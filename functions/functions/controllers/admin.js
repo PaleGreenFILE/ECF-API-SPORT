@@ -2,7 +2,7 @@ import db from "../db/db.cjs";
 import bcrypt from "bcryptjs";
 
 //Update email
-export const update = async (req, res, next) => {
+export const updateAdmin = async (req, res, next) => {
   const client_id = req.params.id;
   const { technical_contact, commercial_contact } = { ...req.body };
   try {
@@ -23,7 +23,7 @@ export const update = async (req, res, next) => {
 };
 
 // update passwordHash
-export const updateHashSync = async (req, res, next) => {
+export const updateHashSyncAdmin = async (req, res, next) => {
   try {
     const client_id = req.params.id;
     const salt = bcrypt.genSaltSync(10);
@@ -45,7 +45,7 @@ export const updateHashSync = async (req, res, next) => {
 };
 
 //Delete users in database
-export const deleteUser = async (req, res, next) => {
+export const deleteAdmin = async (req, res, next) => {
   const client_id = req.params.id;
   try {
     await db.query("DELETE FROM api_clients WHERE client_id = $1", [client_id]);
@@ -55,11 +55,23 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
+//Get Partner  && structure in database
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const user = await db.query(
+      "SELECT * FROM structures S FULL JOIN partenaires P ON S.structure_id = P.client_id ORDER BY P.client_id ASC, S.structure_id ASC"
+    );
+    res.status(200).json(user.rows);
+  } catch (err) {
+    next(err);
+  }
+};
+
 //Get Partner  in database
 export const getUsers = async (req, res, next) => {
   try {
     const user = await db.query(
-      "SELECT * FROM api_clients WHERE role_as = 'partenaire'"
+      "SELECT * FROM partenaires WHERE role_as = 'partenaire'"
     );
     res.status(200).json(user.rows);
   } catch (err) {
@@ -71,7 +83,7 @@ export const getUsers = async (req, res, next) => {
 export const getStructure = async (req, res, next) => {
   try {
     const user = await db.query(
-      "SELECT * FROM api_clients WHERE role_as = 'structure'"
+      "SELECT * FROM structures WHERE role_as = 'structure'"
     );
     res.status(200).json(user.rows);
   } catch (err) {
@@ -93,13 +105,9 @@ export const getUsersbyId = async (req, res, next) => {
   }
 };
 // Disable user  only
-export const disable = async (req, res, next) => {
-  const client_id = req.params.id;
+export const disableAdmin = async (req, res, next) => {
   try {
-    await db.query(
-      "UPDATE api_clients SET active = 'desactiver' WHERE client_id = $1",
-      [client_id]
-    );
+    await db.query("");
     res.status(200).send("Ce compte a bien étè désactivé");
   } catch (err) {
     next(err);
@@ -107,7 +115,7 @@ export const disable = async (req, res, next) => {
 };
 
 // Active user  only
-export const active = async (req, res, next) => {
+export const activeAdmin = async (req, res, next) => {
   const client_id = req.params.id;
   try {
     await db.query(
