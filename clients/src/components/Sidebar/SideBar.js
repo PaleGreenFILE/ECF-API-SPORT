@@ -40,6 +40,7 @@ const SideBar = ({ user }) => {
     try {
       await onLogout();
       navigate("/");
+      console.log("Vous avez bien été déconnecter")
     } catch (err) {
       console.log(err);
     }

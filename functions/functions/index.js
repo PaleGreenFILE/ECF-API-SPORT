@@ -16,6 +16,7 @@ const options = {
         "https://ecf-2022.web.app",
         "https://us-central1-ecf-2022.cloudfunctions.net/NodeJsServerEcf",
         "http://localhost:3000",
+        "http://localhost:3001",
         "http://localhost:8880",
     ],
     credentials: true,
@@ -45,10 +46,10 @@ app.use((err, req, res, next) => {
     });
 });
 
-//Server Connect
-const port = 8801;
+// Server Connect
+/*const port = 8800;
 app.listen(port, () => {
-  console.log("Server Connected!");
-});
+console.log("Server Connected!");
+});*/
 
 export const NodeJsServerEcf = functions.https.onRequest(app)

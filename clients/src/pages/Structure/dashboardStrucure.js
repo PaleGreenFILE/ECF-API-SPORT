@@ -1,4 +1,4 @@
-import SideBarStructure from "./../../components/SidebarStructure/SideBarStructure";
+import SideBarStructure from "../../components/SideBarStructure/SideBarStructure.js";
 
 const DashboardStructure = () => {
   return (

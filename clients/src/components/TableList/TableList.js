@@ -51,60 +51,18 @@ const TableList = (props) => {
       }
     });
   };
-  const confirmDeletePartners = (id) => {
-    deletePartners(id).then((res) => {
-      if (res.status === 200) {
-        setLoading(true);
-        setSucces(`Utilisateur supprimé avec succès`);
-        console.log(`Utilisateur supprimé avec succès`);
-        setModal(false);
-        setTimeout(() => {
-          setSucces(false);
-          getUsers();
-        }, 1000);
-      } else if (res.status === 404) {
-        setError("Erreur lors de la suppression de l'utilisateur");
-        console.log("Erreur lors de la suppression de l'utilisateur");
-        setTimeout(() => {
-          setError("");
-        }, 1000);
-      }
-    });
-  }; 
-  const confirmDeleteStructures = (id) => {
-    deleteStructures(id).then((res) => {
-      if (res.status === 200) {
-        setLoading(true);
-        setSucces(`Utilisateur supprimé avec succès`);
-        console.log(`Utilisateur supprimé avec succès`);
-        setModal(false);
-        setTimeout(() => {
-          setSucces(false);
-          getUsers();
-        }, 1000);
-      } else if (res.status === 404) {
-        setError("Erreur lors de la suppression de l'utilisateur");
-        console.log("Erreur lors de la suppression de l'utilisateur");
-        setTimeout(() => {
-          setError("");
-        }, 1000);
-      }
-    });
-  };
-
   const userDisable = (id) => {
-    alert(id);
     disableUserAdmin(id).then((res) => {
       if (res.status === 200) {
         setLoading(true);
-        setSucces("Partenaire Désactiver!");
-        console.log("Partenaire désactiver");
+        setSucces(res.data);
+        console.log(res.data);
         setDisableModal(false);
         setTimeout(() => {
           setSucces(false);
           getUsers();
         }, 1000);
-      } else if (res.status === 404) {
+      } else if (res.status === 500) {
         setError("La désactivation du Partenaire à eu une erreur !");
         console.log("Partenaire non désactiver");
         setTimeout(() => {
@@ -113,14 +71,12 @@ const TableList = (props) => {
       }
     });
   };
-
   const userEnable = (id) => {
-    alert(id);
     enableAdmin(id).then((res) => {
       if (res.status === 200) {
         setLoading(true);
-        setSucces("Partenaire Activer!");
-        console.log("Partenaire Activer");
+        setSucces(res.data);
+        console.log(res.data);
         setDisableModal(false);
         setTimeout(() => {
           setSucces(false);
@@ -396,7 +352,7 @@ const TableList = (props) => {
                           {modal && (
                             <Delete
                               deleteModal={() => setModal(false)}
-                              confirmDelete={() => confirmDeleteUser(id) && confirmDeletePartners(id) && confirmDeleteStructures(id)}
+                              confirmDelete={() => confirmDeleteUser(id)}
                             />
                           )}
                         </div>

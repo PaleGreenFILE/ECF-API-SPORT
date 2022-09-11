@@ -48,7 +48,8 @@ export const updateHashSyncAdmin = async (req, res, next) => {
 export const deleteAdmin = async (req, res, next) => {
   const client_id = req.params.id;
   try {
-    await db.query("DELETE FROM api_clients WHERE client_id = $1", [client_id]);
+    await db.query("DELETE FROM partenaires WHERE client_id = $1", [client_id]),
+      await db.query("DELETE FROM structures WHERE structure_id = $1", [client_id]);
     res.status(200).send("Ce compte a bien étè supprimer");
   } catch (err) {
     next(err);
@@ -104,24 +105,24 @@ export const getUsersbyId = async (req, res, next) => {
     next(err);
   }
 };
-// Disable user  only
+// Disable Partner or Structures  
 export const disableAdmin = async (req, res, next) => {
+  const client_id = req.params.id;
   try {
-    await db.query("");
+    await db.query("UPDATE partenaires SET active = 'desactiver' WHERE client_id = $1", [client_id]),
+      await db.query("UPDATE structures SET structure_active = 'desactiver' WHERE  structure_id = $1", [client_id]);
     res.status(200).send("Ce compte a bien étè désactivé");
   } catch (err) {
     next(err);
   }
 };
 
-// Active user  only
+// Active Partner or Structures
 export const activeAdmin = async (req, res, next) => {
   const client_id = req.params.id;
   try {
-    await db.query(
-      "UPDATE api_clients SET active = 'activer' WHERE client_id = $1",
-      [client_id]
-    );
+    await db.query("UPDATE partenaires SET active = 'activer' WHERE client_id = $1", [client_id]),
+      await db.query("UPDATE structures SET structure_active = 'activer' WHERE structure_id = $1", [client_id]);
     res.status(200).send("Ce compte a bien étè activer");
   } catch (err) {
     next(err);
