@@ -1,15 +1,14 @@
-  import express from "express";
-  
-  const router = express.Router();
+import express from 'express';
 
-  //Routes PUT update password
-   router.put("/uphash/:id");
+const router = express.Router();
 
-  // ROUTES GET //
-  // Get All My structures members Informations
-  router.get("/structures/:id");
-  //View  My structures Informations byId
-  router.get("/view/:id");
-  
-  export default router;
-  
+//Routes PUT update password
+router.put('/uphash/:id');
+
+// ROUTES GET //
+// Get All My structures members Informations
+router.get('/structures/:id');
+//View  My structures Informations byId
+router.get('/view/:id');
+
+export default router;

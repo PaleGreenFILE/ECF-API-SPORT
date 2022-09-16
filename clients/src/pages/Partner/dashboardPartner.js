@@ -5,7 +5,8 @@ const DashboardPartner = () => {
     <div className="flex">
       <SideBarPartner />
       <div className="p-7">
-      <div>Home Page</div></div>
+        <div>Home Page</div>
+      </div>
     </div>
   );
 };

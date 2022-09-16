@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 const Desactiver = ({ disableModal, userDisable, userActivate }) => {
   const cancelButtonRef = useRef(null);
 
@@ -19,13 +19,7 @@ const Desactiver = ({ disableModal, userDisable, userActivate }) => {
               data-modal-toggle="popup-modal"
               onClick={() => disableModal(false)}
             >
-              <svg
-                aria-hidden="true"
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+              <svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                   fillRule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -34,33 +28,18 @@ const Desactiver = ({ disableModal, userDisable, userActivate }) => {
               </svg>
             </button>
             <div className="p-6 text-center">
-              <svg
-                aria-hidden="true"
-                className="mx-auto mb-4 w-10 h-10 text-red-600 bg-red-300 rounded-full"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
+              <svg aria-hidden="true" className="mx-auto mb-4 w-10 h-10 text-red-600 bg-red-300 rounded-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
               <span className="text-lg font-semibold">Désactiver</span>
               <h3 className="mb-5 text-lg font-normal text-gray-400 ">
-                Êtes-vous sûr de vouloir désactiver ce compte ? Il ne sera pas
-                Supprimer.
+                Êtes-vous sûr de vouloir désactiver ce compte ? Il ne sera pas Supprimer.
                 <br />
                 <p className="text-lg font-semibold text-red-500">Ou</p>
-                <span className="text-lg font-semibold text-gray-600">
-                  Activer le compte
-                </span>
+                <span className="text-lg font-semibold text-gray-600">Activer le compte</span>
                 <br />
                 Vous pourrez aussi ré-activer le compte
-              </h3>{" "}
+              </h3>{' '}
               <button
                 data-modal-toggle="popup-modal"
                 type="button"

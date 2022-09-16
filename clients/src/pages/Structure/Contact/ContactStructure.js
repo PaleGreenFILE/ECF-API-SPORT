@@ -1,4 +1,4 @@
-import SideBarStructure from "../../../components/SideBarStructure/SideBarStructure";
+import SideBarStructure from '../../../components/SidebarStructure/SideBarStructure';
 
 const ContactStructure = () => {
   return (

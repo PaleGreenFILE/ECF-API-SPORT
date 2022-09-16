@@ -1,5 +1,5 @@
-import SideBar from "./../../../components/Sidebar/SideBar";
-import TableList from "../../../components/TableList/TableList.js";
+import SideBar from './../../../components/Sidebar/SideBar';
+import TableList from '../../../components/TableList/TableList.js';
 
 const Dashboard = () => {
   return (

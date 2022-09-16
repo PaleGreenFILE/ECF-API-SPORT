@@ -1,53 +1,41 @@
-import { useState } from "react";
-import {
-  onLoginAdmin,
-  onLoginPartners,
-  onLoginStructures,
-} from "../../api/auth.js";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { onLoginAdmin } from '../../api/auth.js';
+import { useNavigate } from 'react-router-dom';
+import ProtectedRoute from '../../core/routes/protected-route.js';
+import { userRoles } from '../../core/routes/constants.js';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-
   const navigate = useNavigate();
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await onLoginAdmin({
-      email: email,
-      password: password,
-    });
-    if (res.data.role_as === "admin" && res.data.active === "activer") {
-      console.log("Vous êtes un ADMIN");
-      navigate("/admin/dashboard");
-      setError(false);
-    } else if (
-      res.data.role_as === "partenaire" &&
-      res.data.active === "activer"
-    ) {
-      console.log("Vous êtes un partenaire");
-      navigate("/partenaire/dashboard");
-      setError(false);
-    } else if (
-      res.data.structure_role === "structure" &&
-      res.data.structure_active === "activer"
-    ) {
-      console.log("Vous êtes une structure");
-      navigate("/structure/dashboard");
-      setError(false);
-    } else if (
-      (res.data.active === "desactiver" && res.data.role_as === "admin") ||
-      (res.data.role_as === "partenaire" && res.data.active === "desactiver") ||
-      (res.data.structure_role === "structure" &&
-        res.data.structure_active === "desactiver")
-    ) {
-      setError(
-        "Votre compte n'est pas activé, merci de contacter un Administrateur !"
-      );
+    try {
+      const res = await onLoginAdmin({
+        email: email,
+        password: password,
+      });
+      if (res.data.role_as === 'admin' && res.data.active === 'activer') {
+        console.log('Vous êtes un ADMIN');
+        //const roles = res.data.role_as;
+        //console.log(roles);
+        navigate('/admin/dashboard');
+        setError(false);
+      } else if (res.data.role_as === 'partenaire' && res.data.active === 'activer') {
+        console.log('Vous êtes un PARTENAIRE');
+        navigate('/partenaire/dashboard');
+        setError(false);
+      } else if (res.data.structure_role === 'structure' && res.data.structure_active === 'activer') {
+        console.log('Vous êtes une structure');
+        navigate('/structure/dashboard');
+        setError(false);
+      } else if ((res.data.active === 'desactiver' && res.data.role_as === 'admin', 'partenaire' && res.data.structure_role === 'structure' && res.data.structure_active === 'desactiver')) {
+        setError("Votre compte n'est pas activé, merci de contacter un Administrateur !");
+      }
+    } catch (err) {
+      setError(err.response.data.message);
     }
-    setError(res.data);
   };
 
   return (
@@ -56,13 +44,8 @@ const Login = () => {
         <div className="w-full max-w-lg">
           <img src="https://bit.ly/3AHZ3Fy" alt="sport" />
           <div className="leading-loose">
-            <form
-              onSubmit={onSubmit}
-              className="max-w-sm p-10 mb-32 m-auto bg-white bg-opacity-70 rounded shadow-xl"
-            >
-              <p className="mb-8 text-3xl font-semibold text-center text-black">
-                Connexion
-              </p>
+            <form onSubmit={onSubmit} className="max-w-sm p-10 mb-32 m-auto bg-white bg-opacity-70 rounded shadow-xl">
+              <p className="mb-8 text-3xl font-semibold text-center text-black">Connexion</p>
               <div className="mb-2">
                 <div className=" relative ">
                   <label htmlFor="email">Email :</label>
@@ -89,9 +72,7 @@ const Login = () => {
                   />
                 </div>
               </div>
-              <div className="flex text-red-600 text-semibold items-center justify-between mt-5">
-                {error}
-              </div>
+              <div className="flex text-red-600 text-semibold items-center justify-between mt-5">{error}</div>
               <div className="flex items-center justify-between mt-5">
                 <button
                   type="submit"

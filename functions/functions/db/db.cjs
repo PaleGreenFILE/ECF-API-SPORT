@@ -1,9 +1,8 @@
-const dotenv = require("dotenv"); 
+const dotenv = require('dotenv');
 dotenv.config();
-const { Pool } = require("pg");
+const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString:
-    process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
@@ -14,7 +13,7 @@ connect();
 async function connect() {
   try {
     await pool.connect();
-    console.log("Connected to Database");
+    console.log('Connected to Database');
   } catch (e) {
     console.error(`Connection failed ${e}`);
   }

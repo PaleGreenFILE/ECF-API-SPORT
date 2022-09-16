@@ -1,4 +1,4 @@
-import SideBar from "./../../../components/Sidebar/SideBar";
+import SideBar from './../../../components/Sidebar/SideBar';
 
 const Contact = () => {
   return (

@@ -1,24 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 // Register Admin ,Partners, Structures
 export const onRegistrationAdmin = async (registrationData) => {
-  return await axios.post(
-    process.env.REACT_APP_REGISTER_ADMIN,
-    registrationData
-  );
+  return await axios.post(process.env.REACT_APP_REGISTER_ADMIN, registrationData);
 };
 export const onRegistrationPartners = async (registrationData) => {
-  return await axios.post(
-    process.env.REACT_APP_REGISTER_PARTNERS,
-    registrationData
-  );
+  return await axios.post(process.env.REACT_APP_REGISTER_PARTNERS, registrationData);
 };
 export const onRegistrationStructures = async (registrationData) => {
-  return await axios.post(
-    process.env.REACT_APP_REGISTER_STRUCTURES,
-    registrationData
-  );
+  return await axios.post(process.env.REACT_APP_REGISTER_STRUCTURES, registrationData);
 };
 
 // Login Admin ,Partners ,Structures
@@ -66,7 +57,6 @@ export const enableAdmin = async (id) => {
 export const viewPartners = async (id) => {
   return await axios.get(process.env.REACT_APP_VIEW_USER_PARTNERS + id);
 };
-
 
 //*/* Route CRUD Structures */*
 

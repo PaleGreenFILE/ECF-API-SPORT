@@ -1,4 +1,4 @@
-import SideBarPartner from "../../../components/SideBarPartner/SideBarPartner";
+import SideBarPartner from '../../../components/SideBarPartner/SideBarPartner';
 
 const SettingsPartner = () => {
   return (
