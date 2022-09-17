@@ -41,7 +41,7 @@ const SideBar = () => {
     }
   };
   return (
-    <div className="md:flex  hidden">
+    <div className="md:flex hidden">
       <div
         className={`bg-blue-side  p-5 pt-7 
        ${open ? 'w-56' : 'w-20'} relative duration-500`}
@@ -51,6 +51,7 @@ const SideBar = () => {
           ${!open && 'rotate-180'}`}
           onClick={() => setOpen(!open)}
         />
+
         <div className="flex">
           <img className={` h-10 bg-white block float-left mr-2 duration-500 ${open && 'rotate-[360deg]'}`} src="https://bit.ly/3IUtNVM" alt="logo" />
           <div className={` text-yellow-300 origin-left font-medium text-sm mt-2 ${!open && 'scale-0'}`}>FitPark Fitness</div>
