@@ -52,55 +52,65 @@ cd functions
 npm run dev
 ```
 
-** Lancer le Front-End  :**
+**Lancer le Front-End  :**
 
 ```
 cd clients
 npm run start
 ```
 
-Pour la gestion des mails en local vous pouvez utiliser votre mailler habituel, j'utilise personnellement `mailhog` principalement pour sa rapidité à mettre en place.
-Configurer votre DSN comme ceci :
-```
-MAILER_DSN=smtp://localhost:1025
-```
-Puis exécuter Mailhog en tapant dans le navigateur:
+Pour la gestion des mails j'ai utilisé personnellement MailerLite principalement pour sa rapidité à mettre en place, sinon vous pouvez utiliser votre mailler habituel, 
 
-`localhost:8025`
-
-> [INFO]
-> Si vous n'utilisez pas le CLI de Symfony toutes les commandes commençant par **<i>symfony console</i>** peuvent être remplacées dans votre terminal par **<i>php bin/console</i>**.
-
-## [Se connecter à l'application](http://papoel-mediatheque.herokuapp.com/)
+## [Se connecter à l'application](https://ecf-2022.web.app/)
 
 
 Trois Cas de connexion sont possible dans cette application :
  - Un administrateur (admin)
- - Un Libraire (employé)
- - Un Habitant (habitant)
+ - Des Partenaires (partenaires)
+ - Des Structures (structures)
 
 |email   |mot de passe   |
 |---|---|
-| admin@email.fr  |  password |
-| libraire@email.fr  |  password |
-| user{x}@email.fr  |  password |
+| admin_fitpark@gmail.com  |  azertyu2 |
+| sporting_club@gmail.com  |  azertyu2 |
+| crossfit_ninja_avignon@gmail.com  |  azertyu2 |
 
 # Les choix Techniques
 
 ## Connexion sécurisé mise en place
-Pour cette application j'ai fais le choix de faire une connexion sécurisée en double facteur authentification par Email.
-Je me suis aidé du bundle symfony [scheb/2fa-bundle](https://symfony.com/bundles/SchebTwoFactorBundle/5.x/installation.html).
-Cette fonction nécessite l'utilisation d'un mailler.
+Pour cette application j'ai fais le choix de faire une connexion sécurisée en utilisant Bcrypt pour Hash le mot de passe. 
+Que vous  pouvez retrouver ici ([BcrypJs](https://www.npmjs.com/package/bcryptjs)).
+ou installer le directement en tapant:
+
+```
+npm i bcryptjs
+```
+#Dploiement de l'application
+
+Pour cette application j'ai fais le choix d'utiliser Firebase pour héberger le back-end et le front  aussi  pour sa rapidité de mise en place.
+vous pourrez retrouver la documentation ici
+([Firebase](https://firebase.google.com/docs))).
+```
+Créér un compte sur Firebase.com
+
+Créér une nouvelle application
+
+Installer la  CLI de Firebase:
+
+Initialiser votre projet 
+```
+retrouvez la procédure de déploiement complète sur ([Firebase](https://firebase.google.com/))).
 
 ## Ou trouver les documents
 
 Dans cette application vous trouverai un dossier **Documentation** vous pouvez y trouver plusieurs documents utiles ( schéma de la base de donnée, charte graphique, manuel d'utilisation etc...)
 
-# ECF Studi 2021 - Pascal Briffard
+# ECF Studi 2022 - Charly Makhlouf
 
 ## Lien utiles
 
 Dans cette section je met à disposition tous ce dont je me suis appuyé pour réaliser cette application :
 
-- [Trello](https://trello.com/b/fFBVPI9c/ecf-mediatheque)
+-[[Trello]](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi)
+- <iframe style="border:none" width="800" height="450" src="https://whimsical.com/embed/NfUp8nvFJNPCBk4jGxLFJi"></iframe>
 - [Projet Github](https://github.com/Papoel/ECF-Mediatheque)
