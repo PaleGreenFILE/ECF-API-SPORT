@@ -127,7 +127,7 @@ Dans cette section je met à disposition tous ce dont je me suis appuyé pour r�
 - [Projet Github](https://github.com/PaleGreenFILE/ECF-API-SPORT)
 
 
-<div style="display: inline_block">
+<div style="display: flex">
    </br>
    <img align"center" width="400" height="250" src="https://user-images.githubusercontent.com/71704263/191049143-9b20cd89-cdd2-4d94-9f8c-9eeb4a2b0348.png"/>
    </br>
