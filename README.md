@@ -131,11 +131,7 @@ Dans cette section je met à disposition tous ce dont je me suis appuyé pour r�
    </br>
    <img align"center" width="400" height="250" src="https://user-images.githubusercontent.com/71704263/191049143-9b20cd89-cdd2-4d94-9f8c-9eeb4a2b0348.png"/>
    <img align"center" width="400" height="250" src="https://user-images.githubusercontent.com/71704263/191050661-f64afff1-712b-4ca8-a62a-efc1551ae866.png"/>
-   </br>
-   </br>
-   <img align"center" width="400" height="250" src="https://user-images.githubusercontent.com/71704263/191055546-6faeda30-603e-4e34-b51d-af257fcd922d.png"/>
-   </br>
-   </br>
+   <img align"center" width="400" height="250" src="https://user-images.githubusercontent.com/71704263/191055546-6faeda30-603e-4e34-b51d-af257fcd922d.png"/> 
    <img align"center" width="400" height="250" src="https://user-images.githubusercontent.com/71704263/191055730-ed35267d-62c1-4b64-80d3-f12d3b42d475.png"/>
    </br>
 </div>
