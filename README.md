@@ -120,9 +120,11 @@ Dans cette section je met à disposition tous ce dont je me suis appuyé pour r�
 
 - [Trello](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi/)
 - [Wireframe Desktop](https://whimsical.com/wireframe-web-ecf-2022-WampAVigaVCERKX5Qy4xQ2)
+- [Wireframe Mobile](https://whimsical.com/wireframe-web-ecf-2022-WampAVigaVCERKX5Qy4xQ2)
 - [Manuel d'utilisation](https://whimsical.com/documentation-ecf-2022-2QJGZVikAvSVZanN8gjUzW)
 - [Charte Graphique](https://whimsical.com/charte-graphique-3XQTm5QPZWo2JMStX7xyvv)
 - [Cas D'utilisation](https://whimsical.com/uml-cas-d-utilisation-2qQkj9G9NxcAWDjvmBbyNT)
+- [Diagramme de séquence](https://whimsical.com/uml-diagramme-de-sequence-ACUzgb77qAp8NvBkWxoq2G)
 - [MCD](https://whimsical.com/mcd-ecf-2022-HTz2Z4W4TLfep7VCcbpWDR)
 - [Projet Github](https://github.com/PaleGreenFILE/ECF-API-SPORT)
 
