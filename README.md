@@ -118,6 +118,7 @@ Dans cette application vous trouverai un dossier **Documentation** vous pouvez y
 Dans cette section je met à disposition tous ce dont je me suis appuyé pour réaliser cette application :
 
 -[[Trello]](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi)
-<div ><img style="border:none" width="800" height="450" src="https://user-images.githubusercontent.com/71704263/191045731-6a0c3965-86de-4cd5-89cf-a9bcef6a25af.png"/> </div>
+<div style="display: inline_block">
+   <img style="border:none" width="800" height="450" src="https://user-images.githubusercontent.com/71704263/191049143-9b20cd89-cdd2-4d94-9f8c-9eeb4a2b0348.png"/> </div>
 
 - [Projet Github](https://github.com/Papoel/ECF-Mediatheque)
