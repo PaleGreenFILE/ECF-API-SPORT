@@ -123,8 +123,8 @@ Dans cette section je met à disposition tous ce dont je me suis appuyé pour r�
 - [[Trello]](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi/)
 
 <div style="display: inline_block"> </br>
-   <img style="border:none" width="800" height="450" src="https://user-images.githubusercontent.com/71704263/191049143-9b20cd89-cdd2-4d94-9f8c-9eeb4a2b0348.png"/> 
-   <iframe style="border:none" width="800" height="450" src="https://whimsical.com/embed/3XQTm5QPZWo2JMStX7xyvv"></iframe>
+   <img align"center" width="800" height="450" src="https://user-images.githubusercontent.com/71704263/191049143-9b20cd89-cdd2-4d94-9f8c-9eeb4a2b0348.png"/> 
+   <img align"center" width="800" height="450" src="https://whimsical.com/embed/3XQTm5QPZWo2JMStX7xyvv"/>
 </div>
    
 
