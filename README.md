@@ -118,7 +118,7 @@ Dans cette application vous trouverai un dossier **Documentation** vous pouvez y
 
 Dans cette section je met à disposition tous ce dont je me suis appuyé pour réaliser cette application :
 
-- [[Trello]](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi/)
+- [Trello](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi/)
 
 <div style="display: inline_block">
    </br>
@@ -126,7 +126,9 @@ Dans cette section je met à disposition tous ce dont je me suis appuyé pour r�
    </br>
 </div>
 
-- [[Charte Graphique]](https://whimsical.com/charte-graphique-3XQTm5QPZWo2JMStX7xyvv)
+
+
+- [Charte Graphique](https://whimsical.com/charte-graphique-3XQTm5QPZWo2JMStX7xyvv)
 
 <div style="display: inline_block">
    </br>
@@ -134,7 +136,9 @@ Dans cette section je met à disposition tous ce dont je me suis appuyé pour r�
    </br>
 </div>
 
-- [[Wireframes]](https://whimsical.com/charte-graphique-3XQTm5QPZWo2JMStX7xyvv)
+
+
+- [Wireframes](https://whimsical.com/wireframe-web-ecf-2022-WampAVigaVCERKX5Qy4xQ2)
 
 <div style="display: inline_block">
    </br>
@@ -142,7 +146,6 @@ Dans cette section je met à disposition tous ce dont je me suis appuyé pour r�
    </br>
 </div>
 
-![image](https://user-images.githubusercontent.com/71704263/191052248-f13ce4ad-a9fd-4c45-8394-506abbd2c7f3.png)
 
    
 
