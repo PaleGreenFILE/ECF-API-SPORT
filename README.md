@@ -28,18 +28,18 @@ Dans le cadre de mon BAC de développeur Web Fullstack avec **Studi**, j'ai eu p
 ```
 git clone https://github.com/PaleGreenFILE/ECF-API-SPORT
 ```
-Pour installer les dépendance du front:
+Pour installer les dépendances du front:
 ```
 cd clients
 npm i --save
 ```
-Pour installer les dépendance du Back:
+Pour installer les dépendances du Back:
 ```
 cd funcitons
 npm i --save
 ```
 
-Une fois le projet installé il faut créer un fichier .env déjà  avec vos propres informations.
+Une fois le projet installé il faut créer un fichier .env avec vos propres informations.
 
 **Création de la base de donnée :**
 
@@ -58,7 +58,7 @@ cd functions
 npm run dev
 ```
 
-**Lancer le Front-End  :**
+**Lancer le Front-End :**
 
 ```
 cd clients
@@ -95,7 +95,9 @@ npm i bcryptjs
 
 Pour cette application j'ai fais le choix d'utiliser Firebase pour héberger le back-end et le front  aussi  pour sa rapidité de mise en place.
 vous pourrez retrouver la documentation ici
-([Firebase](https://firebase.google.com/docs)).
+
+- [Firebase](https://firebase.google.com/docs).
+
 ```
 Créér un compte sur Firebase.com
 
@@ -105,7 +107,8 @@ Installer la  CLI de Firebase:
 
 Initialiser votre projet 
 ```
-retrouvez la procédure de déploiement complète sur ([Firebase](https://firebase.google.com/)).
+
+retrouvez la procédure de déploiement complète sur [Firebase](https://firebase.google.com/).
 
 ## Ou trouver les documents
 
@@ -117,7 +120,8 @@ Dans cette application vous trouverai un dossier **Documentation** vous pouvez y
 
 Dans cette section je met à disposition tous ce dont je me suis appuyé pour réaliser cette application :
 
--[[Trello]](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi)
+- [[Trello]](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi/)
+
 <div style="display: inline_block">
    <img style="border:none" width="800" height="450" src="https://user-images.githubusercontent.com/71704263/191049143-9b20cd89-cdd2-4d94-9f8c-9eeb4a2b0348.png"/> </div>
 
