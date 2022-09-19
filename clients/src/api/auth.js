@@ -1,10 +1,7 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-// Register Admin ,Partners, Structures
-export const onRegistrationAdmin = async (registrationData) => {
-  return await axios.post(process.env.REACT_APP_REGISTER_ADMIN, registrationData);
-};
+// Register Partners, Structures
 export const onRegistrationPartners = async (registrationData) => {
   return await axios.post(process.env.REACT_APP_REGISTER_PARTNERS, registrationData);
 };
