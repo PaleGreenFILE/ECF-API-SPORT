@@ -25,11 +25,17 @@ Dans le cadre de mon BAC de développeur Web Fullstack avec **Studi**, j'ai eu p
 
 # Installation Locale
 
-```bash
+```
 git clone https://github.com/PaleGreenFILE/ECF-API-SPORT
 ```
-
-```bash
+Pour installer les dépendance du front:
+```
+cd clients
+npm i --save
+```
+Pour installer les dépendance du Back:
+```
+cd funcitons
 npm i --save
 ```
 
@@ -37,7 +43,7 @@ Une fois le projet installé il faut créer un fichier .env déjà  avec vos pro
 
 **Création de la base de donnée :**
 
-Utiliser le fichier sql présent.
+Utiliser le fichier sql présent ou créer la vôtre.
 
 ```
 CREATE DATABASE nom_base_de_données ; Créer une base de données
@@ -89,7 +95,7 @@ npm i bcryptjs
 
 Pour cette application j'ai fais le choix d'utiliser Firebase pour héberger le back-end et le front  aussi  pour sa rapidité de mise en place.
 vous pourrez retrouver la documentation ici
-([Firebase](https://firebase.google.com/docs))).
+([Firebase](https://firebase.google.com/docs)).
 ```
 Créér un compte sur Firebase.com
 
@@ -99,7 +105,7 @@ Installer la  CLI de Firebase:
 
 Initialiser votre projet 
 ```
-retrouvez la procédure de déploiement complète sur ([Firebase](https://firebase.google.com/))).
+retrouvez la procédure de déploiement complète sur ([Firebase](https://firebase.google.com/)).
 
 ## Ou trouver les documents
 
@@ -112,5 +118,5 @@ Dans cette application vous trouverai un dossier **Documentation** vous pouvez y
 Dans cette section je met à disposition tous ce dont je me suis appuyé pour réaliser cette application :
 
 -[[Trello]](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi)
-- <iframe style="border:none" width="800" height="450" src="https://whimsical.com/embed/NfUp8nvFJNPCBk4jGxLFJi"></iframe>
+<div><iframe style="border:none" width="800" height="450" src="https://whimsical.com/embed/NfUp8nvFJNPCBk4jGxLFJi"></iframe></div>
 - [Projet Github](https://github.com/Papoel/ECF-Mediatheque)
