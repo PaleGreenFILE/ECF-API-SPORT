@@ -114,8 +114,6 @@ retrouvez la procédure de déploiement complète sur [Firebase](https://firebas
 
 Dans cette application vous trouverai un dossier **Documentation** vous pouvez y trouver plusieurs documents utiles ( schéma de la base de donnée, charte graphique, manuel d'utilisation etc...)
 
-# ECF Studi 2022 - Charly Makhlouf
-
 ## Lien utiles
 
 Dans cette section je met à disposition tous ce dont je me suis appuyé pour réaliser cette application :
@@ -137,3 +135,8 @@ Dans cette section je met à disposition tous ce dont je me suis appuyé pour r�
 
 
 - [Projet Github](https://github.com/PaleGreenFILE/ECF-API-SPORT)
+
+
+
+
+# ECF Studi 2022 - Charly Makhlouf
