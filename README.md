@@ -1,7 +1,7 @@
 # ECF-API-SPORT
-# Bienvenue sur la application d'administration de FitPark Fitness de Paris
+# Bienvenue sur l'application d'administration de FitPark Fitness de Paris.
 
-Dans le cadre de mon BAC de développeur Web Fullstack avec **Studi**, j'ai eu pour tâche finale le développement d'une application  incorporant un système d'administration des partenaires et structures de la marque
+Dans le cadre de mon BAC de développeur Web Fullstack avec **Studi**, j'ai eu pour tâche finale le développement d'une application  incorporant un système d'administration des partenaires et structures de la marque FITPARK FITNESS
 
 ## Spécification Techniques
 
