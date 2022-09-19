@@ -1,63 +1,67 @@
 # ECF-API-SPORT
-# Bienvenue sur la Maediatheque de Chapelles-Cureaux
+# Bienvenue sur la application d'administration de FitPark Fitness de Paris
 
-Dans le cadre de mon BTS de développeur Web Fullstack avec **Studi**, j'ai eu pour tâche finale le développement d'une médiathèque incorporant un système de click and collect.
+Dans le cadre de mon BAC de développeur Web Fullstack avec **Studi**, j'ai eu pour tâche finale le développement d'une application  incorporant un système d'administration des partenaires et structures de la marque
 
 ## Spécification Techniques
 
 ### Technologie
 
-   - PHP >= 8
-   - Composer >= 2
-  - Framework : Symfony
-  - Base de donnée : Mysql (MariaDB 10.4)
+   - Express => 5.0
+   - NodeJs V16.717.0
+  - Framework : React => 18.2.0
+  - Base de donnée : PostGreSql (PostGreSql 15.0)
 
 ###  Front
 
-- HTML5 (Twig)
-- CSS3
-- Bootstrap
-- Javascript
+- TAILWINDCSS (V3.1.8)
+- React-Icons (4.4.0)
 
 ### Back
 
-- Minimum PHP 8.0
-- Symfony (5.3.9)
-- mySql
+- Express 5.0
+- NodeJs V16.717.0
+- PostGreSql (PostGreSql 15.0)
 
 # Installation Locale
 
 ```bash
-git clone https://github.com/Papoel/ECF-Mediatheque
+git clone https://github.com/PaleGreenFILE/ECF-API-SPORT
 ```
 
 ```bash
-composer install
+npm i --save
 ```
 
-Une fois le projet installé il faut créer un fichier .env.local ou modifier le .env déjà présent avec vos propres informations.
+Une fois le projet installé il faut créer un fichier .env déjà  avec vos propres informations.
 
 **Création de la base de donnée :**
 
-```bash
-symfony console doctrine:database:create
+Utiliser le fichier sql présent.
+
+```
+CREATE DATABASE nom_base_de_données ; Créer une base de données
+USE nom_base_de_données ; Indique la BDD à utiliser et dans laquelle on exécute les requêtes.
+CREATE TABLE nom_table ; Créer une table dans la BDD utilisée
 ```
 
-**Jouer la migration**
+**Lancer le serveur Back-back end**
 
-```bash
-symfony console doctrine:migrations:migrate
+```
+cd functions
+npm run dev
 ```
 
-**Exécuter les DataFixtures :**
+** Lancer le Front-End  :**
 
-```bash
-symfony console doctrine:fixture:load -n
+```
+cd clients
+npm run start
 ```
 
 Pour la gestion des mails en local vous pouvez utiliser votre mailler habituel, j'utilise personnellement `mailhog` principalement pour sa rapidité à mettre en place.
 Configurer votre DSN comme ceci :
-```env
+```
 MAILER_DSN=smtp://localhost:1025
 ```
 Puis exécuter Mailhog en tapant dans le navigateur:
