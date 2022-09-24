@@ -9,6 +9,7 @@ import ContactPartner from '../../pages/Partner/Contact/ContactPartner';
 import DashboardPartner from '../../pages/Partner/dashboardPartner';
 import PlanningPartner from '../../pages/Partner/PlanningPartner/PlanningPartner';
 import SettingsPartner from '../../pages/Partner/Settings/SettingsPartner';
+import PasswordChange from '../../pages/Password/PasswordChange';
 import ContactStructure from '../../pages/Structure/Contact/ContactStructure';
 import DashboardStructure from '../../pages/Structure/dashboardStrucure';
 import PlanningStructure from '../../pages/Structure/Planning/PlanningStructure';
@@ -23,13 +24,17 @@ const routesConfig = [
     element: <Login />,
   },
   {
+    path: appRoutes.PASSWORDCHANGE,
+    element: <PasswordChange />,
+  },
+  {
     path: appRoutes.ACCESSDENIED,
     element: <AccessDenied />,
   },
   {
     path: appRoutes.ADMINDASH,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.admin]}>
+      <ProtectedRoute >
         <Dashboard />
       </ProtectedRoute>
     ),

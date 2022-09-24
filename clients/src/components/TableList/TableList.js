@@ -26,8 +26,7 @@ const TableList = () => {
   const [checkStructure, setCheckStructure] = useState(false);
 
   const navigate = useNavigate();
-
-  const handleChangePartenaires = (e) => {
+  const handleChangePartenaires = () => {
     if (checkPartner === true) {
       setData(searchApiData);
     } else {
@@ -38,7 +37,7 @@ const TableList = () => {
     }
   };
 
-  const handleChangeStructures = (e) => {
+  const handleChangeStructures = () => {
     if (checkStructure === true) {
       setData(searchApiData);
     } else {
@@ -108,7 +107,7 @@ const TableList = () => {
       }
     });
   };
-  const userEnable = (id, e) => {
+  const userEnable = (id) => {
     enableAdmin(id).then((res) => {
       if (res.status === 200) {
         setLoading(true);
@@ -229,9 +228,9 @@ const TableList = () => {
                     </Tr>
                   </Thead>
                   <Tbody className="text-gray-600 text-sm font-light">
-                    {data.map((item) => {
+                    {data.map((item,id) => {
                       return (
-                        <Tr key={item.id} className="border-b border-gray-200 hover:bg-gray-100">
+                        <Tr key={id} className="border-b border-gray-200 hover:bg-gray-100">
                           <Td className="py-3 px-6 text-left">
                             <div className="flex items-center">
                               <span className="font-semibold">{item.client_id || item.structure_id}</span>

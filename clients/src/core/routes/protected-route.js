@@ -1,18 +1,20 @@
-import { useState } from 'react';
 import { Navigate } from 'react-router';
 import { userRoles } from './constants';
+import useAuth from './../../hooks/useAuth';
 
 const ProtectedRoute = ({ expectedRoles, children }) => {
-  const isAuthorized = true;
+  const isAuthorized = useAuth();
   const areRolesRequired = !!expectedRoles?.length;
-  const roles = [userRoles.admin] || [userRoles.partner] || [userRoles.structure];
+  const roles = [userRoles.partner];
+  const role = areRolesRequired ? expectedRoles.some((r) => roles.indexOf(r) >= 0) : true;
 
-  const rolesMatch = areRolesRequired ? expectedRoles.some((r) => roles.indexOf(r) > 0) : true;
-
-  if (!isAuthorized) {
+  if (!isAuthorized && !role) {
     return <Navigate to="/" replace />;
+  } else if (isAuthorized && !role) {
+    return <Navigate to="/access-denied" replace />;
+  } else if (isAuthorized && role) {
+    return children;
   }
-
-  return children;
 };
+
 export default ProtectedRoute;

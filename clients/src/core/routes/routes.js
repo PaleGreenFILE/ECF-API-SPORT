@@ -1,6 +1,7 @@
 const appRoutes = {
   LOGIN: '/',
-  ACCESSDENIED: '/denied',
+  PASSWORDCHANGE: '/api/reset-password',
+  ACCESSDENIED: '/access-denied',
   ADMINDASH: '/admin/dashboard',
   ADMINPLANNING: '/admin/planning',
   ADMINCONTACT: '/admin/contact',

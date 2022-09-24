@@ -1,5 +1,5 @@
 import express from 'express';
-import { signinAdmin, registerAdmin, logout, firstConnexionPartners, firstConnexionStructures, registerStructures, registerPartners } from '../controllers/auth.js';
+import { signinAdmin, registerAdmin, logout, firstConnexion, registerStructures, registerPartners } from '../controllers/auth.js';
 import { verifyToken } from '../JwtTokenVerify/verifyToken.js';
 
 const router = express.Router();
@@ -9,9 +9,9 @@ router.all('/api/admin', verifyToken);
 router.all('/api/partners', verifyToken);
 router.all('/api/structures', verifyToken);
 
-// First connexion by id for Partners & Structures For change Password
-router.put('/firstconnexion-partners/:id', firstConnexionPartners);
-router.put('/firstlogin-structures/:id', firstConnexionStructures);
+
+// First connexion for Partners & Structures For change Password
+router.put('/reset-password/', firstConnexion);
 
 //LOGIN ADMIN Partner & Structures
 router.post('/login', signinAdmin);

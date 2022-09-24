@@ -131,7 +131,7 @@ export const signinAdmin = async (req, res, next) => {
       if (!isCorrect) return next(createError(400, 'Mot de passe invalide!'));
       const { password, ...others } = structure.rows[0];
       // JSONWEBTOKEN with ExpiresIn = 1 hour
-      const token = jwt.sign({ id: structure.client_id }, process.env.JWT, {
+      const token = jwt.sign({ id: structure.structure_id }, process.env.JWT, {
         expiresIn: '1h',
       });
       res
@@ -155,5 +155,28 @@ export const logout = async (req, res, next) => {
 };
 
 // First connexion  Partners & Structures for change password
-export const firstConnexionPartners = async (req, res, next) => {};
-export const firstConnexionStructures = async (req, res, next) => {};
+export const firstConnexion = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    const partner = await db.query('SELECT * FROM partenaires WHERE partner_email=$1', [email]);
+    const structure = await db.query('SELECT * FROM structures WHERE structure_email=$1', [email]);
+    if (!partner.rows.length & !structure.rows.length) return next(createError(404, "Votre Email n'est pas inscrit"));
+
+    if (partner.rows.length) {
+      //crypt password for security before insert into database
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(req.body.password, salt);
+      await db.query('UPDATE partenaires SET password = $1 WHERE partner_email =$2', [hash, email]);
+      res.status(200).json('Mot de passe changé avec succés');
+    } else if (structure.rows.length) {
+      //crypt password for security before insert into database
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(req.body.password, salt);
+      await db.query('UPDATE structures SET password = $1 WHERE structure_email =$2', [hash, email]);
+      res.status(200).json('Mot de passe changé avec succés');
+    }
+  } catch (err) {
+    //next(err);
+    next(createError(408, 'Erreur lors du changement du mot de passe'));
+  }
+};

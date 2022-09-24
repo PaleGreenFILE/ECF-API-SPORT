@@ -28,7 +28,7 @@ export const getStructureUsers = async () => {
   return await axios.get(process.env.REACT_APP_GET_STRUCTURES);
 };
 
-// Get Parnter users request
+// Get Partner users request
 export const getPartnerUsers = async () => {
   return await axios.get(process.env.REACT_APP_GET_PARTNERS);
 };
@@ -62,10 +62,6 @@ export const viewStructures = async (id) => {
 };
 
 // First connexion by id Partners & Structures
-export const firstConnexionPartners = async (id) => {
-  return await axios.put(process.env.REACT_APP_FIRST_CONNEXION_PARTNERS + id);
-};
-
-export const firstConnexionStrucures = async (id) => {
-  return await axios.put(process.env.REACT_APP_FIRST_CONNEXION_STRUCTURES + id);
+export const firstConnexion = async (data) => {
+  return await axios.put(process.env.REACT_APP_FIRST_CONNEXION, data);
 };
