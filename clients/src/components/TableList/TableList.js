@@ -175,7 +175,7 @@ const TableList = () => {
           <button onClick={() => setAddNewUserModal(true)} className=" md:flex p-2  mt-5  items-center justify-center bg-blue-500  rounded-md text-white font-semibold tracking-wide cursor-pointer">
             Ajouter un club
           </button>
-          {addNewUser && <AddUser addNewModal={() => setAddNewUserModal(false)} />}
+          {addNewUser && <AddUser addUserModal={() => setAddNewUserModal(false)} />}
         </div>
         <div className="md:flex items-center justify-start">
           <p className="">Partenaires ={'>'} </p>
@@ -228,9 +228,9 @@ const TableList = () => {
                     </Tr>
                   </Thead>
                   <Tbody className="text-gray-600 text-sm font-light">
-                    {data.map((item,id) => {
+                    {data.map((item,i) => {
                       return (
-                        <Tr key={id} className="border-b border-gray-200 hover:bg-gray-100">
+                        <Tr key={i} className="border-b border-gray-200 hover:bg-gray-100">
                           <Td className="py-3 px-6 text-left">
                             <div className="flex items-center">
                               <span className="font-semibold">{item.client_id || item.structure_id}</span>
@@ -309,7 +309,7 @@ const TableList = () => {
                               </button>
                               {update && <Update updateModal={() => setUpdateModal(false)} />}
                               <div className="w-10 mr-3 transform hover:scale-110 cursor-pointer">
-                                <button className="w-6" onClick={() => (setId(item.structure_id || item.client_id), setDisableModal(true))}>
+                                <button className="w-6" onClick={() => (setId(item.structure_id || item.client_id) || setDisableModal(true))}>
                                   <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-Alert-interface-those-icons-lineal-those-icons.png" alt="" />
                                 </button>
                               </div>

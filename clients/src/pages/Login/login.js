@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { onLoginAdmin } from '../../api/auth.js';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { userRoles } from './../../core/routes/constants';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,7 +9,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState('');
-  const {setRole} = useState('');
   
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -29,11 +27,15 @@ const Login = () => {
         setLoading(false);
       } else if (res.data.role_as === 'partenaire' && res.data.active === 'activer') {
         console.log('Vous êtes un PARTENAIRE');
+        const roles = res.data.role_as;
+        console.log(roles);
         navigate('/partenaire/dashboard');
         setError(false);
         setLoading(false);
       } else if (res.data.structure_role === 'structure' && res.data.structure_active === 'activer') {
         console.log('Vous êtes une structure');
+        const roles = res.data.role_as;
+        console.log(roles);
         navigate('/structure/dashboard');
         setError(false);
         setLoading(false);

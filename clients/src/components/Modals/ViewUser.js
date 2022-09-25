@@ -5,12 +5,9 @@ const ViewUser = ({ viewUserModal }) => {
   return (
     <div>
       <div
-        id="popup-modal"
-        tabIndex="-1"
-        className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex"
-        aria-modal="true"
-        role="dialog"
-      >
+        id="popup"
+        className="z-50 fixed w-full flex justify-center inset-0 items-center"       
+      ><div onClick={() => viewUserModal(false)} className="w-full h-full bg-gray-900 opacity-80 z-0 absolute inset-0" />
         <div className="relative p-4 w-full max-w-lg h-full md:h-auto">
           <div className="relative bg-white rounded-lg shadow">
             <button

@@ -33,11 +33,7 @@ const routesConfig = [
   },
   {
     path: appRoutes.ADMINDASH,
-    element: (
-      <ProtectedRoute >
-        <Dashboard />
-      </ProtectedRoute>
-    ),
+    element: <Dashboard />,
   },
   {
     path: appRoutes.ADMINPLANNING,

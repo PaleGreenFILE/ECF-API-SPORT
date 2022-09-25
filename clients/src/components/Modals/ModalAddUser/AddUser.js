@@ -1,263 +1,266 @@
-import { useRef } from 'react';
-const AddUser = ({ addNewModal }) => {
+import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import emailjs from '@emailjs/browser';
+import { EMAIL_REGEX_VALIDATION, PASSWORD_REGEX_VALIDATION } from './../../../lib/lib';
+
+const AddUser = ({ addUserModal }) => {
+  const [loading, setLoading] = useState('');
+  const [succes, setSucces] = useState('');
+  const [error, setError] = useState('');
+  const form = useRef();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const cancelButtonRef = useRef(null);
-  let form = useRef(null);
-  const handleSubmit = (event) => {
-    event.preventDefault();
+
+  const onSubmit = () => {
+    setLoading(true);
     const form_data = new FormData(form.current);
     let payload = {};
     form_data.forEach(function (value, key) {
       payload[key] = value;
     });
-    // console.log("payload", payload);
+    console.log('payload', payload);
     // Place your API call here to submit your payload.
   };
 
   return (
-    <div id="popup-modal" tabIndex="-1" className="overflow-y-auto overflow-x-hidden absolute z-50 inset-0  md:h-full justify-center items-center" aria-modal="true" role="dialog">
-      <form id="login" onSubmit={handleSubmit}>
-        <div className="bg-gray-100">
-          <div className="container mx-auto bg-white  rounded">
-            <div className="xl:w-full border-b border-gray-300  py-5 bg-gray-100 ">
-              <div className="flex w-11/12 mx-auto xl:w-full xl:mx-0 items-center">
-                <p className="text-lg text-gray-800 font-bold">Nouvel Enregistrerement</p>
-                <div className="ml-2 cursor-pointer text-gray-600 ">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={16} height={16}>
-                    <path
-                      className="heroicon-ui"
-                      d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9a1 1 0 0 1 1 1v4a1 1 0 0 1-2 0v-4a1 1 0 0 1 1-1zm0-4a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
+    <div id="popup" className="z-50 fixed w-full flex justify-center inset-0">
+      <div onClick={() => addUserModal(false)} ref={cancelButtonRef} className="w-full h-full bg-gray-900 opacity-80 z-0 absolute inset-0" />
+      <div className="mx-auto container">
+        <div className="flex items-center justify-center h-full w-full">
+          <div className="bg-white rounded-md shadow fixed overflow-y-auto sm:h-auto w-10/12 md:w-8/12 lg:w-1/2 2xl:w-2/5">
+            <div className="bg-gray-100 rounded-tl-md rounded-tr-md px-4 md:px-8 md:py-4 py-7 flex items-center justify-between">
+              <p className="text-base font-semibold">Créer un nouvel Utilisateur</p>
+              <button onClick={() => addUserModal(false)} ref={cancelButtonRef} className="focus:outline-none">
+                <svg width={28} height={28} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 7L7 21" stroke="#A1A1AA" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M7 7L21 21" stroke="#A1A1AA" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <div className="px-4 md:px-40 pt-6 md:pt-12 md:pb-4 pb-7">
+              <div className="flex bg-green-300 text-gray-800 text-semibold items-center justify-between mt-5">
+                <p className="ml-16 text-sm text-center justify-center items-center">{succes}Utilistateur Enregistré avec succés. Email envoyé !</p>
+              </div>
+              <div className="flex bg-red-300 text-gray-800 text-semibold items-center justify-between mt-5">
+                <p className="ml-16 text-sm text-center justify-center items-center">{error}Erreur lors de l'inscription, veuillez recommencer !</p>
               </div>
             </div>
-          </div>
-          <div className="container mx-auto bg-gray-100  mt-10 rounded px-4">
-            <div className="xl:w-full border-b border-gray-300 py-5">
-              <div className="flex w-11/12 mx-auto xl:w-full xl:mx-0 items-center">
-                <p className="text-lg text-gray-800 font-bold">Informations Personnel</p>
-                <div className="ml-2 cursor-pointer text-gray-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={16} height={16}>
-                    <path
-                      className="heroicon-ui"
-                      d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9a1 1 0 0 1 1 1v4a1 1 0 0 1-2 0v-4a1 1 0 0 1 1-1zm0-4a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="mx-auto pt-4">
-              <div className="container mx-auto">
-                <div className="xl:w-1/4 lg:w-1/2 md:w-1/2 flex flex-col mb-6">
-                  <label htmlFor="Nom" className="pb-2 text-sm font-bold text-gray-800">
-                    Nom :<span className="ml-2 text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="Nom"
-                    name="Nom"
-                    required
-                    className="border border-gray-300 pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500"
-                    placeholder="Nom"
-                  />
-                </div>
-                <div className="xl:w-1/4 lg:w-1/2 md:w-1/2 flex flex-col mb-6">
-                  <label htmlFor="Email" className="pb-2 text-sm font-bold text-gray-800">
-                    Email :<span className="ml-2 text-red-500">*</span>
-                  </label>
-                  <div className="border border-gray-300 shadow-sm rounded flex">
-                    <div className="px-4 py-3  flex items-center border-r border-gray-300 bg-blue-800">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="icon icon-tabler icon-tabler-mail"
-                        width={20}
-                        height={20}
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="white"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path stroke="none" d="M0 0h24v24H0z" />
-                        <rect x={3} y={5} width={18} height={14} rx={2} />
-                        <polyline points="3 7 12 13 21 7" />
-                      </svg>
-                    </div>
+            <div className="px-4 md:px-10 pt-6 md:pt-12 md:pb-4 pb-7">
+              <form className="mt-11" onSubmit={handleSubmit(onSubmit)} ref={form}>
+                <div className="flex items-center space-x-5">
+                  <div className="flex flex-col md:mr-16">
+                    <label htmlFor="email" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
+                      Nom :<span className="text-red-600 ml-2">*</span>
+                    </label>
                     <input
+                      {...register('name', { required: true })}
                       type="text"
-                      id="Email"
-                      name="email"
+                      name="name"
+                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700   bg-white font-normal w-64 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                      placeholder="Nom"
                       required
-                      className="pl-3 py-3 w-full text-sm focus:outline-none placeholder-gray-500 rounded bg-transparent text-gray-500"
-                      placeholder="example@gmail.com"
+                    />
+                  </div>
+                  <div className="flex flex-col md:py-0 py-4">
+                    <label htmlFor="email" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
+                      Email :<span className="text-red-600 ml-2">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute text-white flex items-center px-2 border-r  h-full bg-indigo-700 rounded-l cursor-pointer">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-mail"
+                          width={18}
+                          height={18}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <rect x={3} y={5} width={18} height={14} rx={2} />
+                          <polyline points="3 7 12 13 21 7" />
+                        </svg>
+                      </div>
+                      <div className="w-72">
+                        <input
+                          {...register('email', { required: true, pattern: EMAIL_REGEX_VALIDATION })}
+                          type="email"
+                          name="email"
+                          className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-full h-10 flex items-center pl-10 text-sm border-gray-300 rounded border shadow"
+                          placeholder="Email"
+                        />
+                      </div>
+                    </div>
+                    {errors.email && <span className="text-sm text-red-500">Veuillez rentrer un email valide !</span>}
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-5 mt-8">
+                  <div className="flex flex-col md:mr-16">
+                    <label htmlFor="password" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
+                      Mot de passe Temporaire : <span className="text-red-600 ml-2">*</span>
+                    </label>
+                    <input
+                      {...register('password', { required: true, pattern: PASSWORD_REGEX_VALIDATION })}
+                      type="password"
+                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-64 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                      placeholder="Mot de passe"
+                    />
+                    {errors.password && <span className="text-sm text-red-500 w-60">Votre mot de passe doit contenir 8 caractère minimum, une lettre, un nombre et un symbol spécial ! </span>}
+                  </div>
+                  <div className="flex flex-col md:py-0 py-4 ">
+                    <label htmlFor="email" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
+                      Type de Compagnie :<span className="text-red-600 ml-2">*</span>
+                    </label>
+                    <div className="w-full bg-white border rounded border-gray-200 py-2.5 px-1 shadow-sm">
+                      <select className="text-sm text-gray-500 w-72 focus:outline-none">
+                        <option selected value>
+                          Partenaire
+                        </option>
+                        <option>Structure</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-5 mt-8">
+                  <div className="flex flex-col md:mr-16">
+                    <label htmlFor="email" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
+                      Petite Description :
+                    </label>
+                    <input
+                      {...register('short_desc')}
+                      type="text"
+                      name="short_desc"
+                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700  bg-white font-normal w-64 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                      placeholder="Petite Description..."
+                    />
+                  </div>
+                  <div className="flex flex-col md:py-0 py-4 ">
+                    <label htmlFor="email" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
+                      Logo Url :
+                    </label>
+                    <input
+                      {...register('logo_url')}
+                      type="text"
+                      name="logo_url"
+                      className="text-gray-600 dark:text-gray-400 focus:outline-none focus:border focus:border-indigo-700  bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                      placeholder="Logo Url"
                     />
                   </div>
                 </div>
-                <div className="xl:w-1/4 lg:w-1/2 md:w-1/2 flex flex-col mb-6">
-                  <label htmlFor="Password" className="pb-2 text-sm font-bold text-gray-800">
-                    Mot de passe Temporaire : <span className="ml-2 text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="Password"
-                    name="Password"
-                    required
-                    className="border border-gray-300 pl-3 py-3 shadow-sm rounded bg-transparent text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500"
-                    placeholder="Mot de passe Temporaire"
-                  />
+                <div className="mx-auto flex">
+                  <div className="flex flex-col items-start">
+                    <div className="py-4 flex items-center">
+                      <div className="bg-white  border rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
+                        <input type="checkbox" className="checkbox absolute cursor-pointer w-full h-full" />
+
+                        <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
+                          <svg
+                            className="icon icon-tabler icon-tabler-check"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={20}
+                            height={20}
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <path d="M5 12l5 5l10 -10" />
+                          </svg>
+                        </div>
+                      </div>
+                      <p {...register('activer')} type="text" name="activer" className="ml-3 text-base leading-4 font-normal text-gray-800">
+                        Activer
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-start ml-5">
+                    <div className="py-4 flex items-center">
+                      <div className="bg-white border rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
+                        <input type="checkbox" className="checkbox absolute cursor-pointer w-full h-full" />
+                        <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
+                          <svg
+                            className="icon icon-tabler icon-tabler-check"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={20}
+                            height={20}
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <path d="M5 12l5 5l10 -10" />
+                          </svg>
+                        </div>
+                      </div>
+                      <p className="ml-3 text-base leading-4 font-normal text-gray-800">Désactiver</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="xl:w-1/4 lg:w-1/2 md:w-1/2 flex flex-col mb-6">
-                  <label htmlFor="UrlLogo" className="pb-2 text-sm font-bold text-gray-800">
-                    Url Logo :<span className="ml-2 text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="UrlLogo"
-                    name="UrlLogo"
-                    required
-                    className="border bg-transparent border-gray-300 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500"
-                    placeholder="Url du Logo"
-                  />
-                </div>
-                <select
-                  class="block w-52 text-gray-700 py-2 px-3 border border-gray-300 bg-gray-100 mb-10 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  name="animals"
-                >
-                  <option value="">Choisissez....</option>
-                  <option value="parnter">Partenaire</option>
-                  <option value="structure">Structure</option>
-                </select>
-                <div className="xl:w-1/4 lg:w-1/2 md:w-1/2 flex flex-col mb-6">
-                  <label htmlFor="Description" className="pb-2 text-sm font-bold text-gray-800">
-                    Petite Description :
-                  </label>
-                  <input
-                    type="text"
-                    id="Description"
-                    name="Description"
-                    className="border bg-transparent border-gray-300 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500"
-                    placeholder="Petite Description"
-                  />
-                </div>
-                <div className="xl:w-1/4 lg:w-1/2 md:w-1/2 flex flex-col mb-6">
-                  <label htmlFor="LongueDescription" className="pb-2 text-sm font-bold text-gray-800">
+                <div className="mt-8 flex flex-col md:mr-16">
+                  <label htmlFor="email" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
                     Longue Description :
                   </label>
-                  <input
+                  <textarea
+                    {...register('full_desc')}
                     type="text"
-                    id="LongueDescription"
-                    name="LongueDescription"
-                    className="border bg-transparent border-gray-300 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-indigo-700 placeholder-gray-500 text-gray-500 "
-                    placeholder="Longue Description"
+                    name="full_desc"
+                    placeholder="Longue Description..."
+                    className="py-3 pl-3 overflow-y-auto h-24 border rounded border-gray-200 w-full resize-none focus:outline-none"
+                    defaultValue={''}
                   />
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="container mx-auto mt-10 rounded bg-gray-100 w-11/12 xl:w-full">
-            <div className="xl:w-full py-5 px-8">
-              <div className="flex items-center mx-auto">
-                <div className="container mx-auto">
-                  <div className="mx-auto xl:w-full">
-                    <p className="text-lg text-gray-800 font-bold">Permissions</p>
-                    <p className="text-sm text-gray-500 pt-1">Panel d'administration des permissions pour partenaires et structures</p>
+
+                <div className="flex items-center justify-between mt-9">
+                  <button onClick={() => addUserModal(false)} ref={cancelButtonRef} className="px-6 py-3 bg-gray-400 hover:bg-gray-500 shadow rounded text-sm text-white">
+                    Annuler
+                  </button>
+                  <div className="flex items-center justify-between mt-5">
+                    {loading ? (
+                      <button
+                        type="button"
+                        className="text-white justify-center ml-20 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center"
+                      >
+                        <svg aria-hidden="true" role="status" className="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#E5E7EB"
+                          ></path>
+                          <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                        En attente...
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="text-white justify-center ml-20  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-8 py-2.5 text-center mr-2  inline-flex items-center"
+                      >
+                        Confirmer
+                      </button>
+                    )}
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="container mx-auto pb-6">
-              <div className="px-8">
-                <div className="flex justify-between items-center mb-8 mt-4">
-                  <div className="w-9/12">
-                    <p className="text-sm text-gray-800 font-bold pb-1">Planning</p>
-                    <p className="text-sm text-gray-500">Accés au Planning d'équipe</p>
-                  </div>
-                  <div className="cursor-pointer rounded-full bg-gray-200 relative shadow-sm">
-                    <input
-                      type="checkbox"
-                      name="email_comments"
-                      id="toggle1"
-                      className="focus:outline-none checkbox w-6 h-6 rounded-full bg-white absolute shadow-sm appearance-none cursor-pointer border border-transparent top-0 bottom-0 m-auto"
-                    />
-                    <label htmlFor="toggle1" className="toggle-label block w-12 h-4 overflow-hidden rounded-full bg-gray-300 cursor-pointer" />
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mb-8">
-                  <div className="w-9/12">
-                    <p className="text-sm text-gray-800 font-bold pb-1">Newsletter</p>
-                    <p className="text-sm text-gray-500">Pouvoir envoyer des newsletters au clients</p>
-                  </div>
-                  <div className="cursor-pointer rounded-full bg-gray-200 relative shadow-sm">
-                    <input
-                      type="checkbox"
-                      name="email_job_application"
-                      id="toggle2"
-                      className="focus:outline-none checkbox w-6 h-6 rounded-full bg-white absolute shadow-sm appearance-none cursor-pointer border border-transparent top-0 bottom-0 m-auto"
-                    />
-                    <label htmlFor="toggle2" className="toggle-label block w-12 h-4 overflow-hidden rounded-full bg-gray-300 cursor-pointer" />
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mb-8">
-                  <div className="w-9/12">
-                    <p className="text-sm text-gray-800 font-bold pb-1">Boissons</p>
-                    <p className="text-sm text-gray-500">Autorisation de vendre des boissons</p>
-                  </div>
-                  <div className="cursor-pointer rounded-full bg-gray-200 relative shadow-sm">
-                    <input
-                      type="checkbox"
-                      name="email_product_update"
-                      id="toggle3"
-                      className="focus:outline-none checkbox w-6 h-6 rounded-full bg-white absolute shadow-sm appearance-none cursor-pointer border border-transparent top-0 bottom-0 m-auto"
-                    />
-                    <label htmlFor="toggle3" className="toggle-label block w-12 h-4 overflow-hidden rounded-full bg-gray-300 cursor-pointer" />
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mb-8">
-                  <div className="w-9/12">
-                    <p className="text-sm text-gray-800 font-bold pb-1">Vendre Vêtements</p>
-                    <p className="text-sm text-gray-500">Permettre de vendre des vêtements de la marque au sein de l'entreprise</p>
-                  </div>
-                  <div className="cursor-pointer rounded-full bg-gray-200 relative shadow-sm">
-                    <input
-                      type="checkbox"
-                      name="email_product_update"
-                      id="toggle3"
-                      className="focus:outline-none checkbox w-6 h-6 rounded-full bg-white absolute shadow-sm appearance-none cursor-pointer border border-transparent top-0 bottom-0 m-auto"
-                    />
-                    <label htmlFor="toggle3" className="toggle-label block w-12 h-4 overflow-hidden rounded-full bg-gray-300 cursor-pointer" />
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mb-8">
-                  <div className="w-9/12">
-                    <p className="text-sm text-gray-800 font-bold pb-1">Equipements</p>
-                    <p className="text-sm text-gray-500">Autorise la vente d'articles d'équipements de Sport</p>
-                  </div>
-                  <div className="cursor-pointer rounded-full bg-gray-200 relative shadow-sm">
-                    <input
-                      type="checkbox"
-                      name="email_product_update"
-                      id="toggle3"
-                      className="focus:outline-none checkbox w-6 h-6 rounded-full bg-white absolute shadow-sm appearance-none cursor-pointer border border-transparent top-0 bottom-0 m-auto"
-                    />
-                    <label htmlFor="toggle3" className="toggle-label block w-12 h-4 overflow-hidden rounded-full bg-gray-300 cursor-pointer" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="container mx-auto w-11/12 xl:w-full">
-            <div className="w-full py-4 sm:px-0 bg-gray-100 flex justify-end">
-              <button className="bg-gray-200 focus:outline-none transition duration-150 ease-in-out hover:bg-gray-300 rounded text-indigo-600 px-6 py-2 text-xs mr-4">Annuler</button>
-              <button className="bg-indigo-700 focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-2 text-sm" type="submit">
-                Créer
-              </button>
+              </form>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
