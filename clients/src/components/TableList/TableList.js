@@ -149,7 +149,7 @@ const TableList = () => {
   }, []);
 
   return (
-    <div className="bg-white p-10 rounded-md w-full mt-8">
+    <div className="bg-white p-10 rounded-md w-11/12 mt-8">
       <div className=" items-center justify-between pb-2">
         <h2 className="hidden py-5 md:flex text-gray-600 font-semibold">Liste des Clubs</h2>
         <div className="lg:max-w-[548px] w-full mx-auto">
@@ -177,8 +177,8 @@ const TableList = () => {
           </button>
           {addNewUser && <AddUser addUserModal={() => setAddNewUserModal(false)} />}
         </div>
-        <div className="md:flex items-center justify-start">
-          <p className="">Partenaires ={'>'} </p>
+        <div className="flex items-center justify-start">
+          <p className="">Partenaires</p>
           <div className="w-12 h-6 ml-5 cursor-pointer rounded-full relative shadow-sm">
             <input
               type="checkbox"
@@ -190,7 +190,7 @@ const TableList = () => {
             />
             <label htmlFor="partenaires" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
           </div>
-          <p className="md:ml-5">Structures ={'>'} </p>
+          <p className="ml-5">Structures</p>
           <div className="flex w-12 h-6 ml-5 cursor-pointer rounded-full relative shadow-sm">
             <input
               type="checkbox"
@@ -227,7 +227,7 @@ const TableList = () => {
                       <Th className="py-3 px-6 text-center">Actions</Th>
                     </Tr>
                   </Thead>
-                  <Tbody className="text-gray-600 text-sm font-light">
+                  <Tbody className="text-gray-600 text-sm font-light w-full">
                     {data.map((item,i) => {
                       return (
                         <Tr key={i} className="border-b border-gray-200 hover:bg-gray-100">

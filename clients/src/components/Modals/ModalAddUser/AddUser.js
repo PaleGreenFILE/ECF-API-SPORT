@@ -2,11 +2,18 @@ import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import emailjs from '@emailjs/browser';
 import { EMAIL_REGEX_VALIDATION, PASSWORD_REGEX_VALIDATION } from './../../../lib/lib';
+import { onRegistrationPartners } from './../../../api/auth';
 
 const AddUser = ({ addUserModal }) => {
   const [loading, setLoading] = useState('');
   const [succes, setSucces] = useState('');
+  const [emailSucces, setsuccesEmail] = useState('');
   const [error, setError] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
+  const [active, setActive] = useState('');
+  const [notActive, setNotActive] = useState('');
+  const [value, setValue] = useState('');
+
   const form = useRef();
   const {
     register,
@@ -15,23 +22,61 @@ const AddUser = ({ addUserModal }) => {
   } = useForm();
   const cancelButtonRef = useRef(null);
 
-  const onSubmit = () => {
-    setLoading(true);
-    const form_data = new FormData(form.current);
-    let payload = {};
-    form_data.forEach(function (value, key) {
-      payload[key] = value;
-    });
-    console.log('payload', payload);
-    // Place your API call here to submit your payload.
+  const onSubmit = async (data) => {
+    try {
+      if (value === 'partenaire' && active) {
+        setLoading(true);
+        alert('Etes-vous sur de vouloir Enregistrer un nouvel Utilisateur ?');
+        await onRegistrationPartners(data).then((res) => {
+          if (res.status === 200) {
+            emailjs.sendForm('service_1bqo3e6', 'template_c07jq3b', form.current, 'jUhrdIPj2FJVSlQP_').then(() => {
+              console.log(res.data);
+              setSucces('Partenaire enregistré avec succés.');
+              setsuccesEmail('Email envoyé au Partenaire avec succés.');
+
+              console.log(value);
+              console.log(data);
+            });
+          }
+        });
+      } else if (value === 'partenaire' && notActive) {
+        setSucces('Partenaire non Activé enregistré avec succés .');
+        setsuccesEmail('Email envoyé au Partenaire avec succés.');
+        console.log(value);
+        console.log(data);
+      } else if (value === 'structure' && active) {
+        setLoading(true);
+        setSucces('Structure enregistré avec succés.');
+        setsuccesEmail('Email envoyé au Structure avec succés.');
+        alert('Structure already registered');
+        console.log(value);
+        console.log(data);
+      } else if (value === 'structure' && notActive) {
+        setSucces('Structure non Activé enregistré avec succés .');
+        setsuccesEmail('Email envoyé à la Structure avec succés.');
+        alert('Structure already registered');
+        console.log(value);
+        console.log(data);
+      }
+    } catch (err) {
+      setError("Erreur lors de l'inscription.");
+      setErrorEmail('Email non envoyé ! Veuillez recommencer !');
+      console.log(err.response.data.message);
+      console.log("Erreur lors de l'inscription. Email non envoyé ! Veuillez recommencer ! ");
+      setLoading(false);
+      setTimeout(() => {
+        setError(false);
+        setErrorEmail(false);
+      }, 4000);
+    }
   };
 
   return (
-    <div id="popup" className="z-50 fixed w-full flex justify-center inset-0">
+    <div id="popup" className="z-40 w-full flex fixed justify-center inset-0">
       <div onClick={() => addUserModal(false)} ref={cancelButtonRef} className="w-full h-full bg-gray-900 opacity-80 z-0 absolute inset-0" />
       <div className="mx-auto container">
         <div className="flex items-center justify-center h-full w-full">
-          <div className="bg-white rounded-md shadow fixed overflow-y-auto sm:h-auto w-10/12 md:w-8/12 lg:w-1/2 2xl:w-2/5">
+          <div className="bg-white rounded-md shadow z-50 overflow-y-auto fixed h-5/6 md:w-8/10 lg:w-fit 2xl:w-fit md:h-fit">
             <div className="bg-gray-100 rounded-tl-md rounded-tr-md px-4 md:px-8 md:py-4 py-7 flex items-center justify-between">
               <p className="text-base font-semibold">Créer un nouvel Utilisateur</p>
               <button onClick={() => addUserModal(false)} ref={cancelButtonRef} className="focus:outline-none">
@@ -41,30 +86,37 @@ const AddUser = ({ addUserModal }) => {
                 </svg>
               </button>
             </div>
-            <div className="px-4 md:px-40 pt-6 md:pt-12 md:pb-4 pb-7">
-              <div className="flex bg-green-300 text-gray-800 text-semibold items-center justify-between mt-5">
-                <p className="ml-16 text-sm text-center justify-center items-center">{succes}Utilistateur Enregistré avec succés. Email envoyé !</p>
+            <div className="px-4 md:px-20 md:pb-4">
+              <div className="flex bg-green-300 text-gray-800 text-semibold items-center justify-between mt-7">
+                <p className="ml-10 md:ml-44 text-sm text-center justify-center items-center">{succes}</p>
+              </div>
+              <div className="flex bg-green-300 text-gray-800 text-semibold items-center ">
+                <p className="ml-10 md:ml-40 text-sm text-center justify-center items-center">{emailSucces}</p>
               </div>
               <div className="flex bg-red-300 text-gray-800 text-semibold items-center justify-between mt-5">
-                <p className="ml-16 text-sm text-center justify-center items-center">{error}Erreur lors de l'inscription, veuillez recommencer !</p>
+                <p className="ml-20 md:ml-52 text-sm text-center justify-center items-center">{error}</p>
+              </div>
+              <div className="flex bg-red-300 text-gray-800 text-semibold items-center justify-between">
+                <p className="ml-20 md:ml-40 text-sm text-center justify-center items-center">{errorEmail}</p>
               </div>
             </div>
-            <div className="px-4 md:px-10 pt-6 md:pt-12 md:pb-4 pb-7">
-              <form className="mt-11" onSubmit={handleSubmit(onSubmit)} ref={form}>
-                <div className="flex items-center space-x-5">
+            <div className="px-4 md:px-10 pt-5 md:pt-0 md:pb-4 pb-7">
+              <form onSubmit={handleSubmit(onSubmit)} ref={form}>
+                <div className="md:flex md:space-x-5 items-center ">
                   <div className="flex flex-col md:mr-16">
-                    <label htmlFor="email" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
+                    <label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
                       Nom :<span className="text-red-600 ml-2">*</span>
                     </label>
                     <input
                       {...register('name', { required: true })}
                       type="text"
                       name="name"
-                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700   bg-white font-normal w-64 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
                       placeholder="Nom"
-                      required
                     />
+                    {errors.name && <span className="text-sm text-red-500">Veuillez rentrer un nom !</span>}
                   </div>
+
                   <div className="flex flex-col md:py-0 py-4">
                     <label htmlFor="email" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
                       Email :<span className="text-red-600 ml-2">*</span>
@@ -101,8 +153,7 @@ const AddUser = ({ addUserModal }) => {
                     {errors.email && <span className="text-sm text-red-500">Veuillez rentrer un email valide !</span>}
                   </div>
                 </div>
-
-                <div className="flex items-center space-x-5 mt-8">
+                <div className="md:flex md:space-x-5 items-center md:mt-8">
                   <div className="flex flex-col md:mr-16">
                     <label htmlFor="password" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
                       Mot de passe Temporaire : <span className="text-red-600 ml-2">*</span>
@@ -110,26 +161,24 @@ const AddUser = ({ addUserModal }) => {
                     <input
                       {...register('password', { required: true, pattern: PASSWORD_REGEX_VALIDATION })}
                       type="password"
-                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-64 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
                       placeholder="Mot de passe"
                     />
                     {errors.password && <span className="text-sm text-red-500 w-60">Votre mot de passe doit contenir 8 caractère minimum, une lettre, un nombre et un symbol spécial ! </span>}
                   </div>
                   <div className="flex flex-col md:py-0 py-4 ">
-                    <label htmlFor="email" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
-                      Type de Compagnie :<span className="text-red-600 ml-2">*</span>
+                    <label htmlFor="type" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
+                      Type :<span className="text-red-600 ml-2">*</span>
                     </label>
-                    <div className="w-full bg-white border rounded border-gray-200 py-2.5 px-1 shadow-sm">
-                      <select className="text-sm text-gray-500 w-72 focus:outline-none">
-                        <option selected value>
-                          Partenaire
-                        </option>
-                        <option>Structure</option>
+                    <div className="w-72 md:w-full bg-white border rounded border-gray-200 py-2.5 px-1 shadow-sm">
+                      <select name="type" className="text-sm text-gray-500 w-64  focus:outline-none" onChange={(e) => setValue(e.target.value)}>
+                        <option value="partenaire">Partenaire</option>
+                        <option value="structure">Structure</option>
                       </select>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-5 mt-8">
+                <div className="md:flex md:space-x-5 items-center md:mt-7">
                   <div className="flex flex-col md:mr-16">
                     <label htmlFor="email" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
                       Petite Description :
@@ -138,7 +187,7 @@ const AddUser = ({ addUserModal }) => {
                       {...register('short_desc')}
                       type="text"
                       name="short_desc"
-                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700  bg-white font-normal w-64 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                      className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700  bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
                       placeholder="Petite Description..."
                     />
                   </div>
@@ -150,7 +199,7 @@ const AddUser = ({ addUserModal }) => {
                       {...register('logo_url')}
                       type="text"
                       name="logo_url"
-                      className="text-gray-600 dark:text-gray-400 focus:outline-none focus:border focus:border-indigo-700  bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
+                      className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700  bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
                       placeholder="Logo Url"
                     />
                   </div>
@@ -159,8 +208,7 @@ const AddUser = ({ addUserModal }) => {
                   <div className="flex flex-col items-start">
                     <div className="py-4 flex items-center">
                       <div className="bg-white  border rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
-                        <input type="checkbox" className="checkbox absolute cursor-pointer w-full h-full" />
-
+                        <input type="checkbox" className="checkbox absolute cursor-pointer w-full h-full" onClick={(e) => setActive(e.target.checked)} />
                         <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
                           <svg
                             className="icon icon-tabler icon-tabler-check"
@@ -179,7 +227,7 @@ const AddUser = ({ addUserModal }) => {
                           </svg>
                         </div>
                       </div>
-                      <p {...register('activer')} type="text" name="activer" className="ml-3 text-base leading-4 font-normal text-gray-800">
+                      <p name="activer" className="ml-3 text-base leading-4 font-normal text-gray-800">
                         Activer
                       </p>
                     </div>
@@ -187,7 +235,7 @@ const AddUser = ({ addUserModal }) => {
                   <div className="flex flex-col items-start ml-5">
                     <div className="py-4 flex items-center">
                       <div className="bg-white border rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
-                        <input type="checkbox" className="checkbox absolute cursor-pointer w-full h-full" />
+                        <input type="checkbox" className="checkbox absolute cursor-pointer w-full h-full" onClick={(e) => setNotActive(e.target.checked)} />
                         <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
                           <svg
                             className="icon icon-tabler icon-tabler-check"
@@ -206,11 +254,13 @@ const AddUser = ({ addUserModal }) => {
                           </svg>
                         </div>
                       </div>
-                      <p className="ml-3 text-base leading-4 font-normal text-gray-800">Désactiver</p>
+                      <p name="desactiver" className="ml-3 text-base leading-4 font-normal text-gray-800">
+                        Désactiver
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div className="mt-8 flex flex-col md:mr-16">
+                <div className="mt-2 flex flex-col md:mr-16">
                   <label htmlFor="email" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
                     Longue Description :
                   </label>
@@ -219,7 +269,7 @@ const AddUser = ({ addUserModal }) => {
                     type="text"
                     name="full_desc"
                     placeholder="Longue Description..."
-                    className="py-3 pl-3 overflow-y-auto h-24 border rounded border-gray-200 w-full resize-none focus:outline-none"
+                    className="py-3 pl-3 overflow-y-auto h-24 border rounded border-gray-200 w-72 md:w-full 2xl:w-full resize-none focus:outline-none"
                     defaultValue={''}
                   />
                 </div>
@@ -228,7 +278,7 @@ const AddUser = ({ addUserModal }) => {
                   <button onClick={() => addUserModal(false)} ref={cancelButtonRef} className="px-6 py-3 bg-gray-400 hover:bg-gray-500 shadow rounded text-sm text-white">
                     Annuler
                   </button>
-                  <div className="flex items-center justify-between mt-5">
+                  <div className="flex items-center justify-between">
                     {loading ? (
                       <button
                         type="button"
