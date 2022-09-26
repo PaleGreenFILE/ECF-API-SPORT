@@ -13,6 +13,7 @@ const AddUser = ({ addUserModal }) => {
   const [active, setActive] = useState('');
   const [notActive, setNotActive] = useState('');
   const [value, setValue] = useState('');
+  const [activer , setActiver] = useState('');
 
   const form = useRef();
   const {
@@ -25,6 +26,7 @@ const AddUser = ({ addUserModal }) => {
   const onSubmit = async (data) => {
     try {
       if (value === 'partenaire' && active) {
+        console.log(data);
         setLoading(true);
         alert('Etes-vous sur de vouloir Enregistrer un nouvel Utilisateur ?');
         await onRegistrationPartners(data).then((res) => {
@@ -171,7 +173,7 @@ const AddUser = ({ addUserModal }) => {
                       Type :<span className="text-red-600 ml-2">*</span>
                     </label>
                     <div className="w-72 md:w-full bg-white border rounded border-gray-200 py-2.5 px-1 shadow-sm">
-                      <select name="type" className="text-sm text-gray-500 w-64  focus:outline-none" onChange={(e) => setValue(e.target.value)}>
+                      <select className="text-sm text-gray-500 w-64  focus:outline-none" {...register('role_as')} name="select" onChange={(e) => setValue(e.target.value)}>
                         <option value="partenaire">Partenaire</option>
                         <option value="structure">Structure</option>
                       </select>
@@ -208,7 +210,14 @@ const AddUser = ({ addUserModal }) => {
                   <div className="flex flex-col items-start">
                     <div className="py-4 flex items-center">
                       <div className="bg-white  border rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
-                        <input type="checkbox" className="checkbox absolute cursor-pointer w-full h-full" onClick={(e) => setActive(e.target.checked)} />
+                        <input
+                          {...register('active')}
+                          name="active"
+                          type="checkbox"  
+                          value="activer"                    
+                          className="checkbox absolute cursor-pointer w-full h-full"
+                          onChange={(e) => setActive(e.target.value)}
+                        />
                         <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
                           <svg
                             className="icon icon-tabler icon-tabler-check"

@@ -1,4 +1,4 @@
-import { activeAdmin, deleteAdmin, disableAdmin, getAllUsers, updateAdmin, updateHashSyncAdmin } from '../controllers/admin.js';
+import { activeAdmin, deleteAdmin, disableAdmin, getAllUsers, registerAdmin, registerStructures, registerPartners, updateAdmin, updateHashSyncAdmin } from '../controllers/admin.js';
 import express from 'express';
 
 const router = express.Router();
@@ -25,6 +25,11 @@ router.get('/structures');
 router.get('/view-partners/:id');
 //View  Structures information byId
 router.get('/view-structures/:id');
+
+//ROUTE REGISTER ADMIN
+router.post('/register_admin', registerAdmin);
+router.post('/register_partners', registerPartners);
+router.post('/register_structures', registerStructures);
 
 // ROUTES DELETE //
 //delete partner information

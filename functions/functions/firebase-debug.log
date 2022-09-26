@@ -1,0 +1,333 @@
+[debug] [2022-09-26T05:21:52.282Z] ----------------------------------------------------------------------
+[debug] [2022-09-26T05:21:52.284Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\charl\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-09-26T05:21:52.284Z] CLI Version:   11.10.0
+[debug] [2022-09-26T05:21:52.284Z] Platform:      win32
+[debug] [2022-09-26T05:21:52.284Z] Node Version:  v16.17.0
+[debug] [2022-09-26T05:21:52.285Z] Time:          Mon Sep 26 2022 07:21:52 GMT+0200 (Central European Summer Time)
+[debug] [2022-09-26T05:21:52.285Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-09-26T05:21:52.338Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-09-26T05:21:52.339Z] > authorizing via signed-in user (charlyangels29@gmail.com)
+[debug] [2022-09-26T05:21:52.339Z] [iam] checking project ecf-2022 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2022-09-26T05:21:52.341Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions [none]
+[debug] [2022-09-26T05:21:52.341Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:21:52.341Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-09-26T05:21:53.068Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions 200
+[debug] [2022-09-26T05:21:53.068Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-09-26T05:21:53.069Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-09-26T05:21:53.069Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-09-26T05:21:53.724Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-09-26T05:21:53.724Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'ecf-2022'...
+[info] 
+[info] i  deploying functions 
+[debug] [2022-09-26T05:21:53.727Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 [none]
+[debug] [2022-09-26T05:21:53.983Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 200
+[debug] [2022-09-26T05:21:53.983Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 {"projectId":"ecf-2022","projectNumber":"508851807901","displayName":"ECF2022","name":"projects/ecf-2022","resources":{"hostingSite":"ecf-2022","storageBucket":"ecf-2022.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_06f28168-b631-49ee-9000-1760ddfd3d4f"}
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2022-09-26T05:21:53.984Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com [none]
+[debug] [2022-09-26T05:21:53.984Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:21:53.985Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com [none]
+[debug] [2022-09-26T05:21:53.985Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:21:53.986Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com [none]
+[debug] [2022-09-26T05:21:53.986Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:21:53.986Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com [none]
+[debug] [2022-09-26T05:21:53.987Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:21:54.812Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com 200
+[debug] [2022-09-26T05:21:54.812Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2022-09-26T05:21:54.841Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com 200
+[debug] [2022-09-26T05:21:54.841Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2022-09-26T05:21:54.847Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com 200
+[debug] [2022-09-26T05:21:54.847Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2022-09-26T05:21:54.849Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com 200
+[debug] [2022-09-26T05:21:54.849Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2022-09-26T05:21:54.850Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig [none]
+[debug] [2022-09-26T05:21:55.075Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig 200
+[debug] [2022-09-26T05:21:55.075Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig {"projectId":"ecf-2022","storageBucket":"ecf-2022.appspot.com","locationId":"us-central"}
+[debug] [2022-09-26T05:21:55.075Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs [none]
+[debug] [2022-09-26T05:21:55.341Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs 200
+[debug] [2022-09-26T05:21:55.342Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs {}
+[info] i  functions: preparing codebase default for deployment 
+[debug] [2022-09-26T05:21:55.343Z] Validating nodejs source
+[debug] [2022-09-26T05:21:57.987Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "type": "module",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "firebase": "^9.10.0",
+    "firebase-admin": "^11.0.1",
+    "firebase-functions": "^3.23.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.19",
+    "pg": "^8.8.0",
+    "postgres-pool": "^6.0.4"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^2.4.0"
+  },
+  "private": true
+}
+[debug] [2022-09-26T05:21:57.988Z] Building nodejs source
+[info] i  functions: Loaded environment variables from .env. 
+[debug] [2022-09-26T05:21:57.989Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-09-26T05:21:58.170Z] Serving at port 9005
+
+[debug] [2022-09-26T05:21:58.332Z] Got response from /__/functions.yaml {"endpoints":{"NodeJsServerEcf":{"platform":"gcfv1","httpsTrigger":{},"entryPoint":"NodeJsServerEcf"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-09-26T05:21:58.396Z] FetchError: request to http://localhost:9005/__/quitquitquit failed, reason: read ECONNRESET
+    at ClientRequest.<anonymous> (C:\Users\charl\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1491:11)
+    at ClientRequest.emit (node:events:513:28)
+    at ClientRequest.emit (node:domain:489:12)
+    at Socket.socketErrorListener (node:_http_client:481:9)
+    at Socket.emit (node:events:513:28)
+    at Socket.emit (node:domain:489:12)
+    at emitErrorNT (node:internal/streams/destroy:157:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:122:3)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2022-09-26T05:23:21.614Z] ----------------------------------------------------------------------
+[debug] [2022-09-26T05:23:21.615Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\charl\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-09-26T05:23:21.616Z] CLI Version:   11.10.0
+[debug] [2022-09-26T05:23:21.616Z] Platform:      win32
+[debug] [2022-09-26T05:23:21.616Z] Node Version:  v16.17.0
+[debug] [2022-09-26T05:23:21.617Z] Time:          Mon Sep 26 2022 07:23:21 GMT+0200 (Central European Summer Time)
+[debug] [2022-09-26T05:23:21.617Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-09-26T05:23:21.667Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-09-26T05:23:21.667Z] > authorizing via signed-in user (charlyangels29@gmail.com)
+[debug] [2022-09-26T05:23:21.668Z] [iam] checking project ecf-2022 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2022-09-26T05:23:21.669Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions [none]
+[debug] [2022-09-26T05:23:21.670Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:23:21.670Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-09-26T05:23:22.352Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions 200
+[debug] [2022-09-26T05:23:22.353Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-09-26T05:23:22.353Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-09-26T05:23:22.353Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-09-26T05:23:22.963Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-09-26T05:23:22.963Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'ecf-2022'...
+[info] 
+[info] i  deploying functions 
+[debug] [2022-09-26T05:23:22.967Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 [none]
+[debug] [2022-09-26T05:23:23.188Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 200
+[debug] [2022-09-26T05:23:23.188Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 {"projectId":"ecf-2022","projectNumber":"508851807901","displayName":"ECF2022","name":"projects/ecf-2022","resources":{"hostingSite":"ecf-2022","storageBucket":"ecf-2022.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_06f28168-b631-49ee-9000-1760ddfd3d4f"}
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2022-09-26T05:23:23.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com [none]
+[debug] [2022-09-26T05:23:23.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:23:23.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com [none]
+[debug] [2022-09-26T05:23:23.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:23:23.191Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com [none]
+[debug] [2022-09-26T05:23:23.191Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:23:23.192Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com [none]
+[debug] [2022-09-26T05:23:23.192Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:23:23.988Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com 200
+[debug] [2022-09-26T05:23:23.988Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2022-09-26T05:23:23.988Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com 200
+[debug] [2022-09-26T05:23:23.988Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2022-09-26T05:23:23.990Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com 200
+[debug] [2022-09-26T05:23:23.990Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2022-09-26T05:23:24.005Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com 200
+[debug] [2022-09-26T05:23:24.005Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2022-09-26T05:23:24.006Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig [none]
+[debug] [2022-09-26T05:23:24.262Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig 200
+[debug] [2022-09-26T05:23:24.263Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig {"projectId":"ecf-2022","storageBucket":"ecf-2022.appspot.com","locationId":"us-central"}
+[debug] [2022-09-26T05:23:24.263Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs [none]
+[debug] [2022-09-26T05:23:24.573Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs 200
+[debug] [2022-09-26T05:23:24.574Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs {}
+[info] i  functions: preparing codebase default for deployment 
+[debug] [2022-09-26T05:23:24.575Z] Validating nodejs source
+[debug] [2022-09-26T05:23:26.504Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "type": "module",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "firebase": "^9.10.0",
+    "firebase-admin": "^11.0.1",
+    "firebase-functions": "^3.23.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.19",
+    "pg": "^8.8.0",
+    "postgres-pool": "^6.0.4"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^2.4.0"
+  },
+  "private": true
+}
+[debug] [2022-09-26T05:23:26.504Z] Building nodejs source
+[info] i  functions: Loaded environment variables from .env. 
+[debug] [2022-09-26T05:23:26.506Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-09-26T05:23:26.692Z] Serving at port 9005
+
+[debug] [2022-09-26T05:23:26.865Z] Got response from /__/functions.yaml {"endpoints":{"NodeJsServerEcf":{"platform":"gcfv1","httpsTrigger":{},"entryPoint":"NodeJsServerEcf"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-09-26T05:23:26.926Z] FetchError: request to http://localhost:9005/__/quitquitquit failed, reason: read ECONNRESET
+    at ClientRequest.<anonymous> (C:\Users\charl\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1491:11)
+    at ClientRequest.emit (node:events:513:28)
+    at ClientRequest.emit (node:domain:489:12)
+    at Socket.socketErrorListener (node:_http_client:481:9)
+    at Socket.emit (node:events:513:28)
+    at Socket.emit (node:domain:489:12)
+    at emitErrorNT (node:internal/streams/destroy:157:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:122:3)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2022-09-26T05:27:13.672Z] ----------------------------------------------------------------------
+[debug] [2022-09-26T05:27:13.673Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\charl\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-09-26T05:27:13.673Z] CLI Version:   11.10.0
+[debug] [2022-09-26T05:27:13.673Z] Platform:      win32
+[debug] [2022-09-26T05:27:13.674Z] Node Version:  v16.17.0
+[debug] [2022-09-26T05:27:13.674Z] Time:          Mon Sep 26 2022 07:27:13 GMT+0200 (Central European Summer Time)
+[debug] [2022-09-26T05:27:13.674Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-09-26T05:27:13.723Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-09-26T05:27:13.723Z] > authorizing via signed-in user (charlyangels29@gmail.com)
+[debug] [2022-09-26T05:27:13.723Z] [iam] checking project ecf-2022 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2022-09-26T05:27:13.725Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions [none]
+[debug] [2022-09-26T05:27:13.725Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:27:13.726Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-09-26T05:27:14.443Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions 200
+[debug] [2022-09-26T05:27:14.443Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-09-26T05:27:14.444Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-09-26T05:27:14.444Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-09-26T05:27:15.102Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-09-26T05:27:15.102Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/ecf-2022/serviceAccounts/ecf-2022@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'ecf-2022'...
+[info] 
+[info] i  deploying functions 
+[debug] [2022-09-26T05:27:15.104Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 [none]
+[debug] [2022-09-26T05:27:15.328Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 200
+[debug] [2022-09-26T05:27:15.328Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022 {"projectId":"ecf-2022","projectNumber":"508851807901","displayName":"ECF2022","name":"projects/ecf-2022","resources":{"hostingSite":"ecf-2022","storageBucket":"ecf-2022.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_06f28168-b631-49ee-9000-1760ddfd3d4f"}
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2022-09-26T05:27:15.330Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com [none]
+[debug] [2022-09-26T05:27:15.330Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:27:15.331Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com [none]
+[debug] [2022-09-26T05:27:15.331Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:27:15.331Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com [none]
+[debug] [2022-09-26T05:27:15.331Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:27:15.332Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com [none]
+[debug] [2022-09-26T05:27:15.332Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com x-goog-quota-user=projects/ecf-2022
+[debug] [2022-09-26T05:27:16.161Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com 200
+[debug] [2022-09-26T05:27:16.161Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2022-09-26T05:27:16.167Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com 200
+[debug] [2022-09-26T05:27:16.167Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2022-09-26T05:27:16.169Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com 200
+[debug] [2022-09-26T05:27:16.169Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2022-09-26T05:27:16.179Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com 200
+[debug] [2022-09-26T05:27:16.179Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/ecf-2022/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2022-09-26T05:27:16.180Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig [none]
+[debug] [2022-09-26T05:27:16.413Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig 200
+[debug] [2022-09-26T05:27:16.413Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022/adminSdkConfig {"projectId":"ecf-2022","storageBucket":"ecf-2022.appspot.com","locationId":"us-central"}
+[debug] [2022-09-26T05:27:16.413Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs [none]
+[debug] [2022-09-26T05:27:16.683Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs 200
+[debug] [2022-09-26T05:27:16.684Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/ecf-2022/configs {}
+[info] i  functions: preparing codebase default for deployment 
+[debug] [2022-09-26T05:27:16.685Z] Validating nodejs source
+[debug] [2022-09-26T05:27:18.784Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "type": "module",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "firebase": "^9.10.0",
+    "firebase-admin": "^11.0.1",
+    "firebase-functions": "^3.23.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.19",
+    "pg": "^8.8.0",
+    "postgres-pool": "^6.0.4"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^2.4.0"
+  },
+  "private": true
+}
+[debug] [2022-09-26T05:27:18.784Z] Building nodejs source
+[info] i  functions: Loaded environment variables from .env. 
+[debug] [2022-09-26T05:27:18.787Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-09-26T05:27:18.966Z] Serving at port 9005
+
+[debug] [2022-09-26T05:27:19.136Z] Got response from /__/functions.yaml {"endpoints":{"NodeJsServerEcf":{"platform":"gcfv1","httpsTrigger":{},"entryPoint":"NodeJsServerEcf"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-09-26T05:27:19.201Z] FetchError: request to http://localhost:9005/__/quitquitquit failed, reason: read ECONNRESET
+    at ClientRequest.<anonymous> (C:\Users\charl\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\node-fetch\lib\index.js:1491:11)
+    at ClientRequest.emit (node:events:513:28)
+    at ClientRequest.emit (node:domain:489:12)
+    at Socket.socketErrorListener (node:_http_client:481:9)
+    at Socket.emit (node:events:513:28)
+    at Socket.emit (node:domain:489:12)
+    at emitErrorNT (node:internal/streams/destroy:157:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:122:3)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+[error] 
+[error] Error: An unexpected error has occurred.

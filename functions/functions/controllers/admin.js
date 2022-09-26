@@ -1,5 +1,6 @@
 import db from '../db/db.cjs';
 import bcrypt from 'bcryptjs';
+import { createError } from './../error/error.js';
 
 //Update email
 export const updateAdmin = async (req, res, next) => {
@@ -104,5 +105,80 @@ export const activeAdmin = async (req, res, next) => {
     res.status(200).send('Ce compte a bien étè activer');
   } catch (err) {
     next(err);
+  }
+};
+
+//Register Admin, Partners & Structures
+export const registerAdmin = async (req, res, next) => {
+  const { client_name, technical_contact, commercial_contact, active, short_desc, full_desc, logo_url, url_web, password, role_as } = req.body;
+  if (password.length < 6)
+    return res.status(400).json({
+      success: false,
+      message: 'Password must be 6 characters or more',
+    });
+  try {
+    //crypt password for security before insert into database
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    await db.query(
+      'INSERT INTO clients ( client_name, technical_contact, commercial_contact, active, password, short_desc, full_desc, logo_url, url_web, role_as) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)',
+      [client_name, technical_contact, commercial_contact, active, hash, short_desc, full_desc, logo_url, url_web, role_as]
+    );
+    res.status(200).json('Compte Administrateur créer avec succés!');
+  } catch (err) {
+    //next(err);
+    next(createError(400, 'Compte Administrateur déja existant!'));
+  }
+};
+
+export const registerStructures = async (req, res, next) => {
+  const { structure_name, structure_contact, active, short_desc, full_desc, logo_url, url_web, password, role_as } = req.body;
+  if (password.length < 6)
+    return res.status(400).json({
+      success: false,
+      message: 'Password must be 6 characters or more',
+    });
+  try {
+    //crypt password for security before insert into database
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    await db.query('INSERT INTO structures ( structure_name, structure_contact, active, password, short_desc, full_desc, logo_url, url_web, role_as) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)', [
+      structure_name,
+      structure_contact,
+      active,
+      hash,
+      short_desc,
+      full_desc,
+      logo_url,
+      url_web,
+      role_as,
+    ]);
+    res.status(200).json('Compte Structure créer avec succés!');
+  } catch (err) {
+    //next(err);
+    next(createError(400, 'Compte Structure déja existant!'));
+  }
+};
+
+export const registerPartners = async (req, res, next) => {
+  const { name, email, active, short_desc, full_desc, logo_url, role_as } = req.body;
+  try {
+    //crypt password for security before insert into database
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    await db.query('INSERT INTO partenaires ( partner_name, partner_email, password, active , short_desc, full_desc, logo_url, role_as) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)', [
+      name,
+      email,
+      hash,
+      active,
+      short_desc,
+      full_desc,
+      logo_url,   
+      role_as,
+    ]);
+    res.status(200).json('Compte Partenaires créer avec succés!');
+  } catch (err) {
+    next(err);
+    next(createError(400, 'Compte Partenaires déja existant!'));
   }
 };
