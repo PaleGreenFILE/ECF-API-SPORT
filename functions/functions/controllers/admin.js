@@ -132,30 +132,18 @@ export const registerAdmin = async (req, res, next) => {
 };
 
 export const registerStructures = async (req, res, next) => {
-  const { structure_name, structure_contact, active, short_desc, full_desc, logo_url, url_web, password, role_as } = req.body;
-  if (password.length < 6)
-    return res.status(400).json({
-      success: false,
-      message: 'Password must be 6 characters or more',
-    });
+  const { name, email, active, short_desc, full_desc, logo_url, role_as } = req.body;
   try {
     //crypt password for security before insert into database
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
-    await db.query('INSERT INTO structures ( structure_name, structure_contact, active, password, short_desc, full_desc, logo_url, url_web, role_as) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)', [
-      structure_name,
-      structure_contact,
-      active,
-      hash,
-      short_desc,
-      full_desc,
-      logo_url,
-      url_web,
-      role_as,
-    ]);
+    await db.query(
+      'INSERT INTO structures ( structure_name, structure_email, password,structure_active, structure_short_desc, structure_full_desc, structure_logo_url, structure_role) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+      [name, email, hash, active, short_desc, full_desc, logo_url, role_as]
+    );
     res.status(200).json('Compte Structure créer avec succés!');
   } catch (err) {
-    //next(err);
+    next(err);
     next(createError(400, 'Compte Structure déja existant!'));
   }
 };
@@ -173,12 +161,12 @@ export const registerPartners = async (req, res, next) => {
       active,
       short_desc,
       full_desc,
-      logo_url,   
+      logo_url,
       role_as,
     ]);
     res.status(200).json('Compte Partenaires créer avec succés!');
   } catch (err) {
-    next(err);
+    //next(err);
     next(createError(400, 'Compte Partenaires déja existant!'));
   }
 };

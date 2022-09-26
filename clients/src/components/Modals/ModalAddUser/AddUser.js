@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import emailjs from '@emailjs/browser';
 import { EMAIL_REGEX_VALIDATION, PASSWORD_REGEX_VALIDATION } from './../../../lib/lib';
-import { onRegistrationPartners } from './../../../api/auth';
+import { onRegistrationPartners, onRegistrationStructures } from './../../../api/auth';
 
 const AddUser = ({ addUserModal }) => {
   const [loading, setLoading] = useState('');
@@ -13,7 +13,6 @@ const AddUser = ({ addUserModal }) => {
   const [active, setActive] = useState('');
   const [notActive, setNotActive] = useState('');
   const [value, setValue] = useState('');
-  const [activer , setActiver] = useState('');
 
   const form = useRef();
   const {
@@ -25,40 +24,37 @@ const AddUser = ({ addUserModal }) => {
 
   const onSubmit = async (data) => {
     try {
-      if (value === 'partenaire' && active) {
+      if ((value === 'partenaire' && active) || (value === 'partenaire' && notActive)) {
         console.log(data);
         setLoading(true);
-        alert('Etes-vous sur de vouloir Enregistrer un nouvel Utilisateur ?');
+        alert('Etes-vous sur de vouloir Enregistrer un nouveau Partenaire ?');
         await onRegistrationPartners(data).then((res) => {
           if (res.status === 200) {
             emailjs.sendForm('service_1bqo3e6', 'template_c07jq3b', form.current, 'jUhrdIPj2FJVSlQP_').then(() => {
               console.log(res.data);
               setSucces('Partenaire enregistré avec succés.');
               setsuccesEmail('Email envoyé au Partenaire avec succés.');
-
+              setLoading(false);
               console.log(value);
               console.log(data);
             });
           }
         });
-      } else if (value === 'partenaire' && notActive) {
-        setSucces('Partenaire non Activé enregistré avec succés .');
-        setsuccesEmail('Email envoyé au Partenaire avec succés.');
-        console.log(value);
-        console.log(data);
-      } else if (value === 'structure' && active) {
+      } else if ((value === 'structure' && active) || (value === 'structure' && notActive)) {
         setLoading(true);
-        setSucces('Structure enregistré avec succés.');
-        setsuccesEmail('Email envoyé au Structure avec succés.');
-        alert('Structure already registered');
-        console.log(value);
-        console.log(data);
-      } else if (value === 'structure' && notActive) {
-        setSucces('Structure non Activé enregistré avec succés .');
-        setsuccesEmail('Email envoyé à la Structure avec succés.');
-        alert('Structure already registered');
-        console.log(value);
-        console.log(data);
+        alert('Etes-vous sur de vouloir Enregistrer une nouvelle Structure ?');
+        await onRegistrationStructures(data).then((res) => {
+          if (res.status === 200) {
+            emailjs.sendForm('service_1bqo3e6', 'template_c07jq3b', form.current, 'jUhrdIPj2FJVSlQP_').then(() => {
+              console.log(res.data);
+              setSucces('Structure enregistré avec succés.');
+              setsuccesEmail('Email envoyé à la Structure avec succés.');
+              setLoading(false);
+              console.log(value);
+              console.log(data);
+            });
+          }
+        });
       }
     } catch (err) {
       setError("Erreur lors de l'inscription.");
@@ -173,7 +169,10 @@ const AddUser = ({ addUserModal }) => {
                       Type :<span className="text-red-600 ml-2">*</span>
                     </label>
                     <div className="w-72 md:w-full bg-white border rounded border-gray-200 py-2.5 px-1 shadow-sm">
-                      <select className="text-sm text-gray-500 w-64  focus:outline-none" {...register('role_as')} name="select" onChange={(e) => setValue(e.target.value)}>
+                      <select className="text-sm text-gray-500 w-64  focus:outline-none" {...register('role_as')} name="role_as" onChange={(e) => setValue(e.target.value)}>
+                        <option>
+                          Choisissez...
+                        </option>
                         <option value="partenaire">Partenaire</option>
                         <option value="structure">Structure</option>
                       </select>
@@ -213,8 +212,8 @@ const AddUser = ({ addUserModal }) => {
                         <input
                           {...register('active')}
                           name="active"
-                          type="checkbox"  
-                          value="activer"                    
+                          type="checkbox"
+                          value="activer"
                           className="checkbox absolute cursor-pointer w-full h-full"
                           onChange={(e) => setActive(e.target.value)}
                         />
