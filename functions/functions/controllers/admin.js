@@ -48,6 +48,7 @@ export const deleteAdmin = async (req, res, next) => {
 export const getAllUsers = async (req, res, next) => {
   try {
     const user = await db.query('SELECT * FROM structures S FULL JOIN partenaires P ON S.structure_id = P.client_id ORDER BY P.client_id ASC, S.structure_id ASC');
+    //const user = await db.query('SELECT * FROM partenaires P LEFT JOIN structures S ON P.client_id = S.structure_id ORDER BY P.client_id ASC, S.structure_id ASC');
     res.status(200).json(user.rows);
   } catch (err) {
     next(err);

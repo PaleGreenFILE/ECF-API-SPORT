@@ -41,9 +41,9 @@ app.use((err, req, res, next) => {
 });
 
 // Server Connect
-const port = 8800;
+/*const port = 8800;
 app.listen(port, () => {
 console.log("Server Connected!");
-});
+});*/
 
 export const NodeJsServerEcf = functions.https.onRequest(app);
