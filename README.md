@@ -22,6 +22,8 @@ Dans le cadre de ma Formation de développeur Web Fullstack avec **Studi**, j'ai
 - Express 5.0
 - NodeJs V16.717.0
 - PostGreSql (PostGreSql 15.0)
+- Bcrypt
+- Jwt Token
 
 # Installation Locale
 
