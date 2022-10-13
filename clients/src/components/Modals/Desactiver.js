@@ -11,6 +11,7 @@ const Desactiver = ({ disableModal, userDisable, userActivate }) => {
         aria-modal="true"
         role="dialog"
       >
+        <div onClick={() => disableModal(false)} ref={cancelButtonRef} className="w-full h-full bg-gray-900 opacity-10 z-0 absolute inset-0" />
         <div className="relative p-4 w-full max-w-lg h-full md:h-auto">
           <div className="relative bg-white rounded-lg shadow">
             <button
@@ -41,19 +42,18 @@ const Desactiver = ({ disableModal, userDisable, userActivate }) => {
                 Vous pourrez aussi ré-activer le compte
               </h3>{' '}
               <button
-                data-modal-toggle="popup-modal"
-                type="button"
-                onClick={() => disableModal(false)}
-                ref={cancelButtonRef}
-                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-              >
+                    type="button"
+                    class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                    data-bs-dismiss="modal"
+                    onClick={() => disableModal(false)}
+                  >
                 Annuler
               </button>
               <button
                 onClick={() => userDisable()}
                 data-modal-toggle="popup-modal"
                 type="button"
-                className={` text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center ml-10`}
+                className={` inline-block px-5 py-2.5 ml-10 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out`}
               >
                 Désactiver
               </button>
@@ -61,7 +61,7 @@ const Desactiver = ({ disableModal, userDisable, userActivate }) => {
                 onClick={() => userActivate()}
                 data-modal-toggle="popup-modal"
                 type="button"
-                className={` text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mt-5 sm:ml-10`}
+                className={` inline-block px-6 py-2.5 mt- bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out sm:ml-10`}
               >
                 Activer
               </button>

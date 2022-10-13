@@ -12,6 +12,7 @@ const Delete = ({ deleteModal, confirmDelete }) => {
         aria-modal="true"
         role="dialog"
       >
+        <div onClick={() => deleteModal(false)} ref={cancelButtonRef} className="w-full h-full bg-gray-900 opacity-10 z-0 absolute inset-0" />
         <div className="relative p-4 w-full max-w-xl h-full md:h-auto">
           <div className="relative bg-gray-100 rounded-lg shadow">
             <button
