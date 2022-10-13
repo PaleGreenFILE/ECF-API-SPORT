@@ -1,7 +1,7 @@
 # ECF-API-SPORT
 # Bienvenue sur l'application d'administration de FitPark Fitness de Paris.
 
-Dans le cadre de mon BAC de développeur Web Fullstack avec **Studi**, j'ai eu pour tâche finale le développement d'une application  incorporant un système d'administration des partenaires et structures de la marque FITPARK FITNESS
+Dans le cadre de ma Formation de développeur Web Fullstack avec **Studi**, j'ai eu pour tâche finale le développement d'une application  incorporant un système d'administration des partenaires et structures de la marque FITPARK FITNESS
 
 ## Spécification Techniques
 
@@ -22,6 +22,8 @@ Dans le cadre de mon BAC de développeur Web Fullstack avec **Studi**, j'ai eu p
 - Express 5.0
 - NodeJs V16.717.0
 - PostGreSql (PostGreSql 15.0)
+- Bcrypt
+- Jwt Token
 
 # Installation Locale
 
@@ -77,9 +79,9 @@ Trois Cas de connexion sont possible dans cette application :
 
 |email   |mot de passe   |
 |---|---|
-| admin_fitpark@gmail.com  |  azertyu2 |
-| sporting_club@gmail.com  |  azertyu2 |
-| crossfit_ninja_avignon@gmail.com  |  azertyu2 |
+| admin_fitpark@gmail.com  |  gExoNlS1$iNc |
+| crossfit_ninja@gmail.com  |  gExoNlS1$iNc |
+| crossfit_ninja_avignon@gmail.com  |  gExoNlS1$iNc |
 
 # Les choix Techniques
 
