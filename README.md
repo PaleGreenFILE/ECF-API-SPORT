@@ -79,9 +79,9 @@ Trois Cas de connexion sont possible dans cette application :
 
 |email   |mot de passe   |
 |---|---|
-| admin_fitpark@gmail.com  |  azertyu2 |
-| crossfit_ninja@gmail.com  |  azertyu2 |
-| crossfit_ninja_avignon@gmail.com  |  azertyu2 |
+| admin_fitpark@gmail.com  |  gExoNlS1$iNc |
+| crossfit_ninja@gmail.com  |  gExoNlS1$iNc |
+| crossfit_ninja_avignon@gmail.com  |  gExoNlS1$iNc |
 
 # Les choix Techniques
 
