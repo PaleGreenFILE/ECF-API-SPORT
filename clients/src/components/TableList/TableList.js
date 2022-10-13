@@ -24,6 +24,21 @@ const TableList = () => {
   const [id, setId] = useState([]);
   const [checkPartner, setCheckPartner] = useState(false);
   const [checkStructure, setCheckStructure] = useState(false);
+  const getUsers = async () => {
+    setLoading(true);
+    try {
+      const res = await getAllUsers();
+      setData(res.data);
+      setSearchApiData(res.data);
+      setLoading(false);
+      setFilterSearch('');
+    } catch (err) {
+      setError('Votre session à expirer , Vous allez être rediriger sur la page de connexion !');
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  };
 
   const navigate = useNavigate();
   const handleChangePartenaires = () => {
@@ -128,21 +143,6 @@ const TableList = () => {
       }
     });
   };
-  const getUsers = async () => {
-    setLoading(true);
-    try {
-      const res = await getAllUsers();
-      setData(res.data);
-      setSearchApiData(res.data);
-      setLoading(false);
-      setFilterSearch('');
-    } catch (err) {
-      setError('Votre session à expirer , Vous allez être rediriger sur la page de connexion !');
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
-    }
-  };
 
   useEffect(() => {
     getUsers();
@@ -228,7 +228,7 @@ const TableList = () => {
                     </Tr>
                   </Thead>
                   <Tbody className="text-gray-600 text-sm font-light w-full">
-                    {data.map((item,i) => {
+                    {data.map((item, i) => {
                       return (
                         <Tr key={i} className="border-b border-gray-200 hover:bg-gray-100">
                           <Td className="py-3 px-6 text-left">
@@ -309,7 +309,7 @@ const TableList = () => {
                               </button>
                               {update && <Update updateModal={() => setUpdateModal(false)} />}
                               <div className="w-10 mr-3 transform hover:scale-110 cursor-pointer">
-                                <button className="w-6" onClick={() => (setId(item.structure_id || item.client_id) || setDisableModal(true))}>
+                                <button className="w-6" onClick={() => setId(item.structure_id || item.client_id) || setDisableModal(true)}>
                                   <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-Alert-interface-those-icons-lineal-those-icons.png" alt="" />
                                 </button>
                               </div>

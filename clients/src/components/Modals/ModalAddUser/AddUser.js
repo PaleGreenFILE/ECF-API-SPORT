@@ -3,15 +3,13 @@ import { useForm } from 'react-hook-form';
 import emailjs from '@emailjs/browser';
 import { EMAIL_REGEX_VALIDATION, PASSWORD_REGEX_VALIDATION } from './../../../lib/lib';
 import { onRegistrationPartners, onRegistrationStructures } from './../../../api/auth';
-
 const AddUser = ({ addUserModal }) => {
   const [loading, setLoading] = useState('');
   const [succes, setSucces] = useState('');
   const [emailSucces, setsuccesEmail] = useState('');
   const [error, setError] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
-  const [active, setActive] = useState('');
-  const [notActive, setNotActive] = useState('');
+  const active = 'activer';
   const [value, setValue] = useState('');
 
   const form = useRef();
@@ -21,10 +19,11 @@ const AddUser = ({ addUserModal }) => {
     formState: { errors },
   } = useForm();
   const cancelButtonRef = useRef(null);
+  
 
   const onSubmit = async (data) => {
     try {
-      if ((value === 'partenaire' && active) || (value === 'partenaire' && notActive)) {
+      if (value === 'partenaire' && active) {
         console.log(data);
         setLoading(true);
         alert('Etes-vous sur de vouloir Enregistrer un nouveau Partenaire ?');
@@ -37,10 +36,14 @@ const AddUser = ({ addUserModal }) => {
               setLoading(false);
               console.log(value);
               console.log(data);
+              setTimeout(() => {
+                setsuccesEmail('');
+                setSucces('');
+              }, 4000);
             });
           }
         });
-      } else if ((value === 'structure' && active) || (value === 'structure' && notActive)) {
+      } else if (value === 'structure' && active) {
         setLoading(true);
         alert('Etes-vous sur de vouloir Enregistrer une nouvelle Structure ?');
         await onRegistrationStructures(data).then((res) => {
@@ -52,6 +55,10 @@ const AddUser = ({ addUserModal }) => {
               setLoading(false);
               console.log(value);
               console.log(data);
+              setTimeout(() => {
+                setsuccesEmail('');
+                setSucces('');
+              }, 4000);
             });
           }
         });
@@ -170,9 +177,7 @@ const AddUser = ({ addUserModal }) => {
                     </label>
                     <div className="w-72 md:w-full bg-white border rounded border-gray-200 py-2.5 px-1 shadow-sm">
                       <select className="text-sm text-gray-500 w-64  focus:outline-none" {...register('role_as')} name="role_as" onChange={(e) => setValue(e.target.value)}>
-                        <option>
-                          Choisissez...
-                        </option>
+                        <option>Choisissez...</option>
                         <option value="partenaire">Partenaire</option>
                         <option value="structure">Structure</option>
                       </select>
@@ -208,63 +213,9 @@ const AddUser = ({ addUserModal }) => {
                 <div className="mx-auto flex">
                   <div className="flex flex-col items-start">
                     <div className="py-4 flex items-center">
-                      <div className="bg-white  border rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
-                        <input
-                          {...register('active')}
-                          name="active"
-                          type="checkbox"
-                          value="activer"
-                          className="checkbox absolute cursor-pointer w-full h-full"
-                          onChange={(e) => setActive(e.target.value)}
-                        />
-                        <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
-                          <svg
-                            className="icon icon-tabler icon-tabler-check"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={20}
-                            height={20}
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" />
-                            <path d="M5 12l5 5l10 -10" />
-                          </svg>
-                        </div>
+                      <div className="hidden border rounded-sm w-20 h-5  flex-shrink-0 justify-center items-center relative">
+                        <input {...register('active')} name="active" type="text" defaultValue="activer" className="absolute cursor-pointer w-full h-full" />
                       </div>
-                      <p name="activer" className="ml-3 text-base leading-4 font-normal text-gray-800">
-                        Activer
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-start ml-5">
-                    <div className="py-4 flex items-center">
-                      <div className="bg-white border rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
-                        <input type="checkbox" className="checkbox absolute cursor-pointer w-full h-full" onClick={(e) => setNotActive(e.target.checked)} />
-                        <div className="check-icon hidden bg-indigo-700 text-white rounded-sm">
-                          <svg
-                            className="icon icon-tabler icon-tabler-check"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={20}
-                            height={20}
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" />
-                            <path d="M5 12l5 5l10 -10" />
-                          </svg>
-                        </div>
-                      </div>
-                      <p name="desactiver" className="ml-3 text-base leading-4 font-normal text-gray-800">
-                        Désactiver
-                      </p>
                     </div>
                   </div>
                 </div>
