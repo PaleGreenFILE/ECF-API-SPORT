@@ -1,31 +1,32 @@
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { EMAIL_REGEX_VALIDATION, PASSWORD_REGEX_VALIDATION } from '../../lib/lib';
+import { EMAIL_REGEX_VALIDATION } from '../../lib/lib';
 import emailjs from '@emailjs/browser';
-import { onRegistrationPartners, onRegistrationStructures } from '../../api/auth';
 
-const Update = ({ updateModal, updateModalConfirm, sendForm }) => {
+const Update = ({ updateModal, confirmUpdate, sendMail }) => {
   const [loading, setLoading] = useState('');
   const [succes, setSucces] = useState('');
   const [emailSucces, setsuccesEmail] = useState('');
   const [error, setError] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
-  const active = 'activer';
-  const [value, setValue] = useState('');
-  const [newsLetters, setCheckPermNews] = useState('');
-  const [drinks, setCheckPermDrink] = useState('');
-  const [vetements, setCheckPermVet] = useState('');
-  const [equipement, setCheckPermEquipment] = useState('');
+  const [newsLetters, setCheckPermNews] = useState(false);
+  const [drinks, setCheckPermDrink] = useState(false);
+  const [vetements, setCheckPermVet] = useState(false);
+  const [equipement, setCheckPermEquipment] = useState(false);
 
   const form = useRef();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const cancelButtonRef = useRef(null);
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    console.log(data);
+  };
 
   return (
     <>
@@ -59,8 +60,8 @@ const Update = ({ updateModal, updateModalConfirm, sendForm }) => {
               <div className="px-4 md:px-10 pt-5 md:pt-0 md:pb-4 pb-7">
                 <form onSubmit={handleSubmit(onSubmit)} ref={form}>
                   <div className="md:flex md:space-x-5 items-center ">
-                    <div className="flex flex-col  md:mr-16">
-                      <label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight mr-56 tracking-normal mb-2">
+                    <div className="flex flex-col  justify-start items-start  md:mr-16">
+                      <label htmlFor="name" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
                         Nom :<span className="text-red-600 ml-2">*</span>
                       </label>
                       <input
@@ -72,7 +73,7 @@ const Update = ({ updateModal, updateModalConfirm, sendForm }) => {
                       />
                       {errors.name && <span className="text-sm text-red-500 mr-28">Veuillez rentrer un nom !</span>}
                     </div>
-                    <div className="flex flex-col md:py-0 py-4">
+                    <div className="flex flex-col justify-start items-start  md:py-0 py-4">
                       <label htmlFor="email" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
                         Email :<span className="text-red-600 ml-2">*</span>
                       </label>
@@ -109,8 +110,8 @@ const Update = ({ updateModal, updateModalConfirm, sendForm }) => {
                     </div>
                   </div>
                   <div className="md:flex md:space-x-5 items-center md:mt-8">
-                    <div className="flex flex-col md:mr-16">
-                      <label htmlFor="Adresse" className="text-gray-800 mr-52 text-sm font-bold leading-tight tracking-normal mb-2">
+                    <div className="flex flex-col justify-start items-start  md:mr-16">
+                      <label htmlFor="Adresse" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
                         Adresse: <span className="text-red-600 ml-2">*</span>
                       </label>
                       <input
@@ -121,13 +122,13 @@ const Update = ({ updateModal, updateModalConfirm, sendForm }) => {
                       />
                       {errors.Adresse && <span className="text-sm text-red-500 w-66">Merci de rentrer une adresse correcte.</span>}
                     </div>
-                    <div className="flex flex-col mt-5 md:mr-16">
-                      <label htmlFor="postal" className="text-gray-800 mr-52 text-sm font-bold leading-tight tracking-normal mb-2">
+                    <div className="flex flex-col justify-start items-start  mt-5 md:mr-16">
+                      <label htmlFor="postal" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
                         Code Postal: <span className="text-red-600 ml-2">*</span>
                       </label>
                       <input
                         {...register('postal', { required: true })}
-                        type="postal"
+                        type="number"
                         className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
                         placeholder="Code Postal"
                       />
@@ -135,20 +136,21 @@ const Update = ({ updateModal, updateModalConfirm, sendForm }) => {
                     </div>
                   </div>
                   <div className="md:flex md:space-x-5 mt-5 items-center md:mt-7">
-                    <div className="flex flex-col md:mr-16">
-                      <label htmlFor="ville" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
+                    <div className="flex flex-col justify-start items-start  md:mr-16">
+                      <label htmlFor="ville" className="text-gray-800   text-sm font-bold leading-tight tracking-normal mb-2">
                         Ville :<span className="text-red-600 ml-2">*</span>
                       </label>
                       <input
-                        {...register('logo_url')}
+                        {...register('ville', { required: true })}
                         type="text"
                         name="ville"
                         className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700  bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
                         placeholder="ville..."
                       />
+                      {errors.ville && <span className="text-sm text-red-500 mr-28">Veuillez rentrer une Ville !</span>}
                     </div>
-                    <div className="flex flex-col md:py-0 py-4 ">
-                      <label htmlFor="short_desc" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
+                    <div className="flex flex-col justify-start items-start  md:py-0 py-4 ">
+                      <label htmlFor="short_desc" className="text-gray-800   text-sm font-bold leading-tight tracking-normal mb-2">
                         Petite Description :
                       </label>
                       <input
@@ -161,8 +163,8 @@ const Update = ({ updateModal, updateModalConfirm, sendForm }) => {
                     </div>
                   </div>
                   <div className="md:flex md:space-x-5 items-center md:">
-                    <div className="flex flex-col md:py-0 py-4 ">
-                      <label htmlFor="logo_url" className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2">
+                    <div className="flex flex-col md:mt-5  justify-start items-start  md:py-0 py-4 ">
+                      <label htmlFor="logo_url" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
                         Logo Url :
                       </label>
                       <input
@@ -174,71 +176,68 @@ const Update = ({ updateModal, updateModalConfirm, sendForm }) => {
                       />
                     </div>
                   </div>
-                  <div className="mx-auto flex">
-                    <div className="flex flex-col items-start">
-                      <div className="py-4 flex items-center">
-                        <div className="hidden border rounded-sm w-20 h-5  flex-shrink-0 justify-center items-center relative">
-                          <input {...register('active')} name="active" type="text" defaultValue="activer" className="absolute cursor-pointer w-full h-full" />
-                        </div>
+                  <div className="flex flex-col  justify-start items-start mt-5 md:py-0 py-4 ">
+                    <label htmlFor="email" className="text-gray-800 text-sm  font-bold leading-tight tracking-normal mb-2">
+                      Permissions:
+                    </label>
+                    <div className="flex items-center mt-10 justify-start">
+                      <p className="">Newsletters</p>
+                      <div className="w-12 h-6 ml-5 cursor-pointer rounded-full relative shadow-sm">
+                        <input
+                          type="checkbox"
+                          {...register('sell_newsletter')}
+                          name="sell_newsletter"
+                          id="Newsletters"
+                          checked={newsLetters}
+                          onChange={(e) => setCheckPermNews(e.target.checked)}
+                          className="focus:outline-none checkbox right-6 checked:right-0 checked:bg-green-500 w-4 h-4 rounded-full bg-red-500 absolute m-1 shadow-sm appearance-none cursor-pointer"
+                        />
+                        <label htmlFor="Newsletters" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
+                      </div>
+                      <p className="ml-5">Boissons</p>
+                      <div className="flex w-12 h-6 ml-12 cursor-pointer rounded-full relative shadow-sm">
+                        <input
+                          type="checkbox"
+                          {...register('sell_boissons')}
+                          name="sell_boissons"
+                          id="drinks"
+                          checked={drinks}
+                          onChange={(e) => setCheckPermDrink(e.target.checked)}
+                          className="focus:outline-none checkbox right-6 checked:right-0 checked:bg-green-500 w-4 h-4 rounded-full bg-red-500 absolute m-1 shadow-sm appearance-none cursor-pointer"
+                        />
+                        <label htmlFor="drinks" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-start mt-5">
+                      <p className="">Vêtements</p>
+                      <div className="w-12 h-6 ml-6 cursor-pointer rounded-full relative shadow-sm">
+                        <input
+                          type="checkbox"
+                          {...register('sell_vêtements')}
+                          name="sell_vêtements"
+                          id="Vêtements"
+                          checked={vetements}
+                          onChange={(e) => setCheckPermVet(e.target.checked)}
+                          className="focus:outline-none checkbox right-6 checked:right-0 checked:bg-green-500 w-4 h-4 rounded-full bg-red-500 absolute m-1 shadow-sm appearance-none cursor-pointer"
+                        />
+                        <label htmlFor="Vêtements" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
+                      </div>
+                      <p className="ml-5">Equipements</p>
+                      <div className="flex w-12 h-6 ml-4 cursor-pointer rounded-full relative shadow-sm">
+                        <input
+                          type="checkbox"
+                          {...register('sell_équipements')}
+                          name="sell_équipements"
+                          id="equipements"
+                          checked={equipement}
+                          onChange={(e) => setCheckPermEquipment(e.target.checked)}
+                          className="focus:outline-none checkbox right-6 checked:right-0 checked:bg-green-500 w-4 h-4 rounded-full bg-red-500 absolute m-1 shadow-sm appearance-none cursor-pointer"
+                        />
+                        <label htmlFor="equipements" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
                       </div>
                     </div>
                   </div>
-                  <label htmlFor="email" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
-                    Permissions:
-                  </label>
-                  <div className="flex items-center mt-5 justify-start">
-                    <p className="">Newsletters</p>
-                    <div className="w-12 h-6 ml-5 cursor-pointer rounded-full relative shadow-sm">
-                      <input
-                        type="checkbox"
-                        name="toggle"
-                        id="Newsletters"
-                        checked={newsLetters}
-                        onChange={(e) => onSubmit(setCheckPermNews(e.target.checked))}
-                        className="focus:outline-none checkbox right-0 checked:right-6 w-4 h-4 rounded-full bg-green-500 checked:bg-red-500 absolute m-1 shadow-sm appearance-none cursor-pointer"
-                      />
-                      <label htmlFor="Newsletters" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
-                    </div>
-                    <p className="ml-5">Boissons</p>
-                    <div className="flex w-12 h-6 ml-12 cursor-pointer rounded-full relative shadow-sm">
-                      <input
-                        type="checkbox"
-                        name="toggle"
-                        id="drinks"
-                        checked={drinks}
-                        onChange={(e) => onSubmit(setCheckPermDrink(e.target.checked))}
-                        className="focus:outline-none checkbox right-0 checked:right-6 checked:bg-red-500 w-4 h-4 rounded-full bg-green-500 absolute m-1 shadow-sm appearance-none cursor-pointer"
-                      />
-                      <label htmlFor="drinks" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-start mt-5">
-                    <p className="">Vêtements</p>
-                    <div className="w-12 h-6 ml-6 cursor-pointer rounded-full relative shadow-sm">
-                      <input
-                        type="checkbox"
-                        name="toggle"
-                        id="Vêtements"
-                        checked={vetements}
-                        onChange={(e) => onSubmit(setCheckPermVet(e.target.checked))}
-                        className="focus:outline-none checkbox right-0 checked:right-6 w-4 h-4 rounded-full bg-green-500 checked:bg-red-500 absolute m-1 shadow-sm appearance-none cursor-pointer"
-                      />
-                      <label htmlFor="Vêtements" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
-                    </div>
-                    <p className="ml-5">Equipements</p>
-                    <div className="flex w-12 h-6 ml-4 cursor-pointer rounded-full relative shadow-sm">
-                      <input
-                        type="checkbox"
-                        name="toggle"
-                        id="equipements"
-                        checked={equipement}
-                        onChange={(e) => onSubmit(setCheckPermEquipment(e.target.checked))}
-                        className="focus:outline-none checkbox right-0 checked:right-6 checked:bg-red-500 w-4 h-4 rounded-full bg-green-500 absolute m-1 shadow-sm appearance-none cursor-pointer"
-                      />
-                      <label htmlFor="equipements" className="toggle-label block w-12 h-6 overflow-hidden rounded-full bg-gray-300  cursor-pointer" />
-                    </div>
-                  </div>
-                  <div className="mt- flex flex-col mt-5 md:mr-16">
+                  <div className="mt- flex flex-col mt-5 justify-start items-start  md:mr-16">
                     <label htmlFor="email" className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2">
                       Longue Description :
                     </label>

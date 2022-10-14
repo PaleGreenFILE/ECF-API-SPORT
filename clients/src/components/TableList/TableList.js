@@ -142,9 +142,6 @@ const TableList = () => {
       }
     });
   };
-  const setUpdateModalConfirm = (id) => {
-    alert(id);
-  };
 
   useEffect(() => {
     getUsers();
@@ -165,8 +162,6 @@ const TableList = () => {
             <input
               className="relative text-sm leading-none text-gray-600 bg-gray-50  rounded  w-full px-10 py-4 outline-none"
               type="text"
-              name
-              id
               placeholder="Rechercher..."
               value={filtersearch}
               onChange={(e) => handleChangeSearch(e)}
@@ -308,7 +303,7 @@ const TableList = () => {
                                   </svg>
                                 </div>
                               </button>
-                              {update && <Update updateModal={() => setUpdateModal(false)} updateModalConfirm={() => setUpdateModalConfirm(id)} />}
+                              {update && <Update updateModal={() => setUpdateModal(false)}/>}
                               <div className="w-10 mr-3 transform hover:scale-110 cursor-pointer">
                                 <button className="w-6" onClick={() => setId(item.structure_id || item.client_id) || setDisableModal(true)}>
                                   <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-Alert-interface-those-icons-lineal-those-icons.png" alt="" />

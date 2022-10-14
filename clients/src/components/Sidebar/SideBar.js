@@ -118,7 +118,7 @@ const SideBar = () => {
           </ul>
         </div>
       </div>
-      <div class="flex md:hidden">
+      <div className="flex md:hidden">
         <div
           className={`bg-blue-side  p-0 pt-7 
        ${open ? 'w-52' : 'w-0'} relative duration-500`}
