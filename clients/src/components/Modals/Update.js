@@ -20,9 +20,7 @@ const Update = ({ updateModal, confirmUptdate }) => {
     formState: { errors },
   } = useForm();
   const cancelButtonRef = useRef(null);
-
   const onSubmit = async (data) => {
-    alert('Attention! Vous êtes sur le point de modifier les informations utilisateur cliquer sur  ok pour continuer.');
     try {
       if (value === 'partenaire' && active) {
         console.log(data);
@@ -76,7 +74,6 @@ const Update = ({ updateModal, confirmUptdate }) => {
       }, 4000);
     }
   };
-
   return (
     <div id="popup" className="z-40 w-full flex fixed justify-center inset-0">
       <div onClick={() => updateModal(false)} ref={cancelButtonRef} className="w-full h-full bg-gray-900 opacity-10 z-0 absolute inset-0" />
