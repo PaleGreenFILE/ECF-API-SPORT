@@ -8,13 +8,13 @@ const Delete = ({ deleteModal, confirmDelete }) => {
       <div
         id="popup-modal"
         tabIndex="-1"
-        className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex"
+        className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-full h-modal md:h-full justify-center items-center flex"
         aria-modal="true"
         role="dialog"
       >
         <div onClick={() => deleteModal(false)} ref={cancelButtonRef} className="w-full h-full bg-gray-900 opacity-10 z-0 absolute inset-0" />
         <div className="relative p-4 w-full max-w-xl h-full md:h-auto">
-          <div className="relative bg-gray-100 rounded-lg shadow">
+          <div className="relative bg-gray-100 rounded-lg shadow mt-60 sm:mt-0">
             <button
               type="button"
               className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"

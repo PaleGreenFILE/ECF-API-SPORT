@@ -7,13 +7,14 @@ const Desactiver = ({ disableModal, userDisable, userActivate }) => {
       <div
         id="popup-modal"
         tabIndex="-1"
-        className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full justify-center items-center flex"
+        className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 h-full md:inset-0 h-modal md:h-full justify-center items-center flex"
         aria-modal="true"
         role="dialog"
-      >
-        <div onClick={() => disableModal(false)} ref={cancelButtonRef} className="w-full h-full bg-gray-900 opacity-10 z-0 absolute inset-0" />
+      >  <div onClick={() => disableModal(false)} ref={cancelButtonRef} className="w-full h-full bg-gray-900 opacity-10 z-0 absolute inset-0" />
+
         <div className="relative p-4 w-full max-w-lg h-full md:h-auto">
-          <div className="relative bg-white rounded-lg shadow">
+          <div className="relative bg-white rounded-lg shadow mt-40 sm:mt-0">
+
             <button
               type="button"
               className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
@@ -61,7 +62,7 @@ const Desactiver = ({ disableModal, userDisable, userActivate }) => {
                 onClick={() => userActivate()}
                 data-modal-toggle="popup-modal"
                 type="button"
-                className={` inline-block px-6 py-2.5 mt- bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out sm:ml-10`}
+                className={` inline-block px-6 py-2.5 mt-2 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out sm:ml-10`}
               >
                 Activer
               </button>
