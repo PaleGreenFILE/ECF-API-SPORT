@@ -120,7 +120,7 @@ Dans cette application vous trouverai un dossier **Documentation** vous pouvez y
 
 Dans cette section je met à disposition tous ce dont je me suis appuyé pour réaliser cette application :
 
-- [Trello](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi/)
+- [Trello](https://whimsical.com/ecf-decembre-2022-trello-NfUp8nvFJNPCBk4jGxLFJi)
 - [Wireframe Desktop](https://whimsical.com/wireframe-web-ecf-2022-WampAVigaVCERKX5Qy4xQ2)
 - [Wireframe Mobile](https://whimsical.com/wireframe-web-ecf-2022-WampAVigaVCERKX5Qy4xQ2)
 - [Manuel d'utilisation](https://whimsical.com/documentation-ecf-2022-2QJGZVikAvSVZanN8gjUzW)
