@@ -57,7 +57,7 @@ create table partenaires
     update_at                timestamp default CURRENT_TIMESTAMP,
     role_as                  varchar(20)  not null,
     partner_id               integer   default 0,
-    "Adresse"                varchar(150),
+    Adresse                  varchar(150),
     code_postal              integer   default 0,
     ville_partner            varchar(20),
     sell_newsletter_partner  boolean   default false,
