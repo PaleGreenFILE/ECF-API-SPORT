@@ -53,10 +53,9 @@ const PasswordChange = () => {
   };
 
   return (
-    <div className="w-full h-screen font-sans bg-cover bg-landscape bg-[url('https://bit.ly/3AKoO89')]">
+    <div className="w-full h-screen font-sans bg-cover bg-landscape bg-[url('https://bit.ly/3FjaKmO')]">
       <div className="container flex items-center justify-center flex-1 h-full mx-auto">
         <div className="w-full max-w-lg">
-          <img src="https://bit.ly/3AHZ3Fy" alt="sport" />
           <div className="leading-loose">
             <form onSubmit={handleSubmit(onSubmit)} ref={form} className="max-w-sm p-10 mb-32 m-auto bg-white bg-opacity-70 rounded shadow-xl">
               <p className="mb-8 text-3xl font-semibold text-center text-black">Mot de passe</p>

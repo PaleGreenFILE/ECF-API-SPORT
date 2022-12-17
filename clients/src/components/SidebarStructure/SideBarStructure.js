@@ -44,7 +44,7 @@ const SideBarStructure = () => {
           onClick={() => setOpen(!open)}
         />
         <div className="flex">
-          <img className={` h-10 bg-white block float-left mr-2 duration-500 ${open && 'rotate-[360deg]'}`} src="https://bit.ly/3IUtNVM" alt="logo" />
+          <img className={` h-10 bg-white block float-left mr-2 duration-500 ${open && 'rotate-[360deg]'}`} src="https://bit.ly/3FjaKmO" alt="logo" />
           <div className={` text-yellow-300 origin-left font-medium text-sm mt-2 ${!open && 'scale-0'}`}>FitPark Fitness</div>
         </div>
         <ul className="pt-20">

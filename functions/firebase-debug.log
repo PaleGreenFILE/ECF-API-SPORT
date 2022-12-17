@@ -1,0 +1,124 @@
+[debug] [2022-12-17T10:15:23.202Z] ----------------------------------------------------------------------
+[debug] [2022-12-17T10:15:23.204Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\charl\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2022-12-17T10:15:23.205Z] CLI Version:   11.18.0
+[debug] [2022-12-17T10:15:23.205Z] Platform:      win32
+[debug] [2022-12-17T10:15:23.205Z] Node Version:  v18.12.1
+[debug] [2022-12-17T10:15:23.205Z] Time:          Sat Dec 17 2022 11:15:23 GMT+0100 (Central European Standard Time)
+[debug] [2022-12-17T10:15:23.206Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-12-17T10:15:23.259Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-12-17T10:15:23.259Z] > authorizing via signed-in user (angelsdevcompany@gmail.com)
+[debug] [2022-12-17T10:15:23.259Z] [iam] checking project ecf-2022-21611 for permissions ["firebase.projects.get"]
+[debug] [2022-12-17T10:15:23.261Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022-21611:testIamPermissions [none]
+[debug] [2022-12-17T10:15:23.261Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022-21611:testIamPermissions x-goog-quota-user=projects/ecf-2022-21611
+[debug] [2022-12-17T10:15:23.261Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022-21611:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-12-17T10:15:23.977Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022-21611:testIamPermissions 200
+[debug] [2022-12-17T10:15:23.977Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/ecf-2022-21611:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-12-17T10:15:23.980Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-17T10:15:23.993Z] [functions] Using node@18 from host.
+[debug] [2022-12-17T10:15:23.994Z] defaultcredentials: writing to file C:\Users\charl\AppData\Roaming\firebase\angelsdevcompany_gmail_com_application_default_credentials.json
+[debug] [2022-12-17T10:15:23.995Z] DEBUG: Setting GAC to C:\Users\charl\AppData\Roaming\firebase\angelsdevcompany_gmail_com_application_default_credentials.json
+[debug] [2022-12-17T10:15:23.995Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022-21611/adminSdkConfig [none]
+[debug] [2022-12-17T10:15:24.206Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022-21611/adminSdkConfig 200
+[debug] [2022-12-17T10:15:24.206Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ecf-2022-21611/adminSdkConfig {"projectId":"ecf-2022-21611","storageBucket":"ecf-2022-21611.appspot.com","locationId":"europe-west"}
+[debug] [2022-12-17T10:15:24.214Z] [functions] Watching "D:\PROJET PRO\ecf-2022-GOODµ\functions" for Cloud Functions...
+[debug] [2022-12-17T10:15:24.218Z] Validating nodejs source
+[debug] [2022-12-17T10:15:26.131Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "type": "module",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "firebase": "^9.15.0",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.19",
+    "pg": "^8.8.0",
+    "postgres-pool": "^6.0.4"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-17T10:15:26.131Z] Building nodejs source
+[debug] [2022-12-17T10:15:26.131Z] Analyzing nodejs backend spec
+[debug] [2022-12-17T10:15:26.132Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-17T10:15:26.326Z] Serving at port 9005
+
+[debug] [2022-12-17T10:15:26.625Z] Got response from /__/functions.yaml {"endpoints":{"NodeJsServerEcf":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"NodeJsServerEcf"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-17T10:15:26.628Z] Server Connected!
+
+[debug] [2022-12-17T10:15:26.630Z] shutdown requested via /__/quitquitquit
+
+[debug] [2022-12-17T10:15:27.263Z] Connected to Database
+
+[debug] [2022-12-17T10:15:36.635Z] [functions] Loaded functions definitions from source: NodeJsServerEcf.
+[debug] [2022-12-17T10:15:36.636Z] [functions[us-central1-NodeJsServerEcf]] http function initialized (http://127.0.0.1:5000/ecf-2022-21611/us-central1/NodeJsServerEcf).
+[info] i  functions: Loaded functions: NodeJsServerEcf 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage, eventarc 
+[debug] [2022-12-17T10:15:56.016Z] DEBUG: File D:\PROJET PRO\ecf-2022-GOODµ\functions\index.js changed, reloading triggers
+[debug] [2022-12-17T10:15:57.022Z] Validating nodejs source
+[debug] [2022-12-17T10:15:58.922Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "type": "module",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "firebase": "^9.15.0",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.19",
+    "pg": "^8.8.0",
+    "postgres-pool": "^6.0.4"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-17T10:15:58.922Z] Building nodejs source
+[debug] [2022-12-17T10:15:58.922Z] Analyzing nodejs backend spec
+[debug] [2022-12-17T10:15:58.923Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-17T10:15:59.106Z] Serving at port 9005
+
+[debug] [2022-12-17T10:15:59.400Z] Got response from /__/functions.yaml {"endpoints":{"NodeJsServerEcf":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"NodeJsServerEcf"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-17T10:15:59.403Z] shutdown requested via /__/quitquitquit
+
+[debug] [2022-12-17T10:16:00.041Z] Connected to Database
+
+[debug] [2022-12-17T10:16:09.406Z] [functions] Loaded functions definitions from source: NodeJsServerEcf.

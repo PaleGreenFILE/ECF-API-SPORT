@@ -12,7 +12,7 @@ const app = express();
 dotenv.config();
 
 const options = {
-  origin: ['https://ecf-2022.web.app', 'https://us-central1-ecf-2022.cloudfunctions.net/NodeJsServerEcf', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:8800'],
+  origin: ['https://ecf-2022-21611.web.app', 'https://us-central1-ecf-2022-21611.cloudfunctions.net/NodeJsServerEcf', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:5000'],
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -41,9 +41,9 @@ app.use((err, req, res, next) => {
 });
 
 // Server Connect
-/*const port = 8800;
-app.listen(port, () => {
-console.log("Server Connected!");
-});*/
+// const port = 8080;
+// app.listen(port, () => {
+// console.log("Server Connected!");
+// });
 
 export const NodeJsServerEcf = functions.https.onRequest(app);

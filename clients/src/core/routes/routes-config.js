@@ -10,11 +10,9 @@ import DashboardPartner from '../../pages/Partner/dashboardPartner';
 import PlanningPartner from '../../pages/Partner/PlanningPartner/PlanningPartner';
 import SettingsPartner from '../../pages/Partner/Settings/SettingsPartner';
 import PasswordChange from '../../pages/Password/PasswordChange';
-import ContactStructure from '../../pages/Structure/Contact/ContactStructure';
 import DashboardStructure from '../../pages/Structure/dashboardStrucure';
 import PlanningStructure from '../../pages/Structure/Planning/PlanningStructure';
 import SettingsStructure from '../../pages/Structure/Settings/SettingsStructure';
-import { userRoles } from './constants';
 import ProtectedRoute from './protected-route';
 import appRoutes from './routes';
 
@@ -33,12 +31,16 @@ const routesConfig = [
   },
   {
     path: appRoutes.ADMINDASH,
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute allowedRoles={['admin']}>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
   },
   {
     path: appRoutes.ADMINPLANNING,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.admin]}>
+      <ProtectedRoute allowedRoles={['admin']}>
         <Planning />
       </ProtectedRoute>
     ),
@@ -46,7 +48,7 @@ const routesConfig = [
   {
     path: appRoutes.ADMINCONTACT,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.admin]}>
+      <ProtectedRoute allowedRoles={['admin']}>
         <Contact />
       </ProtectedRoute>
     ),
@@ -54,7 +56,7 @@ const routesConfig = [
   {
     path: appRoutes.ADMINSETTINGS,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.admin]}>
+      <ProtectedRoute allowedRoles={['admin']}>
         <Settings />
       </ProtectedRoute>
     ),
@@ -62,7 +64,7 @@ const routesConfig = [
   {
     path: appRoutes.PARTNERDASH,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.partner]}>
+      <ProtectedRoute allowedRoles={['partenaire']}>
         <DashboardPartner />
       </ProtectedRoute>
     ),
@@ -70,7 +72,7 @@ const routesConfig = [
   {
     path: appRoutes.PARTNERPLANNING,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.partner]}>
+      <ProtectedRoute allowedRoles={['partenaire']}>
         <PlanningPartner />
       </ProtectedRoute>
     ),
@@ -78,7 +80,7 @@ const routesConfig = [
   {
     path: appRoutes.PARTNERCONTACT,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.partner]}>
+      <ProtectedRoute allowedRoles={['partenaire']}>
         <ContactPartner />
       </ProtectedRoute>
     ),
@@ -86,7 +88,7 @@ const routesConfig = [
   {
     path: appRoutes.PARTNERSETTINGS,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.partner]}>
+      <ProtectedRoute allowedRoles={['partenaire']}>
         <SettingsPartner />
       </ProtectedRoute>
     ),
@@ -94,7 +96,7 @@ const routesConfig = [
   {
     path: appRoutes.STRUCTUREDASH,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.structure]}>
+      <ProtectedRoute allowedRoles={['structure']}>
         <DashboardStructure />
       </ProtectedRoute>
     ),
@@ -102,23 +104,19 @@ const routesConfig = [
   {
     path: appRoutes.STRUCTUREPLANNING,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.structure]}>
+      <ProtectedRoute allowedRoles={['structure']}>
         <PlanningStructure />
       </ProtectedRoute>
     ),
   },
   {
     path: appRoutes.STRUCTURECONTACT,
-    element: (
-      <ProtectedRoute expectedRoles={[userRoles.structure]}>
-        <ContactStructure />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute allowedRoles={['structure']}></ProtectedRoute>,
   },
   {
     path: appRoutes.STRUCTURESETTINGS,
     element: (
-      <ProtectedRoute expectedRoles={[userRoles.structure]}>
+      <ProtectedRoute allowedRoles={['structure']}>
         <SettingsStructure />
       </ProtectedRoute>
     ),

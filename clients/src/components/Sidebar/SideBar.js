@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { RiDashboardFill } from 'react-icons/ri';
 import { AiOutlineSetting, AiOutlineLogout, AiOutlineMail } from 'react-icons/ai';
 import { BsCalendar2Check } from 'react-icons/bs';
 import { onLogout } from './../../api/auth';
+import UserContext from '../../context/user.context.jsx';
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
+
+  const { currentUser } = useContext(UserContext);
+
   const Menus = [
     { key: 1, title: 'Dashboard', link: '/admin/dashboard' },
     {
@@ -91,8 +95,12 @@ const SideBar = () => {
           />
 
           <div className="flex">
-            <img className={` h-10 bg-white block float-left mr-2 duration-500 ${open && 'rotate-[360deg]'}`} src="https://bit.ly/3IUtNVM" alt="logo" />
+            <img className={` h-10 bg-white block float-left mr-2 duration-500 rounded-md ${open && 'rotate-[360deg]'}`} src="https://bit.ly/3FjaKmO" alt="logo" />
             <div className={` text-yellow-300 origin-left font-medium text-sm mt-2 ${!open && 'scale-0'}`}>FitPark Fitness</div>
+          </div>
+          <div className={` text-white origin-left font-medium text-sm mt-5 ${!open && 'scale-0'}`}>
+            <h6 className="mt-2">Nom : {currentUser.name}</h6>
+            <h6 className="mt-2">Role : {currentUser.role}</h6>
           </div>
           <ul className="pt-20">
             {Menus.map((menus, key) => (
@@ -131,6 +139,9 @@ const SideBar = () => {
           <div className="flex">
             <img className={` h-10 bg-white block float-left mr-2 duration-500 ${open && 'rotate-[360deg]'}`} src="https://bit.ly/3IUtNVM" alt="logo" />
             <div className={` text-yellow-300 origin-left font-medium text-sm mt-2 ${!open && 'scale-0'}`}>FitPark Fitness</div>
+          </div>
+          <div className="mt-5">
+            <h6 className="text-sm">Nom: {currentUser.name}</h6>
           </div>
 
           <ul className="pt-20">

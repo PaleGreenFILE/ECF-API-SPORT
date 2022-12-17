@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { onLoginAdmin } from '../../api/auth.js';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import UserContext from '../../context/user.context.jsx';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,7 +10,9 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState('');
-  
+
+  const { setCurrentUser } = useContext(UserContext);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -20,22 +23,25 @@ const Login = () => {
       });
       if (res.data.role_as === 'admin' && res.data.active === 'activer') {
         console.log('Vous êtes un ADMIN');
-        const roles = res.data.role_as;
-        console.log(roles);
+        const role = res.data.role_as;
+        const name = res.data.client_name;
+        setCurrentUser({ role, email, name });
         navigate('/admin/dashboard');
         setError(false);
         setLoading(false);
       } else if (res.data.role_as === 'partenaire' && res.data.active === 'activer') {
         console.log('Vous êtes un PARTENAIRE');
-        const roles = res.data.role_as;
-        console.log(roles);
+        const role = res.data.role_as;
+        const name = res.data.client_name;
+        setCurrentUser({ role, email, name });
         navigate('/partenaire/dashboard');
         setError(false);
         setLoading(false);
       } else if (res.data.structure_role === 'structure' && res.data.structure_active === 'activer') {
         console.log('Vous êtes une structure');
-        const roles = res.data.role_as;
-        console.log(roles);
+        const role = res.data.role_as;
+        const name = res.data.client_name;
+        setCurrentUser({ role, email, name });
         navigate('/structure/dashboard');
         setError(false);
         setLoading(false);
@@ -57,10 +63,9 @@ const Login = () => {
       <Helmet>
         <title>FitPark Fitness || 2023</title>
       </Helmet>
-      <div className="w-full h-screen font-sans bg-cover bg-landscape bg-[url('https://bit.ly/3AKoO89')]">
+      <div className="w-full h-screen font-sans bg-cover bg-landscape bg-[url('https://bit.ly/3FjaKmO')]">
         <div className="container flex items-center justify-center flex-1 h-full mx-auto">
           <div className="w-full max-w-lg">
-            <img src="https://bit.ly/3AHZ3Fy" alt="sport" />
             <div className="leading-loose">
               <form onSubmit={onSubmit} className="max-w-sm p-10 mb-32 m-auto bg-white bg-opacity-70 rounded shadow-xl">
                 <p className="mb-8 text-3xl font-semibold text-center text-black">Connexion</p>

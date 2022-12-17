@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Delete from './../Modals/Delete';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { compareAsc, format } from 'date-fns';
 
 const TableList = () => {
   const [modal, setModal] = useState(false);
@@ -23,6 +24,7 @@ const TableList = () => {
   const [id, setId] = useState([]);
   const [checkPartner, setCheckPartner] = useState(false);
   const [checkStructure, setCheckStructure] = useState(false);
+
   const getUsers = async () => {
     setLoading(true);
     try {
@@ -272,7 +274,7 @@ const TableList = () => {
 
                           <Td className="py-3 px-6 text-center">
                             <div className="flex items-center font-semibold justify-center text-[10px] sm:text-sm">
-                              <span>{item.created_at || item.structure_created_at}</span>
+                              <span>{format(new Date(item.created_at), 'dd-MM-yyyy') || format(new Date(item.structure_created_at), 'dd-MM-yyyy')}</span>
                             </div>
                           </Td>
                           <Td className="py-3 px-6 text-center">
@@ -303,7 +305,7 @@ const TableList = () => {
                                   </svg>
                                 </div>
                               </button>
-                              {update && <Update updateModal={() => setUpdateModal(false)}/>}
+                              {update && <Update updateModal={() => setUpdateModal(false)} />}
                               <div className="w-10 mr-3 transform hover:scale-110 cursor-pointer">
                                 <button className="w-6" onClick={() => setId(item.structure_id || item.client_id) || setDisableModal(true)}>
                                   <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-Alert-interface-those-icons-lineal-those-icons.png" alt="" />
