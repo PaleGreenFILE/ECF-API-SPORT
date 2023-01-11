@@ -205,8 +205,8 @@ const TableList = () => {
       </div>
 
       <div className="flex flex-col">
-        {success && <div className="mt-20 text-white bg-green-500 text-center h-10 px-40">{success}</div>}
-        {error && <div className="mt-20 text-white bg-red-600 h-10 text-center">{error}</div>}
+        {success && <div className="mt-10 md:mt-20 text-white bg-green-500 text-center h-10 md:px-40">{success}</div>}
+        {error && <div className="mt-5 md:mt-20 text-white bg-red-600 h-10 text-center">{error}</div>}
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div className="overflow-x-auto">

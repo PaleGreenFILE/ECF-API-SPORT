@@ -32,7 +32,7 @@ const Login = () => {
       } else if (res.data.role_as === 'partenaire' && res.data.active === 'activer') {
         console.log('Vous êtes un PARTENAIRE');
         const role = res.data.role_as;
-        const name = res.data.client_name;
+        const name = res.data.partner_name;
         setCurrentUser({ role, email, name });
         navigate('/partenaire/dashboard');
         setError(false);
@@ -40,7 +40,7 @@ const Login = () => {
       } else if (res.data.structure_role === 'structure' && res.data.structure_active === 'activer') {
         console.log('Vous êtes une structure');
         const role = res.data.role_as;
-        const name = res.data.client_name;
+        const name = res.data.structure_name;
         setCurrentUser({ role, email, name });
         navigate('/structure/dashboard');
         setError(false);
