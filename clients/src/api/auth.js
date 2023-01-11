@@ -1,12 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 axios.defaults.withCredentials = true;
 
 // Register Partners, Structures
 export const onRegistrationPartners = async (registrationData) => {
-  return await axios.post(process.env.REACT_APP_REGISTER_PARTNERS, registrationData);
+  return await axios.post(
+    process.env.REACT_APP_REGISTER_PARTNERS,
+    registrationData
+  );
 };
 export const onRegistrationStructures = async (registrationData) => {
-  return await axios.post(process.env.REACT_APP_REGISTER_STRUCTURES, registrationData);
+  return await axios.post(
+    process.env.REACT_APP_REGISTER_STRUCTURES,
+    registrationData
+  );
 };
 
 // Login Admin ,Partners ,Structures
@@ -23,19 +29,17 @@ export const getAllUsers = async () => {
   return await axios.get(process.env.REACT_APP_GET_ALLUSER);
 };
 
-// Get Structure users request
-export const getStructureUsers = async () => {
-  return await axios.get(process.env.REACT_APP_GET_STRUCTURES);
-};
-
-// Get Partner users request
-export const getPartnerUsers = async () => {
-  return await axios.get(process.env.REACT_APP_GET_PARTNERS);
+// Get Users By Id request
+export const getUsersById = async (id) => {
+  return await axios.get(process.env.REACT_APP_GET_USER_BY_ID + id);
 };
 
 //*/* Route CRUD Admin */*
-export const updateUser = async (id) => {
-  return await axios.put(process.env.REACT_APP_UPDATE_USER_ADMIN + id);
+export const updateUser = async (id, updateUserData) => {
+  return await axios.put(
+    process.env.REACT_APP_UPDATE_USER + id,
+    updateUserData
+  );
 };
 export const deleteAdmin = async (id) => {
   return await axios.delete(process.env.REACT_APP_DELETE_USER_ADMIN + id);
@@ -50,15 +54,9 @@ export const enableAdmin = async (id) => {
   return await axios.put(process.env.REACT_APP_ENABLE_USER_ADMIN + id);
 };
 
-//*/* Route CRUD Partners */*
-export const viewPartners = async (id) => {
+//*/* Route CRUD Partners && Structure */*
+export const viewPartnersStructures = async (id) => {
   return await axios.get(process.env.REACT_APP_VIEW_USER_PARTNERS + id);
-};
-
-//*/* Route CRUD Structures */*
-
-export const viewStructures = async (id) => {
-  return await axios.get(process.env.REACT_APP_VIEW_USER_STRUCTURES + id);
 };
 
 // First connexion by id Partners & Structures

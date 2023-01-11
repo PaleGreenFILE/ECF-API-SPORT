@@ -1,20 +1,20 @@
-import AccessDenied from '../../pages/AccesDenied/AccessDenied';
-import Contact from '../../pages/Admin/Contact/Contact';
-import Dashboard from '../../pages/Admin/Home/dashboard';
-import Planning from '../../pages/Admin/Planning/Planning';
-import Settings from '../../pages/Admin/Settings/Settings';
-import Login from '../../pages/Login/login';
-import NotFound from '../../pages/NotFound/NotFound';
-import ContactPartner from '../../pages/Partner/Contact/ContactPartner';
-import DashboardPartner from '../../pages/Partner/dashboardPartner';
-import PlanningPartner from '../../pages/Partner/PlanningPartner/PlanningPartner';
-import SettingsPartner from '../../pages/Partner/Settings/SettingsPartner';
-import PasswordChange from '../../pages/Password/PasswordChange';
-import DashboardStructure from '../../pages/Structure/dashboardStrucure';
-import PlanningStructure from '../../pages/Structure/Planning/PlanningStructure';
-import SettingsStructure from '../../pages/Structure/Settings/SettingsStructure';
-import ProtectedRoute from './protected-route';
-import appRoutes from './routes';
+import AccessDenied from "../../pages/AccesDenied/AccessDenied";
+import Contact from "../../pages/Admin/Contact/Contact";
+import Dashboard from "../../pages/Admin/Home/dashboard";
+import Planning from "../../pages/Admin/Planning/Planning";
+import Settings from "../../pages/Admin/Settings/Settings";
+import Login from "../../pages/Login/login";
+import NotFound from "../../pages/NotFound/NotFound";
+import ContactPartner from "../../pages/Partner/Contact/ContactPartner";
+import DashboardPartner from "../../pages/Partner/dashboardPartner";
+import PlanningPartner from "../../pages/Partner/PlanningPartner/PlanningPartner";
+import SettingsPartner from "../../pages/Partner/Settings/SettingsPartner";
+import PasswordChange from "../../pages/Password/PasswordChange";
+import DashboardStructure from "../../pages/Structure/dashboardStrucure";
+import PlanningStructure from "../../pages/Structure/Planning/PlanningStructure";
+import SettingsStructure from "../../pages/Structure/Settings/SettingsStructure";
+import appRoutes from "./routes";
+import ProtectedRoute from "./protected.route";
 
 const routesConfig = [
   {
@@ -32,7 +32,7 @@ const routesConfig = [
   {
     path: appRoutes.ADMINDASH,
     element: (
-      <ProtectedRoute allowedRoles={['admin']}>
+      <ProtectedRoute allowedRoles={["admin"]}>
         <Dashboard />
       </ProtectedRoute>
     ),
@@ -40,7 +40,7 @@ const routesConfig = [
   {
     path: appRoutes.ADMINPLANNING,
     element: (
-      <ProtectedRoute allowedRoles={['admin']}>
+      <ProtectedRoute allowedRoles={["admin"]}>
         <Planning />
       </ProtectedRoute>
     ),
@@ -48,7 +48,7 @@ const routesConfig = [
   {
     path: appRoutes.ADMINCONTACT,
     element: (
-      <ProtectedRoute allowedRoles={['admin']}>
+      <ProtectedRoute allowedRoles={["admin"]}>
         <Contact />
       </ProtectedRoute>
     ),
@@ -56,7 +56,7 @@ const routesConfig = [
   {
     path: appRoutes.ADMINSETTINGS,
     element: (
-      <ProtectedRoute allowedRoles={['admin']}>
+      <ProtectedRoute allowedRoles={["admin"]}>
         <Settings />
       </ProtectedRoute>
     ),
@@ -64,7 +64,7 @@ const routesConfig = [
   {
     path: appRoutes.PARTNERDASH,
     element: (
-      <ProtectedRoute allowedRoles={['partenaire']}>
+      <ProtectedRoute allowedRoles={["partenaire"]}>
         <DashboardPartner />
       </ProtectedRoute>
     ),
@@ -72,7 +72,7 @@ const routesConfig = [
   {
     path: appRoutes.PARTNERPLANNING,
     element: (
-      <ProtectedRoute allowedRoles={['partenaire']}>
+      <ProtectedRoute allowedRoles={["partenaire"]}>
         <PlanningPartner />
       </ProtectedRoute>
     ),
@@ -80,7 +80,7 @@ const routesConfig = [
   {
     path: appRoutes.PARTNERCONTACT,
     element: (
-      <ProtectedRoute allowedRoles={['partenaire']}>
+      <ProtectedRoute allowedRoles={["partenaire"]}>
         <ContactPartner />
       </ProtectedRoute>
     ),
@@ -88,7 +88,7 @@ const routesConfig = [
   {
     path: appRoutes.PARTNERSETTINGS,
     element: (
-      <ProtectedRoute allowedRoles={['partenaire']}>
+      <ProtectedRoute allowedRoles={["partenaire"]}>
         <SettingsPartner />
       </ProtectedRoute>
     ),
@@ -96,7 +96,7 @@ const routesConfig = [
   {
     path: appRoutes.STRUCTUREDASH,
     element: (
-      <ProtectedRoute allowedRoles={['structure']}>
+      <ProtectedRoute allowedRoles={["structure"]}>
         <DashboardStructure />
       </ProtectedRoute>
     ),
@@ -104,19 +104,23 @@ const routesConfig = [
   {
     path: appRoutes.STRUCTUREPLANNING,
     element: (
-      <ProtectedRoute allowedRoles={['structure']}>
+      <ProtectedRoute allowedRoles={["structure"]}>
         <PlanningStructure />
       </ProtectedRoute>
     ),
   },
   {
     path: appRoutes.STRUCTURECONTACT,
-    element: <ProtectedRoute allowedRoles={['structure']}></ProtectedRoute>,
+    element: (
+      <ProtectedRoute allowedRoles={["structure"]}>
+        <PlanningStructure />
+      </ProtectedRoute>
+    ),
   },
   {
     path: appRoutes.STRUCTURESETTINGS,
     element: (
-      <ProtectedRoute allowedRoles={['structure']}>
+      <ProtectedRoute allowedRoles={["structure"]}>
         <SettingsStructure />
       </ProtectedRoute>
     ),

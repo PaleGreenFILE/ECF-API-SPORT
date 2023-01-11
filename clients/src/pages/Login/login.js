@@ -1,54 +1,59 @@
-import { useState, useContext } from 'react';
-import { onLoginAdmin } from '../../api/auth.js';
-import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import UserContext from '../../context/user.context.jsx';
+import { useState, useContext } from "react";
+import { onLoginAdmin } from "../../api/auth.js";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { UserContext } from "./../../context/user.context";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState('');
-
-  const { setCurrentUser } = useContext(UserContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState("");
+  const authCtx = useContext(UserContext);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await onLoginAdmin({
+      await onLoginAdmin({
         email: email,
         password: password,
+      }).then((data) => {
+        const expirationTime = new Date(new Date().getTime() + 3600000);
+        if (data.data.client_name) {
+          authCtx.login(data.data.client_name, expirationTime.toISOString());
+          authCtx.roles(data.data.role_as);
+          console.log("Vous êtes un ADMIN");
+          setError(false);
+          setLoading(false);
+          navigate("/admin/dashboard");
+        } else if (data.data.structure_name) {
+          authCtx.login(data.data.structure_name, expirationTime.toISOString());
+          authCtx.roles(data.data.structure_role);
+          console.log("Vous êtes une structure");
+          setError(false);
+          setLoading(false);
+          navigate("/structure/dashboard");
+        } else if (data.data.partner_name) {
+          authCtx.login(data.data.partner_name, expirationTime.toISOString());
+          authCtx.roles(data.data.role_as);
+          console.log("Vous êtes un PARTENAIRE");
+          setError(false);
+          setLoading(false);
+          navigate("/partenaire/dashboard");
+        } else if (
+          (data.data.active === "desactiver" && data.data.role_as === "admin",
+          "partenaire" &&
+            data.data.structure_role === "structure" &&
+            data.data.structure_active === "desactiver")
+        ) {
+          setError(
+            "Votre compte n'est pas activé, merci de contacter un Administrateur !"
+          );
+          setLoading(false);
+        }
       });
-      if (res.data.role_as === 'admin' && res.data.active === 'activer') {
-        console.log('Vous êtes un ADMIN');
-        const role = res.data.role_as;
-        const name = res.data.client_name;
-        setCurrentUser({ role, email, name });
-        navigate('/admin/dashboard');
-        setError(false);
-        setLoading(false);
-      } else if (res.data.role_as === 'partenaire' && res.data.active === 'activer') {
-        console.log('Vous êtes un PARTENAIRE');
-        const role = res.data.role_as;
-        const name = res.data.partner_name;
-        setCurrentUser({ role, email, name });
-        navigate('/partenaire/dashboard');
-        setError(false);
-        setLoading(false);
-      } else if (res.data.structure_role === 'structure' && res.data.structure_active === 'activer') {
-        console.log('Vous êtes une structure');
-        const role = res.data.role_as;
-        const name = res.data.structure_name;
-        setCurrentUser({ role, email, name });
-        navigate('/structure/dashboard');
-        setError(false);
-        setLoading(false);
-      } else if ((res.data.active === 'desactiver' && res.data.role_as === 'admin', 'partenaire' && res.data.structure_role === 'structure' && res.data.structure_active === 'desactiver')) {
-        setError("Votre compte n'est pas activé, merci de contacter un Administrateur !");
-        setLoading(false);
-      }
     } catch (err) {
       setError(err.response.data.message);
       setTimeout(() => {
@@ -67,8 +72,13 @@ const Login = () => {
         <div className="container flex items-center justify-center flex-1 h-full mx-auto">
           <div className="w-full max-w-lg">
             <div className="leading-loose">
-              <form onSubmit={onSubmit} className="max-w-sm p-10 mb-32 m-auto bg-white bg-opacity-70 rounded shadow-xl">
-                <p className="mb-8 text-3xl font-semibold text-center text-black">Connexion</p>
+              <form
+                onSubmit={onSubmit}
+                className="max-w-sm p-10 mb-32 m-auto bg-white bg-opacity-70 rounded shadow-xl"
+              >
+                <p className="mb-8 text-3xl font-semibold text-center text-black">
+                  Connexion
+                </p>
                 <div className="mb-2">
                   <div className=" relative ">
                     <label htmlFor="email">Email :</label>
@@ -95,14 +105,23 @@ const Login = () => {
                     />
                   </div>
                 </div>
-                <div className="flex text-red-600 text-semibold items-center justify-between mt-5">{error}</div>
+                <div className="flex text-red-600 text-semibold items-center justify-between mt-5">
+                  {error}
+                </div>
                 <div className="flex items-center justify-between mt-5">
                   {loading ? (
                     <button
                       type="button"
                       className="text-white justify-center ml-20 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center"
                     >
-                      <svg aria-hidden="true" role="status" className="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg
+                        aria-hidden="true"
+                        role="status"
+                        className="inline mr-3 w-4 h-4 text-white animate-spin"
+                        viewBox="0 0 100 101"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <path
                           d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                           fill="#E5E7EB"

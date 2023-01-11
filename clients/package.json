@@ -8,15 +8,18 @@
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.6",
     "@mui/x-data-grid": "^5.17.4",
+    "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "antd": "^4.23.2",
-    "axios": "^0.27.2",
+    "antd": "^5.1.2",
+    "axios": "^1.2.2",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
+    "eslint-config-next": "^13.1.1",
     "firebase": "^9.12.1",
     "jwt-decode": "^3.1.2",
+    "nodemon": "^2.0.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -32,7 +35,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "firebase deploy --only hosting:fitpark-fitnesss",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "nodemon index.js"
   },
   "eslintConfig": {
     "extends": [

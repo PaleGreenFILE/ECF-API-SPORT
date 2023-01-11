@@ -3,9 +3,10 @@ import RouteRenderer from './core/routes/route-renderer';
 import './App.css';
 
 const App = () => {
+  
   return (
-    <Router>    
-        <RouteRenderer />   
+    <Router>
+        <RouteRenderer />
     </Router>
   );
 };
