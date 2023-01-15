@@ -1,10 +1,8 @@
 import { createContext, useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 
 let logoutTimer;
 
 export const UserContext = createContext({
-
   currentUser: "",
   userRole: "",
   isUserRole: "",
@@ -42,6 +40,7 @@ const RetrieveStoredUser = () => {
   };
 };
 
+
 export const UserProvider = ({ children }) => {
   const userData = RetrieveStoredUser();
   let initialUser;
@@ -53,7 +52,6 @@ export const UserProvider = ({ children }) => {
 
   const [currentUser, setCurrentUser] = useState(initialUser);
   const [userRole, setUserRole] = useState(initialRole);
-
   const userIsLoggedIn = !!currentUser;
   const userRoleIsRequired = !!userRole;
 
@@ -85,7 +83,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (userData) {
       logoutTimer = setTimeout(logoutHandler, userData.duration);
-    }
+    } 
   }, [userData, logoutHandler]);
 
   const value = {

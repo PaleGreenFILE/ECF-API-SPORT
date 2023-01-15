@@ -124,6 +124,17 @@ export const getAllUsers = async (req, res, next) => {
   }
 };
 
+export const getAllPartners = async (req, res, next) => {
+  try {
+    const partners = await db.query(
+      "SELECT client_id , partner_name FROM partenaires ORDER BY partner_name"
+    );
+    res.status(200).json(partners.rows);
+  } catch (err) {
+    next(err);
+  }
+};
+
 //Get Partner  in database
 export const getUsers = async (req, res, next) => {
   try {
@@ -255,15 +266,35 @@ export const registerAdmin = async (req, res, next) => {
 };
 
 export const registerStructures = async (req, res, next) => {
-  const { name, email, active, short_desc, full_desc, logo_url, role_as } =
-    req.body;
+  const {
+    name,
+    email,
+    active,
+    short_desc,
+    full_desc,
+    logo_url,
+    role_as,
+    partner_linked,
+    name_partner_linked,
+  } = req.body;
   try {
     //crypt password for security before insert into database
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
     await db.query(
-      "INSERT INTO structures ( structure_name, structure_email, password,structure_active, structure_short_desc, structure_full_desc, structure_logo_url, structure_role) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)",
-      [name, email, hash, active, short_desc, full_desc, logo_url, role_as]
+      "INSERT INTO structures ( structure_name, structure_email, password,structure_active, structure_short_desc, structure_full_desc, structure_logo_url, structure_role, partner_linked , name_partner_linked) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",
+      [
+        name,
+        email,
+        hash,
+        active,
+        short_desc,
+        full_desc,
+        logo_url,
+        role_as,
+        partner_linked,
+        name_partner_linked,
+      ]
     );
     res.status(200).json("Compte Structure créer avec succés!");
   } catch (err) {

@@ -49,6 +49,7 @@ const TableList = () => {
   };
 
   const navigate = useNavigate();
+  
   const handleChangePartenaires = () => {
     if (checkPartner === true) {
       setData(searchApiData);
@@ -206,7 +207,10 @@ const TableList = () => {
             Ajouter un club
           </button>
           {addNewUser && (
-            <AddUser addUserModal={() => setAddNewUserModal(false)} />
+            <AddUser
+              addUserModal={() => setAddNewUserModal(false)}
+              refreshUser={() => getUsers()}
+            />
           )}
         </div>
         <div className="flex items-center justify-start">
@@ -469,7 +473,13 @@ const TableList = () => {
                   </Tbody>
                 </Table>
               )}
-              {update && <Update updateModal={() => setUpdateModal(false)} id={id} refreshUser={() => getUsers()} />}
+              {update && (
+                <Update
+                  updateModal={() => setUpdateModal(false)}
+                  id={id}
+                  refreshUser={() => getUsers()}
+                />
+              )}
 
               <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                 <span className="text-xs xs:text-sm text-gray-900">

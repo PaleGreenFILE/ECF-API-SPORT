@@ -34,6 +34,13 @@ export const getUsersById = async (id) => {
   return await axios.get(process.env.REACT_APP_GET_USER_BY_ID + id);
 };
 
+// Get All Partner in Database 
+export const getPartners = async () => {
+  return await axios.get(process.env.REACT_APP_GET_ALLUSER_PARTNER);
+};
+
+
+
 //*/* Route CRUD Admin */*
 export const updateUser = async (id, updateUserData) => {
   return await axios.put(
@@ -54,7 +61,7 @@ export const enableAdmin = async (id) => {
   return await axios.put(process.env.REACT_APP_ENABLE_USER_ADMIN + id);
 };
 
-//*/* Route CRUD Partners && Structure */*
+//*/* Route View Info Partners */*
 export const viewPartnersStructures = async (id) => {
   return await axios.get(process.env.REACT_APP_VIEW_USER_PARTNERS + id);
 };

@@ -9,6 +9,7 @@ import {
   registerPartners,
   updateAdmin,
   updateUserInfoPartnerStructure,
+  getAllPartners,
 } from "../controllers/admin.js";
 import express from "express";
 
@@ -29,6 +30,9 @@ router.put("/update/:id", updateUserInfoPartnerStructure);
 // ROUTES GET //
 // Get All members information
 router.get("/allusers", getAllUsers);
+
+// Get All partner information
+router.get("/all_partners", getAllPartners);
 
 // Get partners members information
 router.get("/partners/:id");

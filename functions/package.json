@@ -24,8 +24,11 @@
     "firebase": "^9.15.0",
     "firebase-admin": "^11.4.1",
     "firebase-functions": "^4.1.1",
+    "firebase-tools": "^11.20.0",
     "jsonwebtoken": "^9.0.0",
+    "node": "^19.4.0",
     "nodemon": "^2.0.20",
+    "package": "^1.0.1",
     "pg": "^8.8.0",
     "postgres-pool": "^6.0.4"
   },

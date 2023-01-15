@@ -7,12 +7,12 @@ const ProtectedRoute = ({ allowedRoles, children }) => {
   const areRolesAllowed = !!allowedRoles?.length;
   const roles = localStorage.getItem("role");
   const role = areRolesAllowed
-    ? allowedRoles.some((r) => roles.indexOf(r) >= 0)
+    ? allowedRoles.some((r) => roles?.indexOf(r) >= 0)
     : true;
 
   if (authCtx.isLoggedIn && !role) {
     return <Navigate to="/access-denied" replace />;
-  } else if (!authCtx.isLoggedIn) {
+  } else if (!authCtx.isLoggedIn && !authCtx.isUserRole) {
     return <Navigate to="/" replace />;
   } else if (authCtx.isLoggedIn && role) {
     return children;

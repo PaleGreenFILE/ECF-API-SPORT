@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
 import {
@@ -8,19 +8,24 @@ import {
 import {
   onRegistrationPartners,
   onRegistrationStructures,
+  getPartners,
 } from "./../../../api/auth";
-const AddUser = ({ addUserModal }) => {
+const AddUser = ({ addUserModal, refreshUser }) => {
   const [loading, setLoading] = useState("");
   const [succes, setSucces] = useState("");
   const [emailSucces, setsuccesEmail] = useState("");
   const [error, setError] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
   const active = "activer";
-  const [value, setValue] = useState("");
+  const [partner, setPartner] = useState([]);
+  const [valueUser, setValueUser] = useState("");
+
+  const [showSecondSelect, setShowSecondSelect] = useState(false);
 
   const form = useRef();
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -28,7 +33,7 @@ const AddUser = ({ addUserModal }) => {
 
   const onSubmit = async (data) => {
     try {
-      if (value === "partenaire" && active) {
+      if (valueUser === "partenaire" && active) {
         console.log(data);
         setLoading(true);
         alert("Etes-vous sur de vouloir Enregistrer un nouveau Partenaire ?");
@@ -46,16 +51,17 @@ const AddUser = ({ addUserModal }) => {
                 setSucces("Partenaire enregistré avec succés.");
                 setsuccesEmail("Email envoyé au Partenaire avec succés.");
                 setLoading(false);
-                console.log(value);
+                console.log(valueUser);
                 console.log(data);
                 setTimeout(() => {
                   setsuccesEmail("");
                   setSucces("");
+                  refreshUser();
                 }, 4000);
               });
           }
         });
-      } else if (value === "structure" && active) {
+      } else if (valueUser === "structure" && active) {
         setLoading(true);
         alert("Etes-vous sur de vouloir Enregistrer une nouvelle Structure ?");
         await onRegistrationStructures(data).then((res) => {
@@ -72,7 +78,7 @@ const AddUser = ({ addUserModal }) => {
                 setSucces("Structure enregistré avec succés.");
                 setsuccesEmail("Email envoyé à la Structure avec succés.");
                 setLoading(false);
-                console.log(value);
+                console.log(valueUser);
                 console.log(data);
                 setTimeout(() => {
                   setsuccesEmail("");
@@ -96,6 +102,31 @@ const AddUser = ({ addUserModal }) => {
       }, 4000);
     }
   };
+
+  const handleChange = (e) => {
+    const value1 = e.target.value;
+    if (value1 === "structure") {
+      setValueUser(value1);
+      setShowSecondSelect(true);
+    } else if (value1 === "partenaire") {
+      setValueUser(value1);
+      setShowSecondSelect(false);
+    }
+  };
+
+  const handleSelectChange = (e) => {
+    const selectedIndex = e.target.selectedIndex;
+    const selectedOptionText = e.target.options[selectedIndex].text;
+    setValue("name_partner_linked", selectedOptionText);
+  };
+
+  const getAllPartners = async () => {
+    const res = await getPartners();
+    setPartner(res.data);
+  };
+  useEffect(() => {
+    getAllPartners();
+  }, []);
 
   return (
     <div id="popup" className="z-40 w-full flex fixed justify-center inset-0">
@@ -259,7 +290,7 @@ const AddUser = ({ addUserModal }) => {
                   </div>
                   <div className="flex flex-col md:py-0 py-4 ">
                     <label
-                      htmlFor="type"
+                      htmlFor="role_as"
                       className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2"
                     >
                       Type :<span className="text-red-600 ml-2">*</span>
@@ -269,7 +300,7 @@ const AddUser = ({ addUserModal }) => {
                         className="text-sm text-gray-500 w-64  focus:outline-none"
                         {...register("role_as")}
                         name="role_as"
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={handleChange}
                       >
                         <option>Choisissez...</option>
                         <option value="partenaire">Partenaire</option>
@@ -312,7 +343,7 @@ const AddUser = ({ addUserModal }) => {
                 </div>
                 <div className="mx-auto flex">
                   <div className="flex flex-col items-start">
-                    <div className="py-4 flex items-center">
+                    <div className="md:py-4 flex items-center">
                       <div className="hidden border rounded-sm w-20 h-5  flex-shrink-0 justify-center items-center relative">
                         <input
                           {...register("active")}
@@ -325,7 +356,33 @@ const AddUser = ({ addUserModal }) => {
                     </div>
                   </div>
                 </div>
-                <div className="mt-2 flex flex-col md:mr-16">
+                {showSecondSelect && (
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="partner_linked"
+                      className="text-gray-800 text-sm font-bold leading-tight tracking-normal mb-2"
+                    >
+                      Partenaire Link :
+                    </label>
+
+                    <div className="w-72 bg-white border rounded border-gray-200 py-2.5 px-1 shadow-sm">
+                      <select
+                        className="text-sm text-gray-500 w-64  focus:outline-none"
+                        {...register("partner_linked")}
+                        name="partner_linked"
+                        onChange={handleSelectChange}
+                      >
+                        <option>Choisissez...</option>
+                        {partner.map((item, i) => (
+                          <option key={i} value={item.client_id}>
+                            {item.partner_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+                <div className="mt-4 flex flex-col md:mr-16">
                   <label
                     htmlFor="email"
                     className="text-gray-800  text-sm font-bold leading-tight tracking-normal mb-2"
