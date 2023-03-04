@@ -67,7 +67,7 @@ cd clients
 npm run start
 ```
 
-Pour la gestion des mails j'ai utilisé personnellement MailerLite principalement pour sa rapidité à mettre en place, sinon vous pouvez utiliser votre mailler habituel, 
+Pour la gestion des mails j'ai utilisé personnellement EmailJs principalement pour sa rapidité à mettre en place, sinon vous pouvez utiliser votre mailler habituel, 
 
 ## [Se connecter à l'application](https://ecf-2022.web.app/)
 
