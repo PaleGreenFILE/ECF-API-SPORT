@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
+import {mail} from "../mailer";
 import {
   EMAIL_REGEX_VALIDATION,
   PASSWORD_REGEX_VALIDATION,
@@ -18,10 +19,11 @@ const AddUser = ({ addUserModal, refreshUser }) => {
   const [errorEmail, setErrorEmail] = useState("");
   const active = "activer";
   const [partner, setPartner] = useState([]);
-  const [valueUser, setValueUser] = useState("");
 
+  const [valueUser, setValueUser] = useState("");
   const [showSecondSelect, setShowSecondSelect] = useState(false);
 
+  
   const form = useRef();
   const {
     register,
@@ -38,14 +40,13 @@ const AddUser = ({ addUserModal, refreshUser }) => {
         setLoading(true);
         alert("Etes-vous sur de vouloir Enregistrer un nouveau Partenaire ?");
         await onRegistrationPartners(data).then((res) => {
+          const { name, email, message } = {
+            name: data.name,
+            email: data.email,
+            message: data.message,
+          }          
           if (res.status === 200) {
-            emailjs
-              .sendForm(
-                "service_1bqo3e6",
-                "template_c07jq3b",
-                form.current,
-                "jUhrdIPj2FJVSlQP_"
-              )
+            mail({ name, email, message })
               .then(() => {
                 console.log(res.data);
                 setSucces("Partenaire enregistré avec succés.");
@@ -138,7 +139,7 @@ const AddUser = ({ addUserModal, refreshUser }) => {
       <div className="mx-auto container">
         <div className="flex items-center justify-center h-full w-full">
           <div className="bg-white rounded-md shadow z-50 overflow-y-auto fixed h-5/6 md:w-8/10 lg:w-fit 2xl:w-fit md:h-fit">
-            <div className="bg-gray-100 rounded-tl-md rounded-tr-md px-4 md:px-8 md:py-4 py-7 flex items-center justify-between">
+            <div className="bg-gray-100 shadow-lg rounded-tl-md rounded-tr-md px-4 md:px-8 md:py-4 py-7 flex items-center justify-between">
               <p className="text-base font-semibold">
                 Créer un nouvel Utilisateur
               </p>
@@ -207,6 +208,7 @@ const AddUser = ({ addUserModal, refreshUser }) => {
                       {...register("name", { required: true })}
                       type="text"
                       name="name"
+                      maxLength={20}
                       className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
                       placeholder="Nom"
                     />
@@ -249,6 +251,7 @@ const AddUser = ({ addUserModal, refreshUser }) => {
                             required: true,
                             pattern: EMAIL_REGEX_VALIDATION,
                           })}
+                          maxLength={30}
                           type="email"
                           name="email"
                           className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-full h-10 flex items-center pl-10 text-sm border-gray-300 rounded border shadow"
@@ -277,6 +280,7 @@ const AddUser = ({ addUserModal, refreshUser }) => {
                         required: true,
                         pattern: PASSWORD_REGEX_VALIDATION,
                       })}
+                      maxLength={20}
                       type="password"
                       className="text-gray-600  focus:outline-none focus:border focus:border-indigo-700 bg-white font-normal w-72 h-10 flex items-center pl-3 text-sm border-gray-300 rounded border shadow"
                       placeholder="Mot de passe"

@@ -148,10 +148,12 @@ export const getUsers = async (req, res, next) => {
 };
 
 //Get Structure  in database
-export const getStructure = async (req, res, next) => {
+export const getStructureByPartnerById = async (req, res, next) => {
+  const structure_id = req.params.id;
   try {
     const user = await db.query(
-      "SELECT * FROM structures WHERE role_as = 'structure'"
+      "SELECT * FROM structures JOIN partenaires ON structures.partner_linked = partenaires.client_id WHERE partenaires.client_id = $1 ",
+      [structure_id]
     );
     res.status(200).json(user.rows);
   } catch (err) {

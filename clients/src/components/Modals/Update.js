@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { EMAIL_REGEX_VALIDATION } from "../../lib/lib";
-import emailjs from "@emailjs/browser";
 import { getUsersById, updateUser } from "./../../api/auth";
+import { mail1 } from "./mailer";
 
 const Update = ({ updateModal, id, refreshUser }) => {
   const [loading, setLoading] = useState("");
@@ -16,7 +16,6 @@ const Update = ({ updateModal, id, refreshUser }) => {
   const [equipement, setCheckPermEquipment] = useState(false);
   const [idUser, setId] = useState([]);
 
-  const form = useRef();
   const {
     register,
     setValue,
@@ -25,19 +24,19 @@ const Update = ({ updateModal, id, refreshUser }) => {
   } = useForm();
 
   const cancelButtonRef = useRef(null);
+  const form = useRef();
 
   const onSubmit = async (data) => {
     setLoading(true);
     try {
       await updateUser(idUser, data).then((res) => {
+        const { name, email, message } = {
+          name: data.name,
+          email: data.email,
+          message: data.message,
+        }   
         if (res.status === 200) {
-          emailjs
-            .sendForm(
-              "service_1bqo3e6",
-              "template_u4bfv46",
-              form.current,
-              "jUhrdIPj2FJVSlQP_"
-            )
+          mail1({ name, email, message })
             .then(() => {
               setSucces("Bravo vous avez reussi la modification");
               setsuccesEmail("Un email de confirmation à été envoyer");
@@ -54,7 +53,7 @@ const Update = ({ updateModal, id, refreshUser }) => {
         }
       });
     } catch (err) {
-      setError("Erreur lors de l'inscription.");
+      setError("Erreur lors de la modificaton.");
       setErrorEmail("Email non envoyé ! Veuillez recommencer !");
       //console.log(err.res.data.message);
       console.log(
@@ -68,7 +67,7 @@ const Update = ({ updateModal, id, refreshUser }) => {
     }
   };
 
-  const updateData = async () => {
+  const updateData = useCallback(async () => {
     try {
       const res = await getUsersById(id);
       setId(res.data[0].client_id || res.data[0].structure_id);
@@ -144,27 +143,24 @@ const Update = ({ updateModal, id, refreshUser }) => {
     } catch (err) {
       setError("Erreur, impossible de recupèrer les information demandé !");
     }
-  };
+  }, [id, setValue]);
 
   useEffect(() => {
     updateData();
-  }, []);
+  }, [updateData]);
 
   return (
     <>
-      <div
-        id="popup"
-        className="z-40 w-full flex absolute justify-center inset-0"
-      >
+      <div className="z-40 w-full flex absolute justify-center inset-0">
         <div
           onClick={() => updateModal(false)}
           ref={cancelButtonRef}
-          className="w-full h-[3800px] md:h-[1295px] lg:h-full xl:h-[1300px] bg-gray-900 opacity-80 z-0 absolute"
+          className="w-full h-[4592px] md:h-[1492px] xl:h-[1300px] 2xl:h-[1500px] bg-gray-900 opacity-80 z-0 absolute"
         />
         <div className="mx-auto container">
           <div className="flex items-center justify-center h-[1230px] md:h-[930px] lg:h-[930px] xl:h-[930px] w-full">
-            <div className="bg-white rounded-md shadow z-50 overflow-x-auto h-full mt-40 md:w-8/10 lg:max-w-7xl md:h-full relative">
-              <div className="bg-gray-100 rounded-tl-md rounded-tr-md px-4 md:px-8 md:py-4 py-7 flex items-center justify-between">
+            <div className="bg-white rounded-md shadow z-50 overflow-x-auto h-full mt-20 md:w-8/10 lg:max-w-7xl md:h-full relative">
+              <div className="bg-gray-100 shadow-lg rounded-tl-md rounded-tr-md px-4 md:px-8 md:py-4 py-7 flex items-center justify-between">
                 <p className="text-base font-semibold">
                   Modifier un Utilisateur
                 </p>

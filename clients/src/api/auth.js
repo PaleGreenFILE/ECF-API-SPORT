@@ -34,12 +34,15 @@ export const getUsersById = async (id) => {
   return await axios.get(process.env.REACT_APP_GET_USER_BY_ID + id);
 };
 
-// Get All Partner in Database 
+// Get All Partner in Database
 export const getPartners = async () => {
   return await axios.get(process.env.REACT_APP_GET_ALLUSER_PARTNER);
 };
 
-
+// Get Structures By id and By Partner in Database
+export const getStructureByPartner = async (id) => {
+  return await axios.get(process.env.REACT_APP_GET_STRUCTURES_BY_ID + id);
+};
 
 //*/* Route CRUD Admin */*
 export const updateUser = async (id, updateUserData) => {
